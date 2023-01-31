@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#">Contract Bidding Board</a>
+        <a href="#">Home</a>
+      </nav>
+    </header>
+    <main>
+      <div class="wrapper">
+        <section>
+          <h2>Help: Our Roof Is Leaking!</h1>
+          <div class="listing-items">
+            <div><span>Agency Name:</span> <span>Warehouses 'R Us</span></div>
+            <div>
+              <span>Contact Information:</span> <span>123-456-7890</span>
+            </div>
+            <div><span>Expiration Date:</span> <span>2/15/22</span></div>
+            <div><span>Lowest Bid:</span> <span>$500.99</span></div>
+            <div>
+              <span>Description:</span>
+              <span
+                >Our roof has sprung several leaks. We need someone to come
+                patch it as soon as possible.</span
+              >
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2>Current Bids</h2>
+          <div class="bid-listing">
+            <h3>The Cheap Roofers</h3>
+            <div class="listing-items">
+              <div><span>Bid:</span> <span>$500.99</span></div>
+              <div>
+                <span>Contact Information:</span> <span>098-765-4321</span>
+              </div>
+              <div><span>Date Placed:</span> <span>2/20/22</span></div>
+            </div>
+          </div>
+          <div class="bid-listing">
+            <h3>The Roof Guys</h3>
+            <div class="listing-items">
+              <div><span>Bid:</span> <span>$605.65</span></div>
+              <div>
+                <span>Contact Information:</span> <span>333-444-5555</span>
+              </div>
+              <div><span>Date Placed:</span> <span>2/19/22</span></div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <form>
+            <h3>Place a new Bid</h3>
+            <div>
+              <label for="cname">Contractor Name:</label><br />
+              <input type="text" id="cname" name="cname" /><br />
+            </div>
+            <div>
+              <label for="ccontact">Contact Information:</label><br />
+              <input type="text" id="ccontact" name="ccontact" /><br />
+            </div>
+            <div>
+              <label for="bid">Bid:</label><br />
+              <input type="text" id="bid" name="bid" /><br />
+            </div>
+            <button>Submit</button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#">Contract Bidding Board</a>
+        <a href="#">Home</a>
+      </nav>
+    </header>
+    <main>
+      <div class="wrapper">
+        <h1 class="title">The Contract Board</h1>
+        <section>
+          <h2>Contracts</h2>
+          <div class="contract-listing">
+            <h3>Dig a Series of Trenches</h3>
+            <div class="listing-items">
+              <div><span>Agency Name:</span> <span>AgriCorp</span></div>
+              <div><span>Expiration Date:</span> <span>2/20/22</span></div>
+              <div><span>Lowest Bid:</span> <span>None</span></div>
+              <div><span>Number of Bids:</span> <span>0</span></div>
+            </div>
+          </div>
+          <div class="contract-listing">
+            <h3>Help: Our Roof is Leaking!</h3>
+            <div class="listing-items">
+              <div><span>Agency Name:</span> <span>Warehouses 'R Us</span></div>
+              <div><span>Expiration Date:</span> <span>2/15/22</span></div>
+              <div><span>Lowest Bid:</span> <span>$500.99</span></div>
+              <div><span>Number of Bids:</span> <span>2</span></div>
+            </div>
+          </div>
+          <div class="contract-listing">
+            <h3>Build a Bridge ASAP</h3>
+            <div class="listing-items">
+              <div><span>Agency Name:</span> <span>Roads of America</span></div>
+              <div><span>Expiration Date:</span> <span>1/25/22</span></div>
+              <div><span>Lowest Bid:</span> <span>$50,000</span></div>
+              <div><span>Number of Bids:</span> <span>4</span></div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <form class=>
+            <h3>Place a New Contract</h3>
+            <div>
+              <label for="aname">Agency Name:</label><br />
+              <input type="text" id="aname" name="aname" /><br />
+            </div>
+            <div>
+              <label for="acontact">Contact Information:</label><br />
+              <input type="text" id="acontact" name="acontact" /><br />
+            </div>
+            <div>
+              <label for="jtitle">Name of Job:</label><br />
+              <input type="text" id="jtitle" name="jtitle" /><br />
+            </div>
+            <div>
+              <label for="edate">Bidding End Date:</label><br />
+              <input type="text" id="edate" name="edate" /><br />
+            </div>
+            <div>
+              <label for="jdesc">Job Description:</label><br />
+              <textarea rows="5" cols="50" name="jdesc" id="jdesc"> </textarea
+              ><br />
+            </div>
+            <button>Submit</button>
+          </form>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
