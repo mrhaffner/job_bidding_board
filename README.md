@@ -6,7 +6,14 @@ Python will likely come with pip3.
 
 Git steps: Clone the repo
 cd into repo
+
 setup virtual environment
+
+sh```
+python3 -m venv env
+
+````
+
 install packages to venv
 
 Selenium
@@ -25,3 +32,23 @@ should use linter thing?
 Docstring + type hints
 
 Type hints?
+
+
+## Run Development App
+
+from the job_bidding_board directory:
+
+sh```
+$ source env/bin/activate
+````
+
+cd into the outer contract_board directory
+
+run the app
+
+sh```
+python manage.py runserver
+
+```
+
+```
