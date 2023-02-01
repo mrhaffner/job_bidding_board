@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+
+class Bid(models.Model):
+    pass
+
+
+class Contract(models.Model):
+    pass

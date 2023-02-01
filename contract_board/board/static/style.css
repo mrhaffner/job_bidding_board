@@ -1,0 +1,230 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* added */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+/*
+End CSS Reset
+*/
+
+body {
+  color: rgb(32, 33, 36);
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: medium;
+}
+
+h1 {
+  font-size: x-large;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: larger;
+  font-weight: bold;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+form {
+  border: 1pt solid slategray;
+  border-radius: 3px;
+  padding: 10px;
+}
+
+form > * {
+  margin-bottom: 10px;
+}
+
+form > button {
+  margin-bottom: 0px;
+}
+
+input,
+textarea {
+  margin-top: 2px;
+}
+
+main {
+  margin-top: 30px;
+}
+
+nav {
+  background-color: darkblue;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  font-size: larger;
+  font-weight: bold;
+  padding: 10px 0 10px 0;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+.bid-listing,
+.contract-listing {
+  border-radius: 4px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.bid-listing {
+  background-color: whitesmoke;
+}
+
+.contract-listing {
+  background-color: aliceblue;
+}
+
+.contract-listing > h1,
+h2,
+h3 {
+  padding-bottom: 8px;
+}
+
+.listing-items > div {
+  padding-bottom: 5px;
+}
+
+.title {
+  text-align: center;
+}
+
+.wrapper {
+  margin: auto;
+  width: 60%;
+}
