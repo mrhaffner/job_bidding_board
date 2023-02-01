@@ -7,13 +7,25 @@ Python will likely come with pip3.
 Git steps: Clone the repo
 cd into repo
 
-setup virtual environment
+Setup virtual environment
 
 ```sh
 python3 -m venv env
 ```
 
-install packages to venv
+Activate virtual environment:
+
+From the job_bidding_board directory:
+
+```sh
+$ source env/bin/activate
+```
+
+Install the required python packages via pip
+
+```sh
+pip install -r requirements.txt
+```
 
 Selenium?
 
