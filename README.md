@@ -27,6 +27,8 @@ Install the required python packages via pip
 pip install -r requirements.txt
 ```
 
+You will also need to install SQLite3
+
 Selenium?
 
 ## Python Style Guide
