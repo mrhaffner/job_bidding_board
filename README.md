@@ -9,46 +9,36 @@ cd into repo
 
 setup virtual environment
 
-sh```
+```sh
 python3 -m venv env
-
-````
+```
 
 install packages to venv
 
-Selenium
+Selenium?
 
 ## Python Style Guide
 
-snake case
-for object?
+PascalCase for classes
+snake_case for everything else
 
-double quote instead of single
+use single quotes for everything but docstrings
 
-single space between top level functions?, double between classes
-
-should use linter thing?
-
-Docstring + type hints
-
-Type hints?
-
+double space between top level functions and classes
 
 ## Run Development App
 
 from the job_bidding_board directory:
 
-sh```
+```sh
 $ source env/bin/activate
-````
+```
 
 cd into the outer contract_board directory
 
 run the app
 
-sh```
+```sh
 python manage.py runserver
-
-```
 
 ```
