@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Contract Details</h1>
+  <p>ID: {{ contract.contract_id }}</p>
+  <p>Title: {{ contract.title }}</p>
+  <p>Description: {{ contract.description }}</p>
+  <p>Start Date: {{ contract.start_date }}</p>
+  <p>End Date: {{ contract.end_date }}</p>
+
+  <h2>Bids</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Bidder Name</th>
+        <th>Bid Amount</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for bid in bids %}
+        <tr>
+          <td>{{ bid.bidder_name }}</td>
+          <td>{{ bid.amount }}</td>
+          <td>{{ bid.date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>New Bid</h2>
+  {{ form.as_p }}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Contract List</h2>
+  <table>
+    <tr>
+      <th>Contract ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Bid Deadline</th>
+      <th>Bidder</th>
+    </tr>
+    {% for contract in contracts %}
+    <tr>
+      <td><a href="{% url 'contract_view' contract.id %}">{{ contract.id }}</a></td>
+      <td>{{ contract.title }}</td>
+      <td>{{ contract.description }}</td>
+      <td>{{ contract.bid_deadline }}</td>
+      <td>{{ contract.bidder }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h2>New Contract</h2>
+  {{ form.as_p }}
+{% endblock %}
