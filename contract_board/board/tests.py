@@ -62,13 +62,24 @@ class FunctionalTest(StaticLiveServerTestCase):
         )
 
         # check contract form submission adds contract to board
-        self.fill_form_from_dictionary(CONTRACT_DATA1)
+        contract = CONTRACT_DATA1
+        self.fill_form_from_dictionary(contract)
         submit_button = self.browser.find_element(By.ID, 'button')
         submit_button.send_keys(Keys.RETURN)
 
+        first_contract = self.browser.find_element(By.CLASS_NAME, 'contract-listing')
 
+        title = first_contract.find_element(By.TAG_NAME, 'h3')
+        self.assertEquals(title.text, contract.contract_title)
 
         # check new contract contains correct information
+        contract_divs = first_contract.find_elements(By.TAG_NAME, 'div')
+        contract_items = [div.find_elements(By.TAG_NAME, 'span')[1] for div in contract_divs]
+        self.assertEquals(contract_items[0].text, contract.agency_name)
+        self.assertEquals(contract_items[1].text, contract.bidding_end_date)
+        self.assertEquals(contract_items[2].text, 'None')
+        self.assertEquals(contract_items[3].text, '0')
+
         # check adding second contract keeps contracts in order
         # check clicking contract redirects to correct contract page
 
