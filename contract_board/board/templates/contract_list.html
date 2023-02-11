@@ -1,45 +1,39 @@
-{% extends 'base.html' %} 
-
-{% block content %}
-    <h1 class="title">The Contract Board</h1>
-    <section>
-        <h2>Contracts</h2>
-        {% for contract in contracts %}
-            <div class="contract-listing">
-                <h3>{{ contract.title }}</h3>
-                <div class="listing-items">
-                    <div>
-                        <span>Agency Name:</span> 
-                        <span>{{ contract.agency_name }}</span>
-                    </div>
-                    <div>
-                        <span>Expiration Date:</span> 
-                        <span>{{ contract.bidding_end_date }}</span>
-                    </div>
-                    <div>
-                        <span>Lowest Bid:</span> 
-                        <span>
-                            {% if contract.lowest_bid == 0 %}
-                                "None" 
-                            {% else %}
-                                contract.lowest_bid
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div>
-                        <span>Number of Bids:</span>
-                        <span>{{ contract.number_bids }}</span>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </section>
-    <section>
-        <form action="contract_list" method="post">
-            <h3>Place a New Contract</h3>
-                {{ form.text }} 
-                {% csrf_token %}
-            <input type="submit" value="Submit" />
-        </form>
-    </section>
+{% extends 'base.html' %} {% block content %}
+<h1 class="title">The Contract Board</h1>
+<section>
+  <h2>Contracts</h2>
+  {% for contract in contracts %}
+  <div class="contract-listing">
+    <h3>{{ contract.title }}</h3>
+    <div class="listing-items">
+      <div>
+        <span>Agency Name:</span>
+        <span>{{ contract.agency_name }}</span>
+      </div>
+      <div>
+        <span>Expiration Date:</span>
+        <span>{{ contract.bidding_end_date }}</span>
+      </div>
+      <div>
+        <span>Lowest Bid:</span>
+        <span>
+          {% if contract.lowest_bid == 0 %} "None" {% else %}
+          contract.lowest_bid {% endif %}
+        </span>
+      </div>
+      <div>
+        <span>Number of Bids:</span>
+        <span>{{ contract.number_bids }}</span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+<section>
+  <form action="/contract_list" method="post">
+    <h3>Place a New Contract</h3>
+    {{ form }} {% csrf_token %}
+    <input type="submit" value="Submit" />
+  </form>
+</section>
 {% endblock %}

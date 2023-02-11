@@ -9,7 +9,9 @@ from board.models import Contract, Bid
 def contract_list(request):
     if request.method == "POST":
         form = ContractForm(request.POST)
-        form.save()
+        print(form.data)
+        if form.is_valid():
+            form.save()
         return redirect(request.path)
 
     contracts = Contract.objects.all()
@@ -23,7 +25,8 @@ def contract(request, contract_id):
 
     if request.method == 'POST':
         form = BidForm(for_contract=contract, data=request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
         return redirect(request.path)
 
     form = BidForm(for_contract=contract)

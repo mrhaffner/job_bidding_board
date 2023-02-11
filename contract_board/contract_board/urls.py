@@ -19,6 +19,6 @@ from board import views as board_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', board_views.contract_list),
-    path('<int:contract_id>/', board_views.contract),
+    path('contract_list', board_views.contract_list),
+    path('contract_list/<int:contract_id>/', board_views.contract),
 ]
