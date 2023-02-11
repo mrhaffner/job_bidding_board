@@ -28,7 +28,7 @@ class Contract(models.Model):
 
 class Bid(models.Model):
     contractor_name = models.CharField(max_length=200) # length
-    amount = models.FloatField(decimal_places=2) # decimal places
+    amount = models.FloatField() # decimal places
     contact_information = models.CharField(max_length=500) # length
     date_placed = models.DateTimeField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)

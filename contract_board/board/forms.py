@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from models import Bid, Contract
+
+from board.models import Bid, Contract
 
 
 class ContractForm(ModelForm):

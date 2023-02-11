@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
-from contract_board.board.forms import ContractForm, BidForm
-from contract_board.board.models import Contract, Bid
+from board.forms import ContractForm, BidForm
+from board.models import Contract, Bid
 
 
 @require_http_methods(["GET", "POST"])
