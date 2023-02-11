@@ -1,28 +1,31 @@
-from django.shortcuts import render
-from django.shortcuts import render
-from django.http import HttpResponse, request
+from django.shortcuts import redirect, render
+from django.views.decorators.http import require_http_methods
 
 from contract_board.board.forms import ContractForm, BidForm
-from contract_board.board.models import Contract
+from contract_board.board.models import Contract, Bid
 
 
+@require_http_methods(["GET", "POST"])
 def contract_list(request):
     if request.method == "POST":
-        form = ContractForm(request.post)
-    else:  # if its "GET" then create a blank form
-        form = ContractForm()
-    return render(request, 'contract_list.html', {'form': form})
+        form = ContractForm(request.POST)
+        form.save()
+        return redirect(request.path)
+
+    contracts = Contract.objects.all()
+    form = ContractForm() # sort?
+    return render(request, 'contract_list.html', {'contract': contracts, 'form': form})
 
 
+@require_http_methods(["GET", "POST"])
 def contract(request, contract_id):
-    contract_ = Contract.objects.get(id=contract_id)
-    form = ContractForm(for_contract=contract_)
-    # model = Contract.concrete_model(mod_contract=contract_)
+    contract = Contract.objects.get(id=contract_id)
+
     if request.method == 'POST':
-        form = ContractForm(for_contract=contract_, data=request.POST)
-        form = BidForm(request.post)
-    else:
+        form = BidForm(for_contract=contract, data=request.POST)
+        form.save()
+        return redirect(request.path)
 
-        form = BidForm()
-
-    return render(request, 'contract.html', {'contract': contract_, "form": form})
+    form = BidForm(for_contract=contract)
+    bids = Bid.objects.filter(contract__pk=contract.pk) # sort?
+    return render(request, 'contract.html', {'contract': contract,  'bids': bids, 'form': form})
