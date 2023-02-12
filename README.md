@@ -54,5 +54,11 @@ run the app
 
 ```sh
 python manage.py runserver
+```
 
+if you have updated the model, you will likely have to update the database:
+
+```sh
+$ python3 manage.py makemigrations board
+$ python3 mange.py migrate
 ```
