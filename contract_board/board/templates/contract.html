@@ -17,10 +17,10 @@
                 <span>{{ contract.bidding_end_date }}</span></div>
             <div>
                 <span>Lowest Bid:</span> 
-                <span>${{ contract.lowest_bid }}</span></div>
+                <span>{% if contract.lowest_bid == "0" %} None {% else %} ${{ contract.lowest_bid }} {% endif %}</span></div>
             <div>
                 <span>Description:</span>
-                <span>{{ contract.description }}</span>
+                <span>{{ contract.job_description }}</span>
             </div>
         </div>
     </section>
@@ -47,10 +47,11 @@
         {% endfor %}
     </section>
     <section>
-        <form action="contract" method="post">
+        <form action="{{ contract.pk }}" method="post">
         <h3>Place a new Bid</h3>
             {{ form }} 
             {% csrf_token %}
+            <input type="submit" value="Submit" />
         </form>
     </section>
 {% endblock %}

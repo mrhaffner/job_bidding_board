@@ -4,35 +4,37 @@
   <h2>Contracts</h2>
   {% for contract in contracts %}
   <div class="contract-listing">
-    <h3>{{ contract.title }}</h3>
-    <div class="listing-items">
-      <div>
-        <span>Agency Name:</span>
-        <span>{{ contract.agency_name }}</span>
+    <a href="contract/{{ contract.pk }}">
+      <h3>{{ contract.contract_title }}</h3>
+      <div class="listing-items">
+        <div>
+          <span>Agency Name:</span>
+          <span>{{ contract.agency_name }}</span>
+        </div>
+        <div>
+          <span>Expiration Date:</span>
+          <span>{{ contract.bidding_end_date }}</span>
+        </div>
+        <div>
+          <span>Lowest Bid:</span>
+          <span>
+            {% if contract.lowest_bid == "0" %} None {% else %}
+            ${{contract.lowest_bid}} {% endif %}
+          </span>
+        </div>
+        <div>
+          <span>Number of Bids:</span>
+          <span>{{ contract.number_bids }}</span>
+        </div>
       </div>
-      <div>
-        <span>Expiration Date:</span>
-        <span>{{ contract.bidding_end_date }}</span>
-      </div>
-      <div>
-        <span>Lowest Bid:</span>
-        <span>
-          {% if contract.lowest_bid == 0 %} "None" {% else %}
-          contract.lowest_bid {% endif %}
-        </span>
-      </div>
-      <div>
-        <span>Number of Bids:</span>
-        <span>{{ contract.number_bids }}</span>
-      </div>
-    </div>
+    </a>
   </div>
   {% endfor %}
 </section>
 <section>
-  <form action="/contract_list" method="post">
+  <form action="" method="post">
     <h3>Place a New Contract</h3>
-    {{ form }} {% csrf_token %}
+    {{ form.as_p }} {% csrf_token %}
     <input type="submit" value="Submit" />
   </form>
 </section>

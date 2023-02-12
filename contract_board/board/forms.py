@@ -12,21 +12,10 @@ class ContractForm(ModelForm):
 
 class BidForm(ModelForm):
 
+    def __init__(self, for_contract, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.instance.contract = for_contract
+
     class Meta:
         model = Bid
         fields = ['contractor_name', 'amount', 'contact_information']
-
-# labels
-# class BidForm(forms.Form):
-#     contractor_name = forms.CharField(max_length=100) # differs from model
-#     amount = forms.DecimalField(max_digits=10, decimal_places=2) # differs from model
-#     contact_information = forms.CharField(widget=forms.Textarea)
-
-
-# class ContractForm(forms.Form):
-#     contract_title = forms.CharField(max_length=100) # differs from model
-#     agency_name = forms.CharField(max_length=100) # differs from model
-#     contact_information = forms.CharField(widget=forms.Textarea) # differs from model, text area???
-#     bidding_end_date = forms.DateField()
-#     job_description = forms.CharField(widget=forms.Textarea) # differs from model
-

@@ -8,18 +8,14 @@ class Contract(models.Model):
     bidding_end_date = models.DateField()
     job_description = models.TextField()
 
-    # computed!
-    # lowest_bid = models.FloatField(default=0)
     @property
     def lowest_bid(self):
         bids = Bid.objects.filter(contract__pk=self.pk)
-        lowest_bid = 0
+        lowest_bid = float('inf')
         for bid in bids:
             lowest_bid = min(bid.amount, lowest_bid)
-        return lowest_bid
+        return lowest_bid if lowest_bid < float('inf') else 0
 
-    # computed!
-    # number_bids = models.IntegerField(default=0)
     @property
     def number_bids(self):
         bids = Bid.objects.filter(contract__pk=self.pk)
