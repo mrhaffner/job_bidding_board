@@ -9,22 +9,24 @@
       <div class="listing-items">
         <div>
           <span>Agency Name:</span>
-          <span>{{ contract.agency_name }}</span>
+          <span class="listing-agency-name">{{ contract.agency_name }}</span>
         </div>
         <div>
           <span>Expiration Date:</span>
-          <span>{{ contract.bidding_end_date }}</span>
+          <span class="listing-bidding-end-date"
+            >{{ contract.bidding_end_date }}</span
+          >
         </div>
         <div>
           <span>Lowest Bid:</span>
-          <span>
-            {% if contract.lowest_bid == "0" %} None {% else %}
+          <span class="listing-lowest-bid">
+            {% if contract.lowest_bid == 0 %} None {% else %}
             ${{contract.lowest_bid}} {% endif %}
           </span>
         </div>
         <div>
           <span>Number of Bids:</span>
-          <span>{{ contract.number_bids }}</span>
+          <span class="listing-number-bids">{{ contract.number_bids }}</span>
         </div>
       </div>
     </a>
@@ -35,7 +37,7 @@
   <form action="" method="post">
     <h3>Place a New Contract</h3>
     {{ form.as_p }} {% csrf_token %}
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" id="submit" />
   </form>
 </section>
 {% endblock %}

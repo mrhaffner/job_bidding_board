@@ -17,7 +17,7 @@
                 <span>{{ contract.bidding_end_date }}</span></div>
             <div>
                 <span>Lowest Bid:</span> 
-                <span>{% if contract.lowest_bid == "0" %} None {% else %} ${{ contract.lowest_bid }} {% endif %}</span></div>
+                <span>{% if contract.lowest_bid == 0 %} None {% else %} ${{ contract.lowest_bid }} {% endif %}</span></div>
             <div>
                 <span>Description:</span>
                 <span>{{ contract.job_description }}</span>
@@ -51,7 +51,7 @@
         <h3>Place a new Bid</h3>
             {{ form }} 
             {% csrf_token %}
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" id="submit" />
         </form>
     </section>
 {% endblock %}

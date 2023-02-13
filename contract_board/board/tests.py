@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -38,21 +39,35 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser = webdriver.Chrome()
         self.base_url = 'http://127.0.0.1:8000/'
 
-
     def tearDown(self):
         self.browser.quit()
 
-
     def fill_form_from_dictionary(self, form_data):
-        for id, value in form_data.items():
-            element = self.browser.find_element(By.ID, id)
+        for name, value in form_data.items():
+            element = self.browser.find_element(By.NAME, name)
             element.send_keys(value)
 
+    def validate_contract_listing(self, contract_listing, contract):
+        title = contract_listing.find_element(By.TAG_NAME, 'h3')
+        self.assertEquals(title.text, contract['contract_title'])
+        name = contract_listing.find_element(By.CLASS_NAME, 'listing-agency-name')
+        self.assertEquals(name.text, contract['agency_name'])
+        end_date = contract_listing.find_element(By.CLASS_NAME, 'listing-bidding-end-date')
+        self.assert_date_equality(end_date.text, contract['bidding_end_date'])
+        lowest_bid = contract_listing.find_element(By.CLASS_NAME, 'listing-lowest-bid')
+        self.assertEquals(lowest_bid.text, 'None')
+        number_bids = contract_listing.find_element(By.CLASS_NAME, 'listing-number-bids')
+        self.assertEquals(number_bids.text, '0')
+
+    def assert_date_equality(self, str_date, number_date):
+        date_object_1 = datetime.strptime(number_date, '%m/%d/%y')
+        date_object_2 = datetime.strptime(str_date, '%B %d, %Y')
+        self.assertEqual(date_object_1, date_object_2)
 
     def test_iteration_1(self):
         self.browser.get(self.base_url)
         self.browser.set_window_size(1024, 768)
-        title = self.browser.find_element(By.CLASS_NAME, "title")
+        title = self.browser.find_element(By.CLASS_NAME, 'title')
 
         # test html/css loads properly - smoke test
         self.assertAlmostEqual(
@@ -61,24 +76,18 @@ class FunctionalTest(StaticLiveServerTestCase):
             delta=10
         )
 
-        # check contract form submission adds contract to board
+        # check contract form submission adds a contract to board
+        number_contracts_1 = len(self.browser.find_elements(By.CLASS_NAME, 'contract-listing'))
         contract = CONTRACT_DATA1
         self.fill_form_from_dictionary(contract)
-        submit_button = self.browser.find_element(By.ID, 'button')
+        submit_button = self.browser.find_element(By.ID, 'submit')
         submit_button.send_keys(Keys.RETURN)
-
-        first_contract = self.browser.find_element(By.CLASS_NAME, 'contract-listing')
-
-        title = first_contract.find_element(By.TAG_NAME, 'h3')
-        self.assertEquals(title.text, contract.contract_title)
+        number_contracts_2 = len(self.browser.find_elements(By.CLASS_NAME, 'contract-listing'))
+        self.assertEqual(number_contracts_1, number_contracts_2 - 1)
 
         # check new contract contains correct information
-        contract_divs = first_contract.find_elements(By.TAG_NAME, 'div')
-        contract_items = [div.find_elements(By.TAG_NAME, 'span')[1] for div in contract_divs]
-        self.assertEquals(contract_items[0].text, contract.agency_name)
-        self.assertEquals(contract_items[1].text, contract.bidding_end_date)
-        self.assertEquals(contract_items[2].text, 'None')
-        self.assertEquals(contract_items[3].text, '0')
+        first_contract = self.browser.find_element(By.CLASS_NAME, 'contract-listing')
+        self.validate_contract_listing(first_contract, contract)
 
         # check adding second contract keeps contracts in order
         # check clicking contract redirects to correct contract page

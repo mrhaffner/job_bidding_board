@@ -29,7 +29,13 @@ pip install -r requirements.txt
 
 You will also need to install SQLite3
 
-Selenium?
+Installing Selenium (for functional tests)
+
+On Mac, you will need to give it one time permission to run. Run this from the folder it is in.
+
+```sh
+$ xattr -d com.apple.quarantine chromedriver
+```
 
 ## Python Style Guide
 
