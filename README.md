@@ -10,7 +10,7 @@ cd into repo
 Setup virtual environment
 
 ```sh
-python3 -m venv env
+$ python3 -m venv env
 ```
 
 Activate virtual environment:
@@ -24,7 +24,7 @@ $ source env/bin/activate
 Install the required python packages via pip
 
 ```sh
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 You will also need to install SQLite3
@@ -59,7 +59,7 @@ cd into the outer contract_board directory
 run the app
 
 ```sh
-python manage.py runserver
+$ python3 manage.py runserver
 ```
 
 ## Testing the App
@@ -67,13 +67,13 @@ python manage.py runserver
 You can run the functional tests after the server is running:
 
 ```sh
-python manage.py test
+$ python3 manage.py test
 ```
 
 Run the linter
 
 ```sh
-python manage.py runserver
+$ flake8
 ```
 
 ### Interacting with the Database
