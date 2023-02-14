@@ -62,9 +62,29 @@ run the app
 python manage.py runserver
 ```
 
-if you have updated the model, you will likely have to update the database:
+### Interacting with the Database
+
+If you have updated the model, you will likely have to update the database tables:
 
 ```sh
 $ python3 manage.py makemigrations board
 $ python3 mange.py migrate
+```
+
+See all the data in the database in JSON format
+
+```sh
+$ python3 manage.py dumpdata
+```
+
+Remove all data from the database (the database should be empty when you are ready to merge your changes)
+
+```sh
+$ python3 manage.py flush
+```
+
+Will load initial data for the application
+
+```sh
+$ python3 manage.py loaddata initial_data
 ```
