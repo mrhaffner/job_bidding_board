@@ -62,6 +62,20 @@ run the app
 python manage.py runserver
 ```
 
+## Testing the App
+
+You can run the functional tests after the server is running:
+
+```sh
+python manage.py test
+```
+
+Run the linter
+
+```sh
+python manage.py runserver
+```
+
 ### Interacting with the Database
 
 If you have updated the model, you will likely have to update the database tables:

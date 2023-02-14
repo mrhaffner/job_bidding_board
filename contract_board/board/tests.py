@@ -33,6 +33,7 @@ BID_DATA2 = {
     'amount': '250.00'
 }
 
+
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
@@ -72,8 +73,8 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         # check layout/style - test html/css loads properly - smoke test
         self.assertAlmostEqual(
-            title.location["x"] + title.size["width"] / 2,
-            1008 / 2, # screen actual width / 2
+            title.location['x'] + title.size['width'] / 2,
+            1008 / 2,  # screen actual width / 2
             delta=10
         )
 
@@ -93,10 +94,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         # check adding second contract keeps contracts in order
         # check clicking contract redirects to correct contract page (use most recent contract)
 
-
     def test_contract_page(self):
         # load a contract page
-        self.browser.get(self.base_url + "/contract/2")
+        self.browser.get(self.base_url + '/contract/2')
         self.browser.set_window_size(1024, 768)
 
         # check layout/style of contract page
@@ -107,15 +107,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         # check number of bids updates correctly on contract list page
         # check lowest bid updates correctly on contract list page
 
-
     def test_404_page(self):
         # load an invalid page
-        self.browser.get(self.base_url + "/sdfsdfgsdfg")
+        self.browser.get(self.base_url + '/sdfsdfgsdfg')
         self.browser.set_window_size(1024, 768)
 
         # check layout/style of 404 page
         # check that the page link to the home page (not in the header)
-
 
     def test_cannot_submit_invalid_contract_form(self):
         # load contract list page
@@ -124,10 +122,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         # check that a new contract is not added to page
 
-
     def test_cannot_submit_invalid_bid_form(self):
         # load contract list page
-        self.browser.get(self.base_url + "/contract/1")
+        self.browser.get(self.base_url + '/contract/1')
         self.browser.set_window_size(1024, 768)
 
         # check that a new bid is not added to page

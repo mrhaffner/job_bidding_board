@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Contract(models.Model):
-    contract_title = models.CharField(max_length=200) # length
-    agency_name = models.CharField(max_length=200) # length
-    contact_information = models.CharField(max_length=500) # length
+    contract_title = models.CharField(max_length=200)  # length
+    agency_name = models.CharField(max_length=200)  # length
+    contact_information = models.CharField(max_length=500)  # length
     bidding_end_date = models.DateField()
     job_description = models.TextField()
 
@@ -23,8 +23,8 @@ class Contract(models.Model):
 
 
 class Bid(models.Model):
-    contractor_name = models.CharField(max_length=200) # length
-    amount = models.FloatField() # decimal places
-    contact_information = models.CharField(max_length=500) # length
+    contractor_name = models.CharField(max_length=200)  # length
+    amount = models.FloatField()  # decimal places
+    contact_information = models.CharField(max_length=500)  # length
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
