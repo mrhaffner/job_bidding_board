@@ -64,12 +64,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         date_object_2 = datetime.strptime(str_date, '%B %d, %Y')
         self.assertEqual(date_object_1, date_object_2)
 
-    def test_iteration_1(self):
+    def test_contract_list_page(self):
+        # load the page
         self.browser.get(self.base_url)
         self.browser.set_window_size(1024, 768)
         title = self.browser.find_element(By.CLASS_NAME, 'title')
 
-        # test html/css loads properly - smoke test
+        # check layout/style - test html/css loads properly - smoke test
         self.assertAlmostEqual(
             title.location["x"] + title.size["width"] / 2,
             1008 / 2, # screen actual width / 2
@@ -90,17 +91,43 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.validate_contract_listing(first_contract, contract)
 
         # check adding second contract keeps contracts in order
-        # check clicking contract redirects to correct contract page
+        # check clicking contract redirects to correct contract page (use most recent contract)
+
+
+    def test_contract_page(self):
+        # load a contract page
+        self.browser.get(self.base_url + "/contract/2")
+        self.browser.set_window_size(1024, 768)
 
         # check layout/style of contract page
         # check contract contains correct information
         # check bid form submission adds bid to contract
         # check new bid contains correct information
         # check adding second bid keeps bids in order
-
         # check number of bids updates correctly on contract list page
         # check lowest bid updates correctly on contract list page
 
 
-        # for later Iteration 2
-        # check if contract list is empty, empty options displays
+    def test_404_page(self):
+        # load an invalid page
+        self.browser.get(self.base_url + "/sdfsdfgsdfg")
+        self.browser.set_window_size(1024, 768)
+
+        # check layout/style of 404 page
+        # check that the page link to the home page (not in the header)
+
+
+    def test_cannot_submit_invalid_contract_form(self):
+        # load contract list page
+        self.browser.get(self.base_url)
+        self.browser.set_window_size(1024, 768)
+
+        # check that a new contract is not added to page
+
+
+    def test_cannot_submit_invalid_bid_form(self):
+        # load contract list page
+        self.browser.get(self.base_url + "/contract/1")
+        self.browser.set_window_size(1024, 768)
+
+        # check that a new bid is not added to page
