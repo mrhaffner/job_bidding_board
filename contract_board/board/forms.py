@@ -7,7 +7,11 @@ class ContractForm(ModelForm):
 
     class Meta:
         model = Contract
-        fields = ['contract_title', 'agency_name', 'contact_information', 'bidding_end_date', 'job_description']
+        fields = ['contract_title',
+                  'agency_name',
+                  'contact_information',
+                  'bidding_end_date',
+                  'job_description']
 
 
 class BidForm(ModelForm):

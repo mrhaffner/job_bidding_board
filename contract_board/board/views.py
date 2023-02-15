@@ -28,4 +28,4 @@ def contract(request, contract_id):
 
     form = BidForm(for_contract=contract)
     bids = Bid.objects.filter(contract__pk=contract.pk)[::-1]
-    return render(request, 'contract.html', {'contract': contract,  'bids': bids, 'form': form})
+    return render(request, 'contract.html', {'contract': contract, 'bids': bids, 'form': form})
