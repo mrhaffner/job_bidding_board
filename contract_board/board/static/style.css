@@ -173,6 +173,11 @@ form > button {
 }
 
 input,
+label {
+  display: block;
+}
+
+input,
 textarea {
   margin-top: 2px;
 }

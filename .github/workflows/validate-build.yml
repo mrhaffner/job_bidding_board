@@ -17,4 +17,4 @@ jobs:
       - name: install packages
         run: pip install -r requirements.txt
       - name: lint
-        run: flake8 contract_board
+        run: flake8 contract_board/board
