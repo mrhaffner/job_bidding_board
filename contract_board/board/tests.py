@@ -46,7 +46,9 @@ class FunctionalTest(StaticLiveServerTestCase):
     def setUp(self):
         current_os = platform.platform()
         if 'linux' in current_os:
-            service = ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
+            print("!!!!!" +  current_os)
+            driver = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            service = ChromiumService(driver)
             options = Options()
             options.add_argument("--no-sandbox")
             options.add_argument("--headless")
