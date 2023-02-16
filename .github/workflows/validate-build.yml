@@ -23,8 +23,10 @@ jobs:
         run: flake8 contract_board/board
   functional_tests_job:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
+      - uses: nanasess/setup-chromedriver@v1
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
