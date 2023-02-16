@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromiumService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -42,7 +43,11 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         service = ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
-        self.browser = webdriver.Chrome(service=service)
+        options = Options()
+        options.add_argument("--no-sandbox")
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        self.browser = webdriver.Chrome(service=service, options=options)
         self.base_url = 'http://127.0.0.1:8000/'
 
     def tearDown(self):
