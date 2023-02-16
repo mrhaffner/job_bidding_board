@@ -4,10 +4,13 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - pipeline
 
 jobs:
   lint_job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -18,3 +21,16 @@ jobs:
         run: pip install -r requirements.txt
       - name: lint
         run: flake8 contract_board/board
+  functional_tests_job:
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: install packages
+        run: pip install -r requirements.txt
+      - name: run server
+        run: python manage.py runserver &
+      - name: run tests
+        run: python manage.py test
