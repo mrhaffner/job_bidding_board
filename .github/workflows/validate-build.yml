@@ -26,17 +26,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: nanasess/setup-chromedriver@v1
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
           cache: 'pip'
       - name: install packages
-        run: pip install -r requirements.txt
-      - name: Install Google Chrome
         run: |
-          chmod +x ./scripts/InstallChrome.sh
-          ./scripts/InstallChrome.sh
+          pip install -r requirements.txt
+          pip install webdriver_manager
+      - name: setup chrome + driver
+        run: python .github/scripts/setup_chromedriver.py
       - name: run server
         run: |
           cd contract_board
