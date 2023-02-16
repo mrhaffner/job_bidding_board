@@ -26,7 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: browser-actions/setup-chrome@v1
-      - run: chrome --version
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
