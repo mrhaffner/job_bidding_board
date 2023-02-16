@@ -35,6 +35,7 @@ BID_DATA2 = {
 
 
 class FunctionalTest(StaticLiveServerTestCase):
+    """Tests the basic functionality of the bidding board."""
 
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -44,11 +45,19 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.quit()
 
     def fill_form_from_dictionary(self, form_data):
+        """
+        Fills in a form from a dictionary and submits that form.
+        The keys of the dictionary correspond to the "name" of the form elements.
+        """
         for name, value in form_data.items():
             element = self.browser.find_element(By.NAME, name)
             element.send_keys(value)
 
     def validate_contract_listing(self, contract_listing, contract):
+        """
+        Asserts that every item in a form listing matches the correct item in a data dictionary.
+        The keys of the dictionary correspond to the "name" of the listing elements.
+        """
         title = contract_listing.find_element(By.TAG_NAME, 'h3')
         self.assertEquals(title.text, contract['contract_title'])
         name = contract_listing.find_element(By.CLASS_NAME, 'listing-agency-name')
@@ -61,11 +70,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertEquals(number_bids.text, '0')
 
     def assert_date_equality(self, str_date, number_date):
+        """Asserts that two date strings of specified format are equal."""
         date_object_1 = datetime.strptime(number_date, '%m/%d/%y')
         date_object_2 = datetime.strptime(str_date, '%B %d, %Y')
         self.assertEqual(date_object_1, date_object_2)
 
     def test_contract_list_page(self):
+        """"Tests the basic functionalities of adding contracts to the contract board."""
         # load the page
         self.browser.get(self.base_url)
         self.browser.set_window_size(1024, 768)
@@ -95,6 +106,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         # check clicking contract redirects to correct contract page (use most recent contract)
 
     def test_contract_page(self):
+        """"Tests the basic functionalities of adding bids to a contract."""
         # load a contract page
         self.browser.get(self.base_url + '/contract/2')
         self.browser.set_window_size(1024, 768)
