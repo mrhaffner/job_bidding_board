@@ -32,6 +32,6 @@ jobs:
       - name: install packages
         run: pip install -r requirements.txt
       - name: run server
-        run: python manage.py runserver &
+        run: python contract_board/manage.py runserver &
       - name: run tests
-        run: python manage.py test
+        run: python contract_board/manage.py test
