@@ -1,7 +1,12 @@
 from django.db import models
+    
 
 
 class Contract(models.Model):
+    """
+    A contract object with a title, agency name, contact information, bidding end date, and job description.
+    Includes methods to calculate lowest bid and number of bids.
+    """
     contract_title = models.CharField(max_length=200)  # length
     agency_name = models.CharField(max_length=200)  # length
     contact_information = models.CharField(max_length=500)  # length
@@ -10,6 +15,9 @@ class Contract(models.Model):
 
     @property
     def lowest_bid(self):
+        """
+        Returns the lowest bid amount for the contract object.
+        """
         bids = Bid.objects.filter(contract__pk=self.pk)
         lowest_bid = float('inf')
         for bid in bids:
@@ -18,11 +26,17 @@ class Contract(models.Model):
 
     @property
     def number_bids(self):
+        """
+        Returns the number of bids for the contract object.
+        """
         bids = Bid.objects.filter(contract__pk=self.pk)
         return len(bids)
 
 
 class Bid(models.Model):
+    """
+    A bid object with a contractor name, bid amount, contact information, date placed, and foreign key to a Contract object.
+    """
     contractor_name = models.CharField(max_length=200)  # length
     amount = models.FloatField()  # decimal places
     contact_information = models.CharField(max_length=500)  # length
