@@ -33,8 +33,6 @@ jobs:
           cache: 'pip'
       - name: install packages
         run: pip install -r requirements.txt
-      - name: install package
-        run: pip install webdriver_manager
       - name: run server
         run: |
           cd contract_board

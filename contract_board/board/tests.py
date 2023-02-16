@@ -147,6 +147,5 @@ class FunctionalTest(StaticLiveServerTestCase):
         # load contract list page
         self.browser.get(self.base_url + '/contract/1')
         self.browser.set_window_size(1024, 768)
-        self.assertFalse(True)
 
         # check that a new bid is not added to page
