@@ -31,7 +31,9 @@ jobs:
           cache: 'pip'
       - name: install packages
         run: pip install -r requirements.txt
+      - name: change directory
+        run: cd contract_board
       - name: run server
-        run: python contract_board/manage.py runserver &
+        run: python manage.py runserver &
       - name: run tests
-        run: python contract_board/manage.py test
+        run: python manage.py test
