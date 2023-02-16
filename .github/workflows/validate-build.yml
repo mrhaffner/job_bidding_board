@@ -23,19 +23,24 @@ jobs:
         run: flake8 contract_board/board
   functional_tests_job:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
+      - uses: nanasess/setup-chromedriver@v1
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
           cache: 'pip'
-      - name: install packages
-        run: pip install -r requirements.txt
       - name: install chrome
         run: |
           chmod +x .github/scripts/chrome_setup.sh
           .github/scripts/chrome_setup.sh
+      - name: setup chromedriver
+        run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+      - name: install packages
+        run: pip install -r requirements.txt
       - name: run server
         run: |
           cd contract_board
