@@ -3,6 +3,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 CONTRACT_DATA1 = {
@@ -38,7 +39,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     """Tests the basic functionality of the bidding board."""
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        self.browser = webdriver.Chrome(ChromeDriverManager().install())
         self.base_url = 'http://127.0.0.1:8000/'
 
     def tearDown(self):
