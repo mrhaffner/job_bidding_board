@@ -45,8 +45,8 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         current_os = platform.platform()
+        print("!!!!!" + current_os)
         if 'linux' in current_os:
-            print("!!!!!" +  current_os)
             driver = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
             service = ChromiumService(driver)
             options = Options()
