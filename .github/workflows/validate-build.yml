@@ -33,6 +33,10 @@ jobs:
           cache: 'pip'
       - name: install packages
         run: pip install -r requirements.txt
+      - name: Install Google Chrome
+        run: |
+          chmod +x ./scripts/InstallChrome.sh
+          ./scripts/InstallChrome.sh
       - name: run server
         run: |
           cd contract_board
