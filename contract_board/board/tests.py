@@ -39,7 +39,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
-        self.base_url = 'http://127.0.0.1:8000/'
+        self.base_url = 'http://127.0.0.1:8000'
 
     def tearDown(self):
         self.browser.quit()
