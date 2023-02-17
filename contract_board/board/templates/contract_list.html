@@ -35,9 +35,21 @@
 </section>
 <section>
   <form action="" method="post">
-    <h3>Place a New Contract</h3>
-    {{ form.as_p }} {% csrf_token %}
-    <input type="submit" value="Submit" id="submit" />
-  </form>
-</section>
+      <h3>Place a New Contract</h3>
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            <div class="alert alert-success">{{ message }}</div>
+          {% elif message.tags == 'warning' %}
+            <div class="alert alert-warning">{{ message }}</div>
+          {% else %}
+            <div class="alert alert-danger">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Submit" id="submit" />
+    </form>
+  </section>
 {% endblock %}
