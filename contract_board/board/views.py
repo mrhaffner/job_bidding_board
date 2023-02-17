@@ -4,7 +4,6 @@ from django.views.decorators.http import require_http_methods
 from board.forms import ContractForm, BidForm
 from board.models import Contract, Bid
 
-
 @require_http_methods(["GET", "POST"])
 def contract_list(request):
     if request.method == "POST":
@@ -19,7 +18,6 @@ def contract_list(request):
     contracts = Contract.objects.all()[::-1]
     form = ContractForm()
     return render(request, 'contract_list.html', {'contracts': contracts, 'form': form})
-
 
 @require_http_methods(["GET", "POST"])
 def contract(request, contract_id):
