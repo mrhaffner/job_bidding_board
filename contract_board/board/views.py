@@ -9,7 +9,11 @@ from board.models import Contract, Bid
 def contract_list(request):
     if request.method == "POST":
         form = ContractForm(request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Contract created successfully!')
+        else:
+            messages.warning(request, 'Error creating contract: {}'.format(form.errors.get_json_data()))
         return redirect(request.path)
 
     contracts = Contract.objects.all()[::-1]
@@ -23,7 +27,11 @@ def contract(request, contract_id):
 
     if request.method == 'POST':
         form = BidForm(for_contract=contract, data=request.POST)
-        form.save()
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Bid created successfully!')
+            else:
+                messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
         return redirect(request.path)
 
     form = BidForm(for_contract=contract)
