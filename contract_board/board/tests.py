@@ -57,6 +57,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         """
         Asserts that every item in a contract listing matches the correct item in a dictionary.
         The keys of the dictionary correspond to the "name" of the listing elements.
+        For contracts on the contract_list.html page.
         """
         title = contract_listing.find_element(By.TAG_NAME, 'h3')
         self.assertEquals(title.text, contract['contract_title'])
@@ -71,6 +72,25 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.assertEquals(lowest_bid.text, low_bid)
         number_bids = contract_listing.find_element(By.CLASS_NAME, 'listing-number-bids')
         self.assertEquals(number_bids.text, str(num_bids))
+
+    def validate_contract(self, contract_listing, contract_dict):
+        """
+        Asserts that every item in a contract matches the correct item in a dictionary.
+        The keys of the dictionary correspond to the "name" of the listing elements.
+        For the contract on the contract.html page.
+        """
+        title = contract_listing.find_element(By.TAG_NAME, 'h2')
+        self.assertEquals(title.text, contract_dict['contract_title'])
+        name = contract_listing.find_element(By.CLASS_NAME, 'contract-agency-name')
+        self.assertEquals(name.text, contract_dict['agency_name'])
+        contact = contract_listing.find_element(By.CLASS_NAME, 'contract-contact-information')
+        self.assertEquals(contact.text, contract_dict['contact_information'])
+        end_date = contract_listing.find_element(By.CLASS_NAME, 'contract-bidding-end-date')
+        self.assert_date_equality(end_date.text, contract_dict['bidding_end_date'])
+        lowest_bid = contract_listing.find_element(By.CLASS_NAME, 'contract-lowest-bid')
+        self.assertEquals(lowest_bid.text, 'None')
+        description = contract_listing.find_element(By.CLASS_NAME, 'contract-job-description')
+        self.assertEquals(description.text, contract_dict['job_description'])
 
     def validate_bid_listing(self, bid_listing, bid):
         """
@@ -147,19 +167,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         # check contract contains correct information
         contract_listing = self.browser.find_element(By.ID, 'contract')
-
-        title = contract_listing.find_element(By.TAG_NAME, 'h2')
-        self.assertEquals(title.text, contract['contract_title'])
-        name = contract_listing.find_element(By.CLASS_NAME, 'contract-agency-name')
-        self.assertEquals(name.text, contract['agency_name'])
-        contact = contract_listing.find_element(By.CLASS_NAME, 'contract-contact-information')
-        self.assertEquals(contact.text, contract['contact_information'])
-        end_date = contract_listing.find_element(By.CLASS_NAME, 'contract-bidding-end-date')
-        self.assert_date_equality(end_date.text, contract['bidding_end_date'])
-        lowest_bid = contract_listing.find_element(By.CLASS_NAME, 'contract-lowest-bid')
-        self.assertEquals(lowest_bid.text, 'None')
-        description = contract_listing.find_element(By.CLASS_NAME, 'contract-job-description')
-        self.assertEquals(description.text, contract['job_description'])
+        self.validate_contract(contract_listing, contract)
 
         # check bid form submission adds bid to contract
         number_bids1 = len(self.browser.find_elements(By.CLASS_NAME, 'bid-listing'))
