@@ -140,3 +140,81 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.set_window_size(1024, 768)
 
         # check that a new bid is not added to page
+
+        def test_cannot_submit_invalid_contract_form(self):
+    """Test that an invalid contract form cannot be submitted and no new contract is added to the list.
+
+    This test loads the contract list page, clicks the "Add Contract" button, and fills in the form with missing
+    required fields, then submits the form. It checks that the form was not submitted and no new contract was added
+    to the list, by verifying that the number of contracts in the list is zero.
+
+    """
+    # Load the contract list page
+    self.browser.get(self.base_url)
+    self.browser.set_window_size(1024, 768)
+
+    # Click the "Add Contract" button
+    add_contract_button = self.browser.find_element_by_id('add-contract')
+    add_contract_button.click()
+
+    # Fill in the form with an invalid input (missing required fields)
+    form = self.browser.find_element_by_tag_name('form')
+    input_name = form.find_element_by_name('name')
+    input_name.clear()
+    input_description = form.find_element_by_name('description')
+    input_description.clear()
+    input_start_date = form.find_element_by_name('start_date')
+    input_start_date.clear()
+    input_end_date = form.find_element_by_name('end_date')
+    input_end_date.clear()
+
+    # Submit the form
+    submit_button = form.find_element_by_tag_name('button')
+    submit_button.click()
+
+    # Check that the form was not submitted and no new contract was added to the list
+    contracts = self.browser.find_elements_by_css_selector('.contract')
+    self.assertEqual(len(contracts), 0)
+
+def test_cannot_submit_invalid_bid_form(self):
+    """Test that an invalid bid form cannot be submitted and no new bid is added to the page.
+
+    1. Load the contract page for the first contract in the list.
+    2. Click the "Add Bid" button.
+    3. Fill in the form with an invalid input (missing required fields).
+    4. Submit the form.
+    5. Check that the form was not submitted and no new bid was added to the page.
+    """
+    # Load the contract detail page
+    self.browser.get(self.base_url + '/contract/1')
+    self.browser.set_window_size(1024, 768)
+
+    # Click the "Add Bid" button
+    add_bid_button = self.browser.find_element_by_id('add-bid')
+    add_bid_button.click()
+
+    # Fill in the form with an invalid input (missing required fields)
+    form = self.browser.find_element_by_tag_name('form')
+    input_description = form.find_element_by_name('description')
+    input_description.clear()
+    input_amount = form.find_element_by_name('amount')
+    input_amount.clear()
+
+    # Submit the form
+    submit_button = form.find_element_by_tag_name('button')
+    submit_button.click()
+
+    # Check that the form was not submitted and no new bid was added to the list
+    bids = self.browser.find_elements_by_css_selector('.bid')
+    self.assertEqual(len(bids), 0)
+def test_404_page(self):
+    """
+    Test that attempting to access a non-existent page results in a 404 error page.
+    """
+    # Try to load a non-existent page
+    self.browser.get(self.base_url + '/nonexistent-page')
+
+    # Check that the page title and content indicates a 404 error
+    self.assertIn('Page not found', self.browser.title)
+    heading = self.browser.find_element_by_tag_name('h1')
+    self.assertIn('Page not found', heading.text)
