@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint_job:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -18,3 +18,22 @@ jobs:
         run: pip install -r requirements.txt
       - name: lint
         run: flake8 contract_board/board
+  functional_tests_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: browser-actions/setup-chrome@v1
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      - name: install packages
+        run: pip install -r requirements.txt
+      - name: run server
+        run: |
+          cd contract_board
+          python manage.py runserver &
+      - name: run tests
+        run: |
+          cd contract_board
+          python manage.py test

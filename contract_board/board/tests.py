@@ -1,8 +1,14 @@
+import platform
+
 from datetime import datetime
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service as ChromiumService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.utils import ChromeType
 
 
 CONTRACT_DATA1 = {
@@ -38,7 +44,17 @@ class FunctionalTest(StaticLiveServerTestCase):
     """Tests the basic functionality of the bidding board."""
 
     def setUp(self):
-        self.browser = webdriver.Chrome()
+        current_os = platform.platform()
+        if 'linux' in current_os.lower():
+            driver = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+            service = ChromiumService(driver)
+            options = Options()
+            options.add_argument("--no-sandbox")
+            options.add_argument("--headless")
+            options.add_argument("--disable-gpu")
+            self.browser = webdriver.Chrome(service=service, options=options)
+        else:
+            self.browser = webdriver.Chrome()
         self.base_url = 'http://127.0.0.1:8000/'
 
     def tearDown(self):
