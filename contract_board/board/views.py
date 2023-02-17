@@ -7,6 +7,11 @@ from board.models import Contract, Bid
 
 @require_http_methods(["GET", "POST"])
 def contract_list(request):
+    '''
+        Handles GET and Post request
+        Post will add information from the ContractForm and renders the contract_list.html page
+        GET will redner the cotnract_list.html page, passing in a list of all the Contrct models as 'contracts'
+    '''
     if request.method == "POST":
         form = ContractForm(request.POST)
         form.save()
@@ -19,6 +24,13 @@ def contract_list(request):
 
 @require_http_methods(["GET", "POST"])
 def contract(request, contract_id):
+    '''
+        handles a GET and POST request
+        POST will add information from the BidForm adn render the contract.html page
+        (contract_id does not come from the form when creating the new Bid) 
+        GET will render the cotnract.html page, passing in Cotnract model corresponding
+        to the contract_id as 'contract
+    '''
     contract = Contract.objects.get(id=contract_id)
 
     if request.method == 'POST':
