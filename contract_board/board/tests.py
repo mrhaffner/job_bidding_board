@@ -55,7 +55,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def validate_contract_listing(self, contract_listing, contract):
         """
-        Asserts that every item in a form listing matches the correct item in a data dictionary.
+        Asserts that every item in a contract listing matches the correct item in a data dictionary.
         The keys of the dictionary correspond to the "name" of the listing elements.
         """
         title = contract_listing.find_element(By.TAG_NAME, 'h3')
@@ -68,6 +68,21 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.assertEquals(lowest_bid.text, 'None')
         number_bids = contract_listing.find_element(By.CLASS_NAME, 'listing-number-bids')
         self.assertEquals(number_bids.text, '0')
+
+    def validate_bid_listing(self, bid_listing, bid):
+        """
+        Asserts that every item in a contract listing matches the correct item in a data dictionary.
+        The keys of the dictionary correspond to the "name" of the listing elements.
+        """
+        title = bid_listing.find_element(By.TAG_NAME, 'h3')
+        self.assertEquals(title.text, bid['contractor_name'])
+        amount = bid_listing.find_element(By.CLASS_NAME, 'bid-amount')
+        self.assertEquals(amount.text, bid['amount'])
+        contact = bid_listing.find_element(By.CLASS_NAME, 'bid-contact-information')
+        self.assertEquals(contact.text, bid['contact_information'])
+        date = bid_listing.find_element(By.CLASS_NAME, 'bid-date-placed')
+        self.assert_date_equality(date.text, bid['date_placed']) ######@@@@@@@@@@@@####
+
 
     def assert_date_equality(self, str_date, number_date):
         """Asserts that two date strings of specified format are equal."""
@@ -108,14 +123,58 @@ class FunctionalTest(StaticLiveServerTestCase):
     def test_contract_page(self):
         """"Tests the basic functionalities of adding bids to a contract."""
         # load a contract page
-        self.browser.get(self.base_url + '/contract/2')
+        self.browser.get(self.base_url)
         self.browser.set_window_size(1024, 768)
 
+        # create new contract
+        contract = CONTRACT_DATA1
+        self.fill_form_from_dictionary(contract)
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        submit_button.send_keys(Keys.RETURN)
+
+        # go to new contract page
+        self.browser.get(self.base_url + '/contract/1')
+
         # check layout/style of contract page
+
         # check contract contains correct information
+        contract_listing = self.browser.find_elements(By.TAG_NAME, 'section')[0]
+
+        title = contract_listing.find_element(By.TAG_NAME, 'h2')
+        self.assertEquals(title.text, contract['contract_title'])
+        name = contract_listing.find_element(By.CLASS_NAME, 'contract-agency-name')
+        self.assertEquals(name.text, contract['agency_name'])
+        contact = contract_listing.find_element(By.CLASS_NAME, 'contract-contact-information')
+        self.assertEquals(contact.text, contract['contact_information'])
+        end_date = contract_listing.find_element(By.CLASS_NAME, 'contract-bidding-end-date')
+        self.assert_date_equality(end_date.text, contract['bidding_end_date'])
+        lowest_bid = contract_listing.find_element(By.CLASS_NAME, 'contract-lowest-bid')
+        self.assertEquals(lowest_bid.text, 'None')
+        description = contract_listing.find_element(By.CLASS_NAME, 'contract-job-description')
+        self.assertEquals(description.text, contract['job_description'])
+
         # check bid form submission adds bid to contract
+        number_bids1 = len(self.browser.find_elements(By.CLASS_NAME, 'bid-listing'))
+        bid = BID_DATA1
+        self.fill_form_from_dictionary(bid)
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        submit_button.send_keys(Keys.RETURN)
+        number_bids2 = len(self.browser.find_elements(By.CLASS_NAME, 'bid-listing'))
+        self.assertEqual(number_bids1, number_bids2)
+
         # check new bid contains correct information
+        bid_listing = len(self.browser.find_element(By.CLASS_NAME, 'bid-listing'))
+        self.validate_bid_listing(bid_listing, bid)
+
         # check adding second bid keeps bids in order
+        bid = BID_DATA2
+        self.fill_form_from_dictionary(bid)
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        submit_button.send_keys(Keys.RETURN)
+        new_bid = self.browser.findelements(By.CLASS_NAME, 'bid-listing')[0]
+        contractor_name = new_bid.find_element(By.TAG_NAME, 'h3')
+        self.assertEquals(contractor_name, bid['contractor_name'])
+
         # check number of bids updates correctly on contract list page
         # check lowest bid updates correctly on contract list page
 
