@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -53,9 +53,9 @@ class FunctionalTest(StaticLiveServerTestCase):
             element = self.browser.find_element(By.NAME, name)
             element.send_keys(value)
 
-    def validate_contract_listing(self, contract_listing, contract):
+    def validate_contract_listing(self, contract_listing, contract, num_bids=0, low_bid='None'):
         """
-        Asserts that every item in a contract listing matches the correct item in a data dictionary.
+        Asserts that every item in a contract listing matches the correct item in a dictionary.
         The keys of the dictionary correspond to the "name" of the listing elements.
         """
         title = contract_listing.find_element(By.TAG_NAME, 'h3')
@@ -65,29 +65,37 @@ class FunctionalTest(StaticLiveServerTestCase):
         end_date = contract_listing.find_element(By.CLASS_NAME, 'listing-bidding-end-date')
         self.assert_date_equality(end_date.text, contract['bidding_end_date'])
         lowest_bid = contract_listing.find_element(By.CLASS_NAME, 'listing-lowest-bid')
-        self.assertEquals(lowest_bid.text, 'None')
+        if low_bid != 'None':
+            self.assertEquals(float(lowest_bid.text[1:]), low_bid)
+        else:
+            self.assertEquals(lowest_bid.text, low_bid)
         number_bids = contract_listing.find_element(By.CLASS_NAME, 'listing-number-bids')
-        self.assertEquals(number_bids.text, '0')
+        self.assertEquals(number_bids.text, str(num_bids))
 
     def validate_bid_listing(self, bid_listing, bid):
         """
-        Asserts that every item in a contract listing matches the correct item in a data dictionary.
+        Asserts that every item in a contract listing matches the correct item in a dictionary.
         The keys of the dictionary correspond to the "name" of the listing elements.
         """
         title = bid_listing.find_element(By.TAG_NAME, 'h3')
         self.assertEquals(title.text, bid['contractor_name'])
         amount = bid_listing.find_element(By.CLASS_NAME, 'bid-amount')
-        self.assertEquals(amount.text, bid['amount'])
+        self.assertEquals(float(amount.text[1:]), + float(bid['amount']))
         contact = bid_listing.find_element(By.CLASS_NAME, 'bid-contact-information')
         self.assertEquals(contact.text, bid['contact_information'])
-        date = bid_listing.find_element(By.CLASS_NAME, 'bid-date-placed')
-        self.assert_date_equality(date.text, bid['date_placed']) ######@@@@@@@@@@@@####
+        list_date = bid_listing.find_element(By.CLASS_NAME, 'bid-date-placed')
+        self.assert_date_equality(list_date.text)
 
-
-    def assert_date_equality(self, str_date, number_date):
+    def assert_date_equality(self, str_date, number_date=None):
         """Asserts that two date strings of specified format are equal."""
-        date_object_1 = datetime.strptime(number_date, '%m/%d/%y')
-        date_object_2 = datetime.strptime(str_date, '%B %d, %Y')
+        if number_date:
+            date_object_1 = datetime.strptime(number_date, '%m/%d/%y').date()
+        else:
+            date_object_1 = date.today()
+        try:
+            date_object_2 = datetime.strptime(str_date, '%B %d, %Y').date()
+        except ValueError:
+            date_object_2 = datetime.strptime(str_date, '%b. %d, %Y').date()
         self.assertEqual(date_object_1, date_object_2)
 
     def test_contract_list_page(self):
@@ -133,12 +141,12 @@ class FunctionalTest(StaticLiveServerTestCase):
         submit_button.send_keys(Keys.RETURN)
 
         # go to new contract page
-        self.browser.get(self.base_url + '/contract/1')
-
-        # check layout/style of contract page
+        contract_item = self.browser.find_elements(By.CLASS_NAME, 'contract-listing')[0]
+        contract_link = contract_item.find_element(By.TAG_NAME, 'a').get_attribute('href')
+        self.browser.get(contract_link)
 
         # check contract contains correct information
-        contract_listing = self.browser.find_elements(By.TAG_NAME, 'section')[0]
+        contract_listing = self.browser.find_element(By.ID, 'contract')
 
         title = contract_listing.find_element(By.TAG_NAME, 'h2')
         self.assertEquals(title.text, contract['contract_title'])
@@ -160,10 +168,10 @@ class FunctionalTest(StaticLiveServerTestCase):
         submit_button = self.browser.find_element(By.ID, 'submit')
         submit_button.send_keys(Keys.RETURN)
         number_bids2 = len(self.browser.find_elements(By.CLASS_NAME, 'bid-listing'))
-        self.assertEqual(number_bids1, number_bids2)
+        self.assertEqual(number_bids1, number_bids2 - 1)
 
         # check new bid contains correct information
-        bid_listing = len(self.browser.find_element(By.CLASS_NAME, 'bid-listing'))
+        bid_listing = self.browser.find_element(By.CLASS_NAME, 'bid-listing')
         self.validate_bid_listing(bid_listing, bid)
 
         # check adding second bid keeps bids in order
@@ -171,12 +179,15 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.fill_form_from_dictionary(bid)
         submit_button = self.browser.find_element(By.ID, 'submit')
         submit_button.send_keys(Keys.RETURN)
-        new_bid = self.browser.findelements(By.CLASS_NAME, 'bid-listing')[0]
+        new_bid = self.browser.find_elements(By.CLASS_NAME, 'bid-listing')[0]
         contractor_name = new_bid.find_element(By.TAG_NAME, 'h3')
-        self.assertEquals(contractor_name, bid['contractor_name'])
+        self.assertEquals(contractor_name.text, bid['contractor_name'])
 
-        # check number of bids updates correctly on contract list page
-        # check lowest bid updates correctly on contract list page
+        # check number and lowest of bid updates correctly on contract list page
+        self.browser.get(self.base_url)
+        first_contract = self.browser.find_element(By.CLASS_NAME, 'contract-listing')
+        lowest_bid = min(float(BID_DATA1['amount']), float(BID_DATA2['amount']))
+        self.validate_contract_listing(first_contract, contract, 2, lowest_bid)
 
     def test_404_page(self):
         # load an invalid page
