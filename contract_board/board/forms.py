@@ -2,6 +2,9 @@ from django.forms import ModelForm
 
 from board.models import Bid, Contract
 
+DUPLICATE_ITEM_ERROR = "You've already got this in your list"
+EMPTY_ITEM_ERROR = "You can't have an empty list item"
+
 
 class ContractForm(ModelForm):
 
@@ -12,7 +15,17 @@ class ContractForm(ModelForm):
                   'contact_information',
                   'bidding_end_date',
                   'job_description']
-
+def clean(self):
+        cleaned_data = super().clean()
+        contract_title = cleaned_data.get('contract_title')
+        existing_contracts = Contract.objects.filter(contract_title=contract_title)
+        if self.instance.pk:
+            existing_contracts = existing_contracts.exclude(pk=self.instance.pk)
+        if existing_contracts.exists():
+            raise forms.ValidationError(DUPLICATE_ITEM_ERROR)
+        if not contract_title:
+            raise forms.ValidationError(EMPTY_ITEM_ERROR)
+        return cleaned_data
 
 class BidForm(ModelForm):
 
