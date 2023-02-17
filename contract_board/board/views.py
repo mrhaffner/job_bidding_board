@@ -27,7 +27,7 @@ def contract(request, contract_id):
     '''
         handles a GET and POST request
         POST will add information from the BidForm adn render the contract.html page
-        (contract_id does not come from the form when creating the new Bid) 
+        (contract_id does not come from the form when creating the new Bid)
         GET will render the cotnract.html page, passing in Cotnract model corresponding
         to the contract_id as 'contract
     '''
