@@ -1,18 +1,13 @@
-what folder is this being run from????
-
-git pull origin main (cd first???)
+cd ..
+rm contract_board/db.sqlite3
+git pull origin main
 pip install -r requirements.txt
-
-cd contract_board (chained????)
-
-rm db.sqlite3 (will this work if website is running?)
-mkdir static
+cd contract_board/
+rm -r static
 python3 manage.py collectstatic
 python3 manage.py makemigrations board
 python3 manage.py migrate
 
+python3 manage.py loaddata initial_data
 
-??? load initial data ???
-
-
-??? reload app ???
+touch /var/www/ics499_pythonanywhere_com_wsgi.py
