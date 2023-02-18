@@ -1,3 +1,5 @@
+import os
+
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
@@ -29,3 +31,9 @@ def contract(request, contract_id):
     form = BidForm(for_contract=contract)
     bids = Bid.objects.filter(contract__pk=contract.pk)[::-1]
     return render(request, 'contract.html', {'contract': contract, 'bids': bids, 'form': form})
+
+
+@require_http_methods(["GET"])
+def build(request):
+    os.system('sh ../scripts/test.sh')
+    return "hi"
