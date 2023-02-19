@@ -14,7 +14,7 @@ def contract_list(request):
             form.save()
             messages.success(request, 'Contract created successfully!')
         else:
-            messages.warning(request, 'Error creating contract: {}'.format(form.errors.get_json_data()))
+          messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
         return redirect(request.path)
 
     contracts = Contract.objects.all()[::-1]
