@@ -6,7 +6,7 @@ DUPLICATE_ITEM_ERROR = "You've already got this in your list"
 EMPTY_ITEM_ERROR = "You can't have an empty list item"
 
 
-class ContractForm(forms.ModelForm)):
+class ContractForm(forms.ModelForm):
 
     class Meta:
         model = Contract
