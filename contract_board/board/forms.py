@@ -17,6 +17,9 @@ class ContractForm(forms.ModelForm):
                   'job_description']
 
     def clean(self):
+        """
+        Validates the contract title and ensures it is unique and not empty.
+        """
         cleaned_data = super().clean()
         contract_title = cleaned_data.get('contract_title')
         existing_contracts = Contract.objects.filter(contract_title=contract_title)
