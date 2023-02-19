@@ -15,7 +15,8 @@ class ContractForm(forms.ModelForm):
                   'contact_information',
                   'bidding_end_date',
                   'job_description']
-def clean(self):
+
+    def clean(self):
         cleaned_data = super().clean()
         contract_title = cleaned_data.get('contract_title')
         existing_contracts = Contract.objects.filter(contract_title=contract_title)
@@ -26,6 +27,7 @@ def clean(self):
         if not contract_title:
             raise forms.ValidationError(EMPTY_ITEM_ERROR)
         return cleaned_data
+
 
 class BidForm(forms.ModelForm):
 
