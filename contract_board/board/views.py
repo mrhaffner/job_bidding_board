@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
+from django.contrib import messages
 
 from board.forms import ContractForm, BidForm
 from board.models import Contract, Bid
@@ -28,8 +29,8 @@ def contract(request, contract_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Bid created successfully!')
-            else:
-                messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
+        else:
+            messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
         return redirect(request.path)
 
     form = BidForm(for_contract=contract)
