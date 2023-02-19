@@ -14,7 +14,7 @@ def contract_list(request):
             form.save()
             messages.success(request, 'Contract created successfully!')
         else:
-          messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
+            messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
         return redirect(request.path)
 
     contracts = Contract.objects.all()[::-1]
@@ -33,7 +33,7 @@ def contract(request, contract_id):
             messages.success(request, 'Bid created successfully!')
         else:
             messages.warning(request, 'Error creating bid: {}'.format(form.errors.get_json_data()))
-        return redirect(request.path)
+            return redirect(request.path)
 
     form = BidForm(for_contract=contract)
     bids = Bid.objects.filter(contract__pk=contract.pk)[::-1]
