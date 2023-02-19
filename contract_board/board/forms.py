@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django import forms
 
 from board.models import Bid, Contract
 
@@ -6,7 +6,7 @@ DUPLICATE_ITEM_ERROR = "You've already got this in your list"
 EMPTY_ITEM_ERROR = "You can't have an empty list item"
 
 
-class ContractForm(ModelForm):
+class ContractForm(forms.ModelForm)):
 
     class Meta:
         model = Contract
@@ -27,7 +27,7 @@ def clean(self):
             raise forms.ValidationError(EMPTY_ITEM_ERROR)
         return cleaned_data
 
-class BidForm(ModelForm):
+class BidForm(forms.ModelForm):
 
     def __init__(self, for_contract, *args, **kwargs):
         super().__init__(*args, **kwargs)
