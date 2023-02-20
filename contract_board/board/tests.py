@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Self
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -141,40 +142,39 @@ class FunctionalTest(StaticLiveServerTestCase):
 
         # check that a new bid is not added to page
 
-        def test_cannot_submit_invalid_contract_form(self):
-    """Test that an invalid contract form cannot be submitted and no new contract is added to the list.
+    def test_cannot_submit_invalid_contract_form(self):
+        """Test that an invalid contract form cannot be submitted and no new contract is added to the list.
 
-    This test loads the contract list page, clicks the "Add Contract" button, and fills in the form with missing
+    This test loads the contract list page, clicks the "Place a New Contract" button, and fills in the form with missing
     required fields, then submits the form. It checks that the form was not submitted and no new contract was added
-    to the list, by verifying that the number of contracts in the list is zero.
+    to the list, by verifying that the number of contracts in the list is unchanged.
 
     """
     # Load the contract list page
-    self.browser.get(self.base_url)
+    self.browser.get(self.live_server_url)
     self.browser.set_window_size(1024, 768)
 
-    # Click the "Add Contract" button
-    add_contract_button = self.browser.find_element_by_id('add-contract')
+    # Click the "Place a New Contract" button
+    add_contract_button = Self.browser.find_element_by_id('submit')
     add_contract_button.click()
 
     # Fill in the form with an invalid input (missing required fields)
     form = self.browser.find_element_by_tag_name('form')
-    input_name = form.find_element_by_name('name')
-    input_name.clear()
-    input_description = form.find_element_by_name('description')
-    input_description.clear()
-    input_start_date = form.find_element_by_name('start_date')
-    input_start_date.clear()
-    input_end_date = form.find_element_by_name('end_date')
-    input_end_date.clear()
+    input_contract_title = form.find_element_by_name('contract_title')
+    input_contract_title.clear()
+    input_agency_name = form.find_element_by_name('agency_name')
+    input_agency_name.clear()
+    input_bidding_end_date = form.find_element_by_name('bidding_end_date')
+    input_bidding_end_date.clear()
 
     # Submit the form
-    submit_button = form.find_element_by_tag_name('button')
+    submit_button = form.find_element_by_id('submit')
     submit_button.click()
 
     # Check that the form was not submitted and no new contract was added to the list
-    contracts = self.browser.find_elements_by_css_selector('.contract')
+    contracts = self.browser.find_elements_by_css_selector('.contract-listing')
     self.assertEqual(len(contracts), 0)
+
 
 def test_cannot_submit_invalid_bid_form(self):
     """Test that an invalid bid form cannot be submitted and no new bid is added to the page.
@@ -189,24 +189,26 @@ def test_cannot_submit_invalid_bid_form(self):
     self.browser.get(self.base_url + '/contract/1')
     self.browser.set_window_size(1024, 768)
 
-    # Click the "Add Bid" button
-    add_bid_button = self.browser.find_element_by_id('add-bid')
-    add_bid_button.click()
+    # check that a new bid is not added to page
+    bids = self.browser.find_elements_by_css_selector('.bid')
+    num_bids_before = len(bids)
 
-    # Fill in the form with an invalid input (missing required fields)
-    form = self.browser.find_element_by_tag_name('form')
-    input_description = form.find_element_by_name('description')
-    input_description.clear()
-    input_amount = form.find_element_by_name('amount')
-    input_amount.clear()
-
-    # Submit the form
-    submit_button = form.find_element_by_tag_name('button')
+    # fill in the bid form with invalid data
+    input_name = self.browser.find_element_by_name('name')
+    input_name.send_keys('')
+    input_email = self.browser.find_element_by_name('email')
+    input_email.send_keys('')
+    input_amount = self.browser.find_element_by_name('amount')
+    input_amount.send_keys('')
+    submit_button = self.browser.find_element_by_id('submit')
     submit_button.click()
 
-    # Check that the form was not submitted and no new bid was added to the list
+    # check that no new bid was added to the list
     bids = self.browser.find_elements_by_css_selector('.bid')
-    self.assertEqual(len(bids), 0)
+    num_bids_after = len(bids)
+    self.assertEqual(num_bids_before, num_bids_after)
+
+    
 def test_404_page(self):
     """
     Test that attempting to access a non-existent page results in a 404 error page.
