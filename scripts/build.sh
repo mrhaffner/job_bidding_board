@@ -1,4 +1,4 @@
-cd ..
+cd job_bidding_board
 rm contract_board/db.sqlite3
 git pull origin main
 pip install -r requirements.txt

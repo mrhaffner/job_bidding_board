@@ -1,6 +1,8 @@
+import json
 import os
 
 from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
 from board.forms import ContractForm, BidForm
@@ -33,7 +35,11 @@ def contract(request, contract_id):
     return render(request, 'contract.html', {'contract': contract, 'bids': bids, 'form': form})
 
 
-@require_http_methods(["GET"])
+@csrf_exempt
+@require_http_methods(["POST"])
 def build(request):
+    payload = json.loads(request.body.decode("utf-8"))
+    print(payload)
+    SECRET_KEY = os.getenv('SECRET_KEY')
     os.system('sh ../scripts/test.sh')
-    return "hi"
+    print("hi")
