@@ -17,16 +17,13 @@ class ContractForm(forms.ModelForm):
                   'job_description']
 
     def clean(self):
-        """
-        Validates the contract title and ensures it is unique and not empty.
-        """
         cleaned_data = super().clean()
         contract_title = cleaned_data.get('contract_title')
         existing_contracts = Contract.objects.filter(contract_title=contract_title)
         if self.instance.pk:
             existing_contracts = existing_contracts.exclude(pk=self.instance.pk)
         if existing_contracts.exists():
-            raise forms.ValidationError(DUPLICATE_ITEM_ERROR)
+            raise forms.ValidationError('This contract title already exists')
         if not contract_title:
             raise forms.ValidationError(EMPTY_ITEM_ERROR)
         return cleaned_data
