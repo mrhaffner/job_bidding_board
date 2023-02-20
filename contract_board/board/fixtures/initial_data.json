@@ -4,10 +4,10 @@
     "model": "board.contract",
     "pk": 1,
     "fields": {
-      "contract_title": "Dig a Series of Trenches",
-      "agency name": "Rail Corp",
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
       "contact_information": "777-555-3333",
-      "bidding_end_date": "2022-02-20",
+      "bidding_end_date": "2023-03-12",
       "job_description": "Build a home for our new train named Steve"
     }
   },
@@ -15,88 +15,1144 @@
     "model": "board.contract",
     "pk": 2,
     "fields": {
-      "contract_title": "Help: Our Roof is Leaking!",
-      "agency_name": "Warehouses 'R Us",
-      "contact_information": "123-456-7890",
-      "bidding_end_date": "2022-02-15",
-      "job_description": "Our roof has sprung several leaks. We need someone to come patchj it as soon as possible."
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 3,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
     }
   },
   {
     "model": "board.contract",
     "pk": 4,
     "fields": {
-      "contract_title":"Build a Bridge ASAP",
-      "agency_name":"Roads of America",
-      "contact_information":"800-456-8520",
-      "bidding_end_date": "2022-01-25",
-      "job_description": "Bridge needs to be built over the mississippi river"
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 5,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 6,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 7,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 8,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 9,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 10,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 11,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 12,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 13,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 14,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 15,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 16,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 17,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 18,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 19,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 20,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 21,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 22,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 23,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 24,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 25,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 26,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 27,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 28,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 29,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 30,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 31,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 32,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 33,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 34,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 35,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 36,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 37,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 38,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 39,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 40,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 41,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 42,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 43,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 44,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 45,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 46,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 47,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 48,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 49,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 50,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 51,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 52,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 53,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 54,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 55,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 56,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 57,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 58,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 59,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 60,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 61,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 62,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 63,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 64,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 65,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 66,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 67,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 68,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 69,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 70,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
+    }
+  },
+  {
+    "model": "board.contract",
+    "pk": 71,
+    "fields": {
+      "contract_title": "Build a train house",
+      "agency_name": "Rail Corp",
+      "contact_information": "777-555-3333",
+      "bidding_end_date": "2023-03-12",
+      "job_description": "Build a home for our new train named Steve"
     }
   },
   {
     "model": "board.bid",
     "pk": 1,
     "fields": {
-      "contractor_name": "The Cheap Roofers",
-      "amount":500.99,
-      "contact_information":"098-765-4321",
-      "date_placed": "2022-02-20",
-      "contract": 2
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 1
     }
   },
   {
     "model": "board.bid",
     "pk": 2,
     "fields": {
-      "contractor_name": "The Roof Guys",
-      "amount":605.65,
-      "contact_information":"333-444-5555",
-      "date_placed": "2022-02-19",
-      "contract": 2
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 25
     }
   },
   {
-    "model": "board.bid",
-    "pk": 1,
-    "fields": {
-      "contractor_name": "Bridge builders",
-      "amount":50000,
-      "contact_information":"651-365-7890",
-      "date_placed": "2022-01-13",
-      "contract": 4
-    }
-  },
-   {
-    "model": "board.bid",
-    "pk": 2,
-    "fields": {
-      "contractor_name": "American Bridge",
-      "amount":65000,
-      "contact_information":"612-456-8890",
-      "date_placed": "2022-01-06",
-      "contract": 4
-    }
-  },
-    {
     "model": "board.bid",
     "pk": 3,
     "fields": {
-      "contractor_name": "US Bridge",
-      "amount":75000,
-      "contact_information":"800-377-1596",
-      "date_placed": "2022-01-05",
-      "contract": 4
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 27
     }
   },
-    {
+  {
     "model": "board.bid",
     "pk": 4,
     "fields": {
-      "contractor_name": "Bridge builders",
-      "amount":80000,
-      "contact_information":"951-555-4796",
-      "date_placed": "2022-01-03",
-      "contract": 4
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 29
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 5,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 31
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 6,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 33
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 7,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 35
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 8,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 37
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 9,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 39
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 10,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 41
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 11,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 45
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 12,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 47
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 13,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 51
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 14,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 51
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 15,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 53
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 16,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 53
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 17,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 55
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 18,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 55
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 19,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 57
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 20,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 57
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 21,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 59
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 22,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 59
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 23,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 61
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 24,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 61
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 25,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 63
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 26,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 63
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 27,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 65
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 28,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 65
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 29,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 67
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 30,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 67
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 31,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 69
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 32,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 69
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 33,
+    "fields": {
+      "contractor_name": "Don Johnson",
+      "amount": 300.0,
+      "contact_information": "111-222-3333",
+      "date_placed": "2023-02-17",
+      "contract": 71
+    }
+  },
+  {
+    "model": "board.bid",
+    "pk": 34,
+    "fields": {
+      "contractor_name": "Big Mike",
+      "amount": 250.0,
+      "contact_information": "222-999-3333",
+      "date_placed": "2023-02-17",
+      "contract": 71
     }
   }
 ]
