@@ -10,7 +10,8 @@ def contract_list(request):
     """
     Handles GET and Post request
     Post will add information from the ContractForm and renders the contract_list.html page
-    GET will render the contract_list.html page, passing in a list of all the Contract models as 'contracts'
+    GET will render the contract_list.html page, passing in a list of all the Contract models as
+    'contracts'
     """
     if request.method == "POST":
         form = ContractForm(request.POST)
