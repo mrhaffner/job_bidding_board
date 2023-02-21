@@ -1,8 +1,11 @@
 ## Project Setup for Local Development
 
 Install Python 3.10.x
+
 Install Git
+
 Install SQLite3
+
 Make sure to add Python to PATH.
 
 If you are on Windows, use GitBash (comes with Git installation)
