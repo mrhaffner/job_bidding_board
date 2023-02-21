@@ -29,6 +29,11 @@ jobs:
           cache: 'pip'
       - name: install packages
         run: pip install -r requirements.txt
+      - name: set up database
+        run: |
+          cd contract_board
+          python manage.py makemigrations board
+          python manage.py migrate
       - name: run server
         run: |
           cd contract_board
