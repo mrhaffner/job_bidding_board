@@ -15,7 +15,7 @@ def contract_list(request):
     """
     if request.method == "POST":
         form = ContractForm(request.POST)
-        form.save()
+        # form.save()
         return redirect(request.path)
 
     contracts = Contract.objects.all()[::-1]

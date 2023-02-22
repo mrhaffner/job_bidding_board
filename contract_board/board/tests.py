@@ -1,4 +1,5 @@
 import platform
+import time
 
 from datetime import date, datetime
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -213,24 +214,115 @@ class FunctionalTest(StaticLiveServerTestCase):
         lowest_bid = min(float(BID_DATA1['amount']), float(BID_DATA2['amount']))
         self.validate_contract_listing(first_contract, contract, 2, lowest_bid)
 
-    def test_404_page(self):
-        # load an invalid page
-        self.browser.get(self.base_url + '/sdfsdfgsdfg')
-        self.browser.set_window_size(1024, 768)
-
-        # check layout/style of 404 page
-        # check that the page link to the home page (not in the header)
-
-    def test_cannot_submit_invalid_contract_form(self):
-        # load contract list page
+    def test_contract_list_page2(self):
+        """"Tests the basic functionalities of adding contracts to the contract board."""
+        time.sleep(3)
+        # load the page
         self.browser.get(self.base_url)
+        time.sleep(3)
         self.browser.set_window_size(1024, 768)
+        title = self.browser.find_element(By.CLASS_NAME, 'title')
 
-        # check that a new contract is not added to page
+        # check layout/style - test html/css loads properly - smoke test
+        self.assertAlmostEqual(
+            title.location['x'] + title.size['width'] / 2,
+            1008 / 2,  # screen actual width / 2
+            delta=10
+        )
 
-    def test_cannot_submit_invalid_bid_form(self):
-        # load contract list page
-        self.browser.get(self.base_url + '/contract/1')
+        # check contract form submission adds a contract to board
+        number_contracts_1 = len(self.browser.find_elements(By.CLASS_NAME, 'contract-listing'))
+        contract = CONTRACT_DATA1
+        time.sleep(3)
+        self.fill_form_from_dictionary(contract)
+        time.sleep(3)
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        submit_button.send_keys(Keys.RETURN)
+        time.sleep(3)
+        number_contracts_2 = len(self.browser.find_elements(By.CLASS_NAME, 'contract-listing'))
+        self.assertEqual(number_contracts_1, number_contracts_2 - 1)
+
+        # check new contract contains correct information
+        first_contract = self.browser.find_element(By.CLASS_NAME, 'contract-listing')
+        self.validate_contract_listing(first_contract, contract)
+
+        # check adding second contract keeps contracts in order
+        # check clicking contract redirects to correct contract page (use most recent contract)
+
+    def test_contract_page2(self):
+        """"Tests the basic functionalities of adding bids to a contract."""
+        # load a contract page
+        time.sleep(3)
+        self.browser.get(self.base_url)
+        time.sleep(3)
         self.browser.set_window_size(1024, 768)
+        time.sleep(3)
 
-        # check that a new bid is not added to page
+        # create new contract
+        contract = CONTRACT_DATA1
+        self.fill_form_from_dictionary(contract)
+        time.sleep(3)
+
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        submit_button.send_keys(Keys.RETURN)
+        time.sleep(3)
+
+        # go to new contract page
+        contract_item = self.browser.find_elements(By.CLASS_NAME, 'contract-listing')[0]
+        contract_link = contract_item.find_element(By.TAG_NAME, 'a').get_attribute('href')
+        self.browser.get(contract_link)
+        time.sleep(3)
+
+        # check contract contains correct information
+        contract_listing = self.browser.find_element(By.ID, 'contract')
+        self.validate_contract(contract_listing, contract)
+
+        # check bid form submission adds bid to contract
+        number_bids1 = len(self.browser.find_elements(By.CLASS_NAME, 'bid-listing'))
+        bid = BID_DATA1
+        time.sleep(3)
+
+        self.fill_form_from_dictionary(bid)
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        time.sleep(3)
+
+        submit_button.send_keys(Keys.RETURN)
+        number_bids2 = len(self.browser.find_elements(By.CLASS_NAME, 'bid-listing'))
+        self.assertEqual(number_bids1, number_bids2 - 1)
+
+        # check new bid contains correct information
+        bid_listing = self.browser.find_element(By.CLASS_NAME, 'bid-listing')
+        self.validate_bid_listing(bid_listing, bid)
+
+        # check adding second bid keeps bids in order
+        bid = BID_DATA2
+        time.sleep(3)
+
+        self.fill_form_from_dictionary(bid)
+        time.sleep(3)
+
+        submit_button = self.browser.find_element(By.ID, 'submit')
+        submit_button.send_keys(Keys.RETURN)
+        time.sleep(3)
+
+        new_bid = self.browser.find_elements(By.CLASS_NAME, 'bid-listing')[0]
+        contractor_name = new_bid.find_element(By.TAG_NAME, 'h3')
+        self.assertEquals(contractor_name.text, bid['contractor_name'])
+
+        # check number and lowest of bid updates correctly on contract list page
+        self.browser.get(self.base_url)
+        time.sleep(3)
+
+        first_contract = self.browser.find_element(By.CLASS_NAME, 'contract-listing')
+        lowest_bid = min(float(BID_DATA1['amount']), float(BID_DATA2['amount']))
+        self.validate_contract_listing(first_contract, contract, 2, lowest_bid)
+
+#sdafsdaf
+
+
+
+
+
+class Wrong:
+    pass#sdfasdf
+    
