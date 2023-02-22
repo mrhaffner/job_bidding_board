@@ -7,3 +7,4 @@ __pycache__
 migrations
 .idea
 db.sqlite3
+.mypy_cache
