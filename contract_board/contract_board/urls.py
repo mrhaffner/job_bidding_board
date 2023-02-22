@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', board_views.contract_list, name='home'),
     path('contract/<int:contract_id>', board_views.contract),
+    # path('login', board_views.login),
+    # path('logout', board_views.logout),
+    # path('register', board_views.register),
 ]
