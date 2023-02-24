@@ -1,3 +1,5 @@
+from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect, \
+    HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
@@ -6,7 +8,10 @@ from board.models import Contract, Bid
 
 
 @require_http_methods(["GET", "POST"])
-def contract_list(request):
+def contract_list(request: HttpRequest
+                  ) -> (HttpResponseRedirect
+                        | HttpResponsePermanentRedirect
+                        | HttpResponse):
     """
     Handles GET and Post request
     Post will add information from the ContractForm and renders the contract_list.html page
@@ -24,9 +29,13 @@ def contract_list(request):
 
 
 @require_http_methods(["GET", "POST"])
-def contract(request, contract_id):
+def contract(request: HttpRequest,
+             contract_id: str
+             ) -> (HttpResponseRedirect
+                   | HttpResponsePermanentRedirect
+                   | HttpResponse):
     """
-    handles a GET and POST request
+    Handles a GET and POST request
     POST will add information from the BidForm and render the contract.html page
     (contract_id does not come from the form when creating the new Bid)
     GET will render the contract.html page, passing in Contract model corresponding

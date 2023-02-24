@@ -14,28 +14,28 @@ from webdriver_manager.core.utils import ChromeType
 class FunctionalTest(StaticLiveServerTestCase):
     """Tests the basic functionality of the bidding board."""
 
-    def setUp(self):
+    def setUp(self) -> None:
         current_os = platform.platform()
         if 'linux' in current_os.lower():
             driver = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
             service = ChromiumService(driver)
             options = Options()
-            options.add_argument("--no-sandbox")
-            options.add_argument("--headless")
-            options.add_argument("--disable-gpu")
+            options.add_argument("--no-sandbox")  # type: ignore[no-untyped-call]
+            options.add_argument("--headless")  # type: ignore[no-untyped-call]
+            options.add_argument("--disable-gpu")  # type: ignore[no-untyped-call]
             self.browser = webdriver.Chrome(service=service, options=options)
         else:
             self.browser = webdriver.Chrome()
         self.base_url = 'http://127.0.0.1:8000'
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.browser.quit()
 
-    def random_string(self, length):
+    def random_string(self, length: int) -> str:
         """Generates a random string of specified length/"""
         return ''.join(random.choices(string.ascii_letters, k=length))
 
-    def random_date_string(self):
+    def random_date_string(self) -> str:
         """Generate a random date string in m/d/y format."""
         month = str(random.randint(1, 12))
         if len(month) == 1:
@@ -46,7 +46,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         year = 23
         return f'{month}/{day}/{year}'
 
-    def random_contract_dict(self, **kwargs):
+    def random_contract_dict(self, **kwargs: str) -> dict[str, str]:
         """
         Creates a contract dict with random values.
         You may use kwargs to overwrite individual keys.
@@ -62,7 +62,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             contract[key] = value
         return contract
 
-    def random_bid_dict(self, **kwargs):
+    def random_bid_dict(self, **kwargs: str) -> dict[str, str]:
         """
         Creates a bid with random values.
         You may use kwargs to overwrite individual keys.
@@ -76,7 +76,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             bid[key] = value
         return bid
 
-    def fill_form_from_dictionary(self, form_data):
+    def fill_form_from_dictionary(self, form_data: dict[str, str]) -> None:
         """
         Fills in a form from a dictionary and submits that form.
         The keys of the dictionary correspond to the "name" of the form elements.

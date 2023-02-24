@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from board.models import Bid, Contract
 
 
-class ContractForm(ModelForm):
+class ContractForm(ModelForm[Contract]):
 
     class Meta:
         model = Contract
@@ -14,9 +14,9 @@ class ContractForm(ModelForm):
                   'job_description']
 
 
-class BidForm(ModelForm):
+class BidForm(ModelForm[Bid]):
 
-    def __init__(self, for_contract, *args, **kwargs):
+    def __init__(self, for_contract: Contract, *args, **kwargs) -> None:  # noqa: ANN002, ANN003
         super().__init__(*args, **kwargs)
         self.instance.contract = for_contract
 
