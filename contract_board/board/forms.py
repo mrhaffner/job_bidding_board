@@ -1,6 +1,10 @@
+import django_stubs_ext
+
 from django.forms import ModelForm
 
 from board.models import Bid, Contract
+
+django_stubs_ext.monkeypatch()  # for generics to work
 
 
 class ContractForm(ModelForm[Contract]):
