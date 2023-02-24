@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Contract(models.Model):
+class Contract(models.Model):  # type: ignore[misc]
     """
     A contract object with a title, agency name, contact information,
     bidding end date, and job description. Includes methods to
@@ -14,7 +14,7 @@ class Contract(models.Model):
     job_description = models.TextField()
 
     @property
-    def lowest_bid(self):
+    def lowest_bid(self) -> float:
         """
         Returns the lowest bid amount for the contract object.
         """
@@ -25,7 +25,7 @@ class Contract(models.Model):
         return lowest_bid if lowest_bid < float('inf') else 0
 
     @property
-    def number_bids(self):
+    def number_bids(self) -> int:
         """
         Returns the number of bids for the contract object.
         """
@@ -33,7 +33,7 @@ class Contract(models.Model):
         return len(bids)
 
 
-class Bid(models.Model):
+class Bid(models.Model):  # type: ignore[misc]
     """
     A bid object with a contractor name, bid amount,
     contact information, date placed, and foreign key
