@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path, include
+from django.urls import path
 from board import views as board_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', board_views.ContractBoardView.as_view(), name='home'),
-    path('contract/<int:contract_id>', board_views.contract),
+    path('', board_views.ContractListView.as_view(), name='home'),
+    path('contract/new', board_views.ContractCreateView.as_view(), name='create_contract'),
+    path('contract/<int:pk>', board_views.ContractDetailView.as_view()),
+    path('contract/<int:pk>/bid', board_views.BidCreateView.as_view()),
     path('register', board_views.UserCreateView.as_view(), name='register'),
     path('accounts/login/', auth_views.LoginView.as_view(next_page='home'), name='login'),
 ]

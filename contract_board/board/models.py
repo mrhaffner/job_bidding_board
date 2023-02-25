@@ -24,7 +24,7 @@ class Contract(models.Model):  # type: ignore[misc]
     # contact_information = models.CharField(max_length=500)  # length
     bidding_end_date = models.DateField()
     job_description = models.TextField()
-    contractee = models.OneToOneField(User, on_delete=models.CASCADE)
+    contractee = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @property
     def lowest_bid(self) -> float:
@@ -45,6 +45,10 @@ class Contract(models.Model):  # type: ignore[misc]
         bids = Bid.objects.filter(contract__pk=self.pk)
         return len(bids)
 
+    @property
+    def bids(self):
+        return Bid.objects.filter(contract__pk=self.pk)
+
 
 class Bid(models.Model):  # type: ignore[misc]
     """
@@ -57,4 +61,4 @@ class Bid(models.Model):  # type: ignore[misc]
     # contact_information = models.CharField(max_length=500)  # length
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
-    contractor = models.OneToOneField(User, on_delete=models.CASCADE)
+    contractor = models.ForeignKey(User, on_delete=models.CASCADE)

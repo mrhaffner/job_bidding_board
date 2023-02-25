@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block content %}
+<section>
+  <form action="" method="post">
+    <h3>Place a New Bid</h3>
+    {{ form.as_p }} {% csrf_token %}
+    <input type="submit" value="Submit" id="submit" />
+  </form>
+</section>
+{% endblock %}

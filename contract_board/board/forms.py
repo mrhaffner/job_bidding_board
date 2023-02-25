@@ -8,14 +8,6 @@ from board.models import Bid, Contract, User
 django_stubs_ext.monkeypatch()  # for generics to work
 
 
-class ContractForm(ModelForm[Contract]):
-    """A form for creating a contract."""
-
-    class Meta:
-        model = Contract
-        fields = ['contract_title', 'bidding_end_date', 'job_description']
-
-
 class BidForm(ModelForm[Bid]):
     """A form for creating a bid."""
 

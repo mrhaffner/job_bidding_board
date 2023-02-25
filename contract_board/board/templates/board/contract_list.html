@@ -9,7 +9,9 @@
       <div class="listing-items">
         <div>
           <span>Agency Name:</span>
-          <span class="listing-agency-name">{{ contract.agency_name }}</span>
+          <span class="listing-agency-name"
+            >{{ contract.contractee.agency_name }}</span
+          >
         </div>
         <div>
           <span>Expiration Date:</span>
@@ -32,12 +34,5 @@
     </a>
   </div>
   {% endfor %}
-</section>
-<section>
-  <form action="" method="post">
-    <h3>Place a New Contract</h3>
-    {{ form.as_p }} {% csrf_token %}
-    <input type="submit" value="Submit" id="submit" />
-  </form>
 </section>
 {% endblock %}
