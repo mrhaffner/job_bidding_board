@@ -9,7 +9,7 @@ USER_CHOICES = [
 
 class User(AbstractUser):
     """A user of the contract board is a contractor or a contractee."""
-    user_type = models.CharField(max_length=10, choices=USER_CHOICES)
+    type = models.CharField(max_length=10, choices=USER_CHOICES)
     agency_name = models.CharField(max_length=200)
 
 
@@ -24,7 +24,7 @@ class Contract(models.Model):  # type: ignore[misc]
     # contact_information = models.CharField(max_length=500)  # length
     bidding_end_date = models.DateField()
     job_description = models.TextField()
-    contractee = models.OneToOneField(User)
+    contractee = models.OneToOneField(User, on_delete=models.CASCADE)
 
     @property
     def lowest_bid(self) -> float:
@@ -57,4 +57,4 @@ class Bid(models.Model):  # type: ignore[misc]
     # contact_information = models.CharField(max_length=500)  # length
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
-    contractor = models.OneToOneField(User)
+    contractor = models.OneToOneField(User, on_delete=models.CASCADE)

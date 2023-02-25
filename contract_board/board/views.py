@@ -1,9 +1,11 @@
 from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect, \
     HttpResponseRedirect
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views.decorators.http import require_http_methods
+from django.views.generic import CreateView
 
-from board.forms import ContractForm, BidForm
+from board.forms import ContractForm, BidForm, CustomUserCreationForm
 from board.models import Contract, Bid
 
 
@@ -51,3 +53,9 @@ def contract(request: HttpRequest,
     form = BidForm(for_contract=contract)
     bids = Bid.objects.filter(contract__pk=contract.pk)[::-1]
     return render(request, 'contract.html', {'contract': contract, 'bids': bids, 'form': form})
+
+
+class UserCreateView(CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')  # correct?
+    template_name = 'register.html'
