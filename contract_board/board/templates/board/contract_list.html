@@ -2,7 +2,7 @@
 <h1 class="title">The Contract Board</h1>
 <section>
   <h2>Contracts</h2>
-  {% for contract in contracts %}
+  {% for contract in object_list %}
   <div class="contract-listing">
     <a href="contract/{{ contract.pk }}">
       <h3>{{ contract.contract_title }}</h3>

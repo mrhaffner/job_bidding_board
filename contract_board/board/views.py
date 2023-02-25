@@ -1,12 +1,42 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect, \
     HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.decorators.http import require_http_methods
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView, FormView, View
+from django.views.generic.detail import SingleObjectMixin
 
 from board.forms import ContractForm, BidForm, CustomUserCreationForm
 from board.models import Contract, Bid
+
+
+class ContractListView(LoginRequiredMixin, ListView):
+    """"""
+    model = Contract
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ContractForm()
+        return context
+
+
+class ContractFormView(SingleObjectMixin, FormView):
+    """"""
+    template_name = 'board/contract_list.html'
+    form_class = ContractForm
+    success_url = reverse_lazy('home')
+
+
+class ContractBoardView(View):
+    """"""
+    def get(self, request, *args, **kwargs):
+        view = ContractListView.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = ContractFormView.as_view()
+        return view(request, *args, **kwargs)
 
 
 @require_http_methods(["GET", "POST"])
@@ -58,4 +88,4 @@ def contract(request: HttpRequest,
 class UserCreateView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')  # correct?
-    template_name = 'register.html'
+    template_name = 'registration/register.html'

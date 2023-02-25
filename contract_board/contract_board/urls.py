@@ -20,11 +20,8 @@ from board import views as board_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', board_views.contract_list, name='home'),
+    path('', board_views.ContractBoardView.as_view(), name='home'),
     path('contract/<int:contract_id>', board_views.contract),
-    path('accounts/', include('django.contrib.auth.urls')),
-    # path('login', board_views.login),
-    # path('logout', board_views.logout),
-    path('register', board_views.UserCreateView.as_view()),
-    # path('accounts/login', auth_views.LoginView.as_view(template_name='registration/login.html')),
+    path('register', board_views.UserCreateView.as_view(), name='register'),
+    path('accounts/login/', auth_views.LoginView.as_view(next_page='home'), name='login'),
 ]
