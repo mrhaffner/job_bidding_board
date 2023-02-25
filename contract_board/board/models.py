@@ -1,4 +1,16 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+
+USER_CHOICES = [
+    ('CONTRACTOR', 'Contractor'),
+    ('CONTRACTEE', 'Contractee'),
+]
+
+class User(AbstractUser):
+    """A user of the contract board is a contractor or a contractee."""
+    user_type = models.CharField(max_length=10, choices=USER_CHOICES)
+    agency_name = models.CharField(max_length=200)
 
 
 class Contract(models.Model):  # type: ignore[misc]
@@ -8,10 +20,11 @@ class Contract(models.Model):  # type: ignore[misc]
     calculate lowest bid and number of bids.
     """
     contract_title = models.CharField(max_length=200)  # length
-    agency_name = models.CharField(max_length=200)  # length
-    contact_information = models.CharField(max_length=500)  # length
+    # agency_name = models.CharField(max_length=200)  # length
+    # contact_information = models.CharField(max_length=500)  # length
     bidding_end_date = models.DateField()
     job_description = models.TextField()
+    contractee = models.OneToOneField(User)
 
     @property
     def lowest_bid(self) -> float:
@@ -39,8 +52,9 @@ class Bid(models.Model):  # type: ignore[misc]
     contact information, date placed, and foreign key
     to a Contract object.
     """
-    contractor_name = models.CharField(max_length=200)  # length
+    # contractor_name = models.CharField(max_length=200)  # length
     amount = models.FloatField()  # decimal places
-    contact_information = models.CharField(max_length=500)  # length
+    # contact_information = models.CharField(max_length=500)  # length
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
+    contractor = models.OneToOneField(User)
