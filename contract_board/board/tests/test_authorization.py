@@ -11,14 +11,32 @@ class AuthorizationPagesTest(FunctionalTest):
         """Tests user registration."""
 
    def test_logout(self) -> None:
-    # Login the user first
-    login_result = login(username="testuser", password="testpass")
-    self.assertEqual(login_result, "Login successful")
-
-    # Logout the user and check if the user is actually logged out
-    logout_result = logout()
-    self.assertEqual(logout_result, "Logout successful")
-    self.assertFalse(is_logged_in())
+    """Tests logging out a user."""
+    # Launch the browser and open the login page
+    self.driver = webdriver.Chrome()
+    self.driver.get("https://example.com/login")
+    
+    # Fill in the login form and submit it
+    username_field = self.driver.find_element_by_name("username")
+    password_field = self.driver.find_element_by_name("password")
+    username_field.send_keys("testuser")
+    password_field.send_keys("testpass")
+    password_field.submit()
+    
+    # Verify that the user is logged in by checking for some element on the logged in page
+    logged_in_message = self.driver.find_element_by_id("welcome-message")
+    assert logged_in_message.text == "Welcome, testuser!"
+    
+    # Click on the logout button
+    logout_button = self.driver.find_element_by_id("logout-button")
+    logout_button.click()
+    
+    # Verify that the user is logged out by checking for some element on the login page
+    login_message = self.driver.find_element_by_id("login-message")
+    assert login_message.text == "Please log in"
+    
+    # Close the browser
+    self.driver.quit()
 
     def test_authenticated_redirected_from_login(self) -> None:
         """Tests that an authenticated user is redirected away from login page."""
