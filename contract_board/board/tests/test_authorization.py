@@ -23,7 +23,7 @@ class AuthorizationPagesTest(FunctionalTest):
         click_submit  = self.browser.find_elemtn_by_css_selector('button[type="submit"]')
 
         enter_username.send_keys('bot')
-        enter_password.sendpassword("test@123467890") #password is long because it needs comlexity 
+        enter_password.send_keys("test@123467890") #password is long because it needs comlexity 
         click_submit.click()
         self.browser.get(self.base_url + '/accounts/login')  #now try to go back to login 
 
@@ -38,11 +38,13 @@ class AuthorizationPagesTest(FunctionalTest):
 
         enter_username = self.browser.find_element_by_name('username')
         enter_password  = self.browser.find_element_by_name('password')
+        enter_confirm = self.browser.find_element_by_name('confirm password')
         click_submit  = self.browser.find_elemtn_by_css_selector('button[type="submit"]')
 
 
         enter_username.send_keys('newbot')
-        enter_password.sendpassword("test@123467890") #password is long because it needs comlexity 
+        enter_password.send_keys("test@123467890") #password is long because it needs comlexity 
+        enter_confirm.send_keys("test@123467890")
         #am not sure what other information needs that needs to be filled out so fill out here 
         click_submit.click()
         self.browser.get(self.base_url + '/accounts/register')  #now try to go back to login 
