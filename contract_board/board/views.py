@@ -34,8 +34,6 @@ class BidCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.contractor = self.request.user
         form.instance.contract = Contract.objects.get(pk=self.kwargs['pk'])
-        print(form.instance.contract)
-        print(self.kwargs['pk'])
         return super().form_valid(form)
 
 

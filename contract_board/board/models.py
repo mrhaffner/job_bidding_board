@@ -20,8 +20,6 @@ class Contract(models.Model):  # type: ignore[misc]
     calculate lowest bid and number of bids.
     """
     contract_title = models.CharField(max_length=200)  # length
-    # agency_name = models.CharField(max_length=200)  # length
-    # contact_information = models.CharField(max_length=500)  # length
     bidding_end_date = models.DateField()
     job_description = models.TextField()
     contractee = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -56,9 +54,7 @@ class Bid(models.Model):  # type: ignore[misc]
     contact information, date placed, and foreign key
     to a Contract object.
     """
-    # contractor_name = models.CharField(max_length=200)  # length
     amount = models.FloatField()  # decimal places
-    # contact_information = models.CharField(max_length=500)  # length
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
     contractor = models.ForeignKey(User, on_delete=models.CASCADE)
