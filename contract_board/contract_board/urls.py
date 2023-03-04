@@ -26,4 +26,5 @@ urlpatterns = [
     path('contract/<int:pk>/bid', board_views.BidCreateView.as_view()),
     path('register', board_views.UserCreateView.as_view(), name='register'),
     path('accounts/login/', auth_views.LoginView.as_view(next_page='home'), name='login'),
+    path('user', board_views.UserView.as_view(), name='user')
 ]
