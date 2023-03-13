@@ -200,6 +200,10 @@ section {
   margin-bottom: 20px;
 }
 
+td {
+  padding-right: 12px;
+}
+
 .bid-listing,
 .contract-listing {
   border-radius: 4px;

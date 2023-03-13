@@ -1,8 +1,19 @@
 {% extends 'base.html' %} {% block content %}
 <section>
-  <div>{{ user.agency_name }}</div>
-  <div>{{ user.email }}</div>
-  <div>{{ user.type }}</div>
+  <table>
+    <tr>
+      <td>Agency:</td>
+      <td>{{ user.agency_name }}</td>
+    </tr>
+    <tr>
+      <td>Email:</td>
+      <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+      <td>User Type:</td>
+      <td>{{ user.type|lower }}</td>
+    </tr>
+  </table>
 </section>
 <section>
   {% if user.type == 'CONTRACTOR' %}
