@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from board.forms import CustomUserCreationForm
-from board.models import Contract, Bid
+from board.models import Bid, Contract
 
 
 class ContractListView(LoginRequiredMixin, ListView):
@@ -43,3 +43,21 @@ class UserCreateView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')  # correct?
     template_name = 'registration/register.html'
+
+
+class UserView(LoginRequiredMixin, TemplateView):
+    template_name = 'user/user.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserView, self).get_context_data(*args, **kwargs)
+        user = self.request.user
+        if user.type == 'CONTRACTEE':
+            contracts = Contract.objects.filter(contractee=user)
+        else:
+            contracts = Contract.objects.filter(bid__contractor=user).distinct()
+
+        context.update({
+            'user': self.request.user,
+            'contracts': contracts
+        })
+        return context
