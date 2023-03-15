@@ -29,12 +29,14 @@ class ContractDetailView(LoginRequiredMixin, DetailView):
 class BidCreateView(LoginRequiredMixin, CreateView):
     model = Bid
     fields = ['amount']
-    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         form.instance.contractor = self.request.user
         form.instance.contract = Contract.objects.get(pk=self.kwargs['pk'])
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('contract_view', kwargs={'pk': self.kwargs['pk']})
 
 
 class UserCreateView(CreateView):
