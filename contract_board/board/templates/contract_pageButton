@@ -1,0 +1,68 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+    <section>
+        <h2>{{ contract.contract_title }}</h1>
+        <div class="listing-items">
+            <div>
+                <span>Agency Name:</span> 
+                <span>{{ contract.agency_name }}</span>
+            </div>
+            <div>
+                <span>Contact Information:</span> 
+                <span>{{ contract.contact_information }}</span>
+            </div>
+            <div>
+                <span>Expiration Date:</span> 
+                <span>{{ contract.bidding_end_date }}</span>
+            </div>
+            <div>
+                <span>Lowest Bid:</span> 
+                <span>{% if contract.lowest_bid == 0 %} None {% else %} ${{ contract.lowest_bid }} {% endif %}</span>
+            </div>
+            {% if user.is_authenticated %}
+                <!-- Display a "Place Bid" button if the user is authenticated -->
+                <div>
+                    <a href="{% url 'bid_form' contract.pk %}" class="btn">Place Bid</a>
+                </div>
+            {% endif %}
+            <div>
+                <span>Description:</span>
+                <span>{{ contract.job_description }}</span>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Current Bids</h2>
+        {% if user.is_authenticated %}
+            {% if bids %}
+                <!-- Display the bid list if the user is authenticated and bids have been placed -->
+                {% for bid in bids %}
+                    <div class="bid-listing">
+                        <h3>{{ bid.contractor_name }}</h3>
+                        <div class="listing-items">
+                            <div>
+                                <span>Bid:</span> 
+                                <span>${{ bid.amount }}</span>
+                            </div>
+                            <div>
+                                <span>Contact Information:</span> 
+                                <span>{{ bid.contact_information }}</span>
+                            </div>
+                            <div>
+                                <span>Date Placed:</span> 
+                                <span>{{ bid.date_placed }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <!-- Display a message if the user is authenticated but no bids have been placed yet -->
+                <p>No bids have been placed yet.</p>
+            {% endif %}
+        {% else %}
+            <!-- Display a message prompting the user to log in if they are not authenticated -->
+            <p>Please log in to view and place bids.</p>
+        {% endif %}
+    </section>
+{% endblock %}
