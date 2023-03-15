@@ -26,25 +26,29 @@
     </section>
     <section class="bid-list">
         <h2>Current Bids</h2>
-        {% for bid in bids %}
-            <div class="bid-listing">
-                <h3>{{ bid.contractor_name }}</h3>
-                <div class="listing-items">
-                    <div>
-                        <span>Bid:</span> 
-                        <span class="bid-amount">${{ bid.amount }}</span>
-                    </div>
-                    <div>
-                        <span>Contact Information:</span> 
-                        <span class="bid-contact-information">{{ bid.contact_information }}</span>
-                    </div>
-                    <div>
-                        <span>Date Placed:</span> 
-                        <span class="bid-date-placed">{{ bid.date_placed }}</span>
+        {% if bids|length == 0 %}
+            <p>No bids have been placed yet.</p>
+        {% else %}
+            {% for bid in bids %}
+                <div class="bid-listing">
+                    <h3>{{ bid.contractor_name }}</h3>
+                    <div class="listing-items">
+                        <div>
+                            <span>Bid:</span> 
+                            <span class="bid-amount">${{ bid.amount }}</span>
+                        </div>
+                        <div>
+                            <span>Contact Information:</span> 
+                            <span class="bid-contact-information">{{ bid.contact_information }}</span>
+                        </div>
+                        <div>
+                            <span>Date Placed:</span> 
+                            <span class="bid-date-placed">{{ bid.date_placed }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% endif %}
     </section>
     <section>
         <form action="{{ contract.pk }}" method="post">

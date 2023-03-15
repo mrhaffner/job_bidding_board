@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="title">The Contract Board</h1>
+<section>
+  <h2>Contracts</h2>
+  {% if contracts|length == 0 %}
+      <p>No contracts found.</p>
+  {% else %}
+      {% for contract in contracts %}
+      <div class="contract-listing">
+        <a href="contract/{{ contract.pk }}">
+          <h3>{{ contract.contract_title }}</h3>
+          <div class="listing-items">
+            <div>
+              <span>Agency Name:</span>
+              <span class="listing-agency-name">{{ contract.agency_name }}</span>
+            </div>
+            <div>
+              <span>Expiration Date:</span>
+              <span class="listing-bidding-end-date"
+                >{{ contract.bidding_end_date }}</span
+              >
+            </div>
+            <div>
+              <span>Lowest Bid:</span>
+              <span class="listing-lowest-bid">
+                {% if contract.lowest_bid == 0 %} None {% else %}
+                ${{contract.lowest_bid}} {% endif %}
+              </span>
+            </div>
+            <div>
+              <span>Number of Bids:</span>
+              <span class="listing-number-bids">{{ contract.number_bids }}</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+  {% endif %}
+</section>
+<section>
+  <form action="" method="post">
+    <h3>Place a New Contract</h3>
+    {{ form.as_p }} {% csrf_token %}
+    <input type="submit" value="Submit" id="submit" />
+  </form>
+</section>
+{% endblock %}
