@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base_auth.html' %} {% block content %}
 <form action="" method="post">
   <h3>Please register</h3>
   {{ form.as_p }} {% csrf_token %}
