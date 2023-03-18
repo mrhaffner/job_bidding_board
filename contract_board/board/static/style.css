@@ -237,3 +237,16 @@ h3 {
   margin: auto;
   width: 60%;
 }
+.return-home-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s;
+}
+.return-home-btn:hover {
+  background-color: #388e3c;
+}

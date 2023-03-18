@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponse
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
@@ -62,6 +63,11 @@ class UserCreateView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/register.html'
+
+    def dispatch(self, request: HttpRequest, *args, **kwargs) -> (HttpResponseRedirect | HttpResponsePermanentRedirect | HttpResponse):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
 
 
 class UserView(LoginRequiredMixin, TemplateView):
