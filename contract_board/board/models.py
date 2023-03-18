@@ -1,10 +1,7 @@
-import django_stubs_ext
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-django_stubs_ext.monkeypatch()  # for generics to work
 
 USER_CHOICES = [
     ('CONTRACTOR', 'Contractor'),
@@ -18,19 +15,19 @@ class User(AbstractUser):
     agency_name = models.CharField(max_length=200)
 
 
-class Contract(models.Model):  # type: ignore[misc]
+class Contract(models.Model):
     """
     A contract object with a title, agency name, contact information,
     bidding end date, and job description. Includes methods to
     calculate lowest bid and number of bids.
     """
-    contract_title = models.CharField(max_length=200)  # length
+    contract_title = models.CharField(max_length=200)
     bidding_end_date = models.DateField()
     job_description = models.TextField()
     contractee = models.ForeignKey(User, on_delete=models.CASCADE)
 
     @property
-    def lowest_bid(self) -> float:
+    def lowest_bid(self):
         """
         Returns the lowest bid amount for the contract object.
         """
@@ -41,7 +38,7 @@ class Contract(models.Model):  # type: ignore[misc]
         return lowest_bid if lowest_bid < float('inf') else 0
 
     @property
-    def number_bids(self) -> int:
+    def number_bids(self):
         """
         Returns the number of bids for the contract object.
         """
@@ -49,17 +46,17 @@ class Contract(models.Model):  # type: ignore[misc]
         return len(bids)
 
     @property
-    def bids(self) -> models.Manager:
+    def bids(self):
         return Bid.objects.filter(contract__pk=self.pk)
 
 
-class Bid(models.Model):  # type: ignore[misc]
+class Bid(models.Model):
     """
     A bid object with a contractor name, bid amount,
     contact information, date placed, and foreign key
     to a Contract object.
     """
-    amount = models.FloatField()  # decimal places
+    amount = models.FloatField()
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
     contractor = models.ForeignKey(User, on_delete=models.CASCADE)
