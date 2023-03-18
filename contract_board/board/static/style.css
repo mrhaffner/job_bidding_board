@@ -189,11 +189,14 @@ main {
 nav {
   background-color: darkblue;
   color: white;
-  display: flex;
-  justify-content: space-around;
   font-size: larger;
   font-weight: bold;
   padding: 10px 0 10px 0;
+}
+
+nav > .wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 
 section {
@@ -229,6 +232,14 @@ h3 {
   padding-bottom: 5px;
 }
 
+.nav-auth-items > a {
+  margin-left: 30px;
+}
+
+.nav-item:hover {
+  color: rgb(3, 169, 244);
+}
+
 .title {
   text-align: center;
 }
@@ -237,6 +248,7 @@ h3 {
   margin: auto;
   width: 60%;
 }
+
 .return-home-btn {
   display: inline-block;
   padding: 1rem 2rem;
