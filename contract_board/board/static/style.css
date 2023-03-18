@@ -207,6 +207,10 @@ td {
   padding-right: 12px;
 }
 
+.auth-link {
+  margin-top: 30px;
+}
+
 .bid-listing,
 .contract-listing {
   border-radius: 4px;
@@ -216,6 +220,10 @@ td {
 
 .bid-listing {
   background-color: whitesmoke;
+}
+
+.center {
+  margin: auto;
 }
 
 .contract-listing {
@@ -240,7 +248,7 @@ h3 {
   color: rgb(3, 169, 244);
 }
 
-.title {
+.text-center {
   text-align: center;
 }
 
