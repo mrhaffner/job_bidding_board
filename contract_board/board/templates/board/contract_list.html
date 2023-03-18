@@ -1,13 +1,12 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <h1 class="title">The Contract Board</h1>
 <section>
   <h2>Contracts</h2>
-  {% if user.type == 'contractee' %}
-    <a href="{% url 'create_contract' %}" class="contract-form-button">Create New Contract</a>
-  {% endif %}
-  {% for contract in object_list %}
+  {% if user.type == 'CONTRACTEE' %}
+  <a href="{% url 'create_contract' %}" class="contract-form-button"
+    >Create New Contract</a
+  >
+  {% endif %} {% for contract in object_list %}
   <div class="contract-listing">
     <a href="contract/{{ contract.pk }}">
       <h3>{{ contract.contract_title }}</h3>
@@ -41,4 +40,3 @@
   {% endfor %}
 </section>
 {% endblock %}
-
