@@ -3,9 +3,7 @@
 <section>
   <h2>Contracts</h2>
   {% if user.type == 'CONTRACTEE' %}
-  <a href="{% url 'create_contract' %}" class="contract-form-button"
-    >Create New Contract</a
-  >
+  <a href="{% url 'create_contract' %}">Create New Contract</a>
   {% endif %} {% for contract in object_list %}
   <div class="contract-listing">
     <a href="contract/{{ contract.pk }}">
