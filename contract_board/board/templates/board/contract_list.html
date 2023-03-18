@@ -2,7 +2,10 @@
 <h1 class="title">The Contract Board</h1>
 <section>
   <h2>Contracts</h2>
-  {% for contract in object_list %}
+  {% if contracts|length == 0 %}
+  <p>No contracts found.</p>
+{% else %}
+  {% for contract in contracts %}
   <div class="contract-listing">
     <a href="contract/{{ contract.pk }}">
       <h3>{{ contract.contract_title }}</h3>
@@ -34,5 +37,6 @@
     </a>
   </div>
   {% endfor %}
+  {% endif %}
 </section>
 {% endblock %}

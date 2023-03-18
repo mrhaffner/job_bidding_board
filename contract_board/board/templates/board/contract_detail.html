@@ -26,7 +26,10 @@
     </section>
     <section class="bid-list">
         <h2>Current Bids</h2>
-        {% for bid in object.bids %}
+        {% if bids|length == 0 %}
+            <p>No bids have been placed yet.</p>
+        {% else %}
+            {% for bid in bids %}
             <div class="bid-listing">
                 <h3>{{ bid.contractor_name }}</h3>
                 <div class="listing-items">
@@ -45,5 +48,6 @@
                 </div>
             </div>
         {% endfor %}
+        {% endif %}
     </section>
 {% endblock %}
