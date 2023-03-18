@@ -1,11 +1,16 @@
+import django_stubs_ext
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
+django_stubs_ext.monkeypatch()  # for generics to work
 
 USER_CHOICES = [
     ('CONTRACTOR', 'Contractor'),
     ('CONTRACTEE', 'Contractee'),
 ]
+
 
 class User(AbstractUser):
     """A user of the contract board is a contractor or a contractee."""
@@ -44,7 +49,7 @@ class Contract(models.Model):  # type: ignore[misc]
         return len(bids)
 
     @property
-    def bids(self):
+    def bids(self) -> models.Manager:
         return Bid.objects.filter(contract__pk=self.pk)
 
 
