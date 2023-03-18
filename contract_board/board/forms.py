@@ -1,10 +1,6 @@
-import django_stubs_ext
-
 from django.contrib.auth.forms import UserCreationForm
 
 from board.models import User
-
-django_stubs_ext.monkeypatch()  # for generics to work
 
 
 class CustomUserCreationForm(UserCreationForm):
