@@ -2,6 +2,9 @@
 <h1 class="title">The Contract Board</h1>
 <section>
   <h2>Contracts</h2>
+  {% if user.type == 'CONTRACTEE' %}
+  <a href="{% url 'create_contract' %}">Create New Contract</a>
+  {% endif %} {% for contract in object_list %}
   {% if object_list|length == 0 %}
   <p>No contracts found.</p>
   {% else %} {% for contract in object_list %}
