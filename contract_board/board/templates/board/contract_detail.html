@@ -1,8 +1,8 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% block content %}
     <section id="contract">
-        <h2>{{ object.contract_title }}</h1>
+        <h2>{{ object.contract_title }}</h2>
         <div class="listing-items">
             <div>
                 <span>Agency Name:</span> 
@@ -14,10 +14,12 @@
             </div>
             <div>
                 <span>Expiration Date:</span> 
-                <span class="contract-bidding-end-date">{{ object.bidding_end_date }}</span></div>
+                <span class="contract-bidding-end-date">{{ object.bidding_end_date }}</span>
+            </div>
             <div>
                 <span>Lowest Bid:</span> 
-                <span class="contract-lowest-bid">{% if object.lowest_bid == 0 %} None {% else %} ${{ object.lowest_bid }} {% endif %}</span></div>
+                <span class="contract-lowest-bid">{% if object.lowest_bid == 0 %} None {% else %} ${{ object.lowest_bid }} {% endif %}</span>
+            </div>
             <div>
                 <span>Description:</span>
                 <span class="contract-job-description">{{ object.job_description }}</span>
@@ -26,6 +28,11 @@
     </section>
     <section class="bid-list">
         <h2>Current Bids</h2>
+        {% if user.type == 'contractor' %}
+            <a href="{% url 'create_bid' object.pk %}" class="bid-button">Place a Bid</a>
+        {% elif user.type == 'contractee' %}
+            <a href="{% url 'create_contract' %}" class="contract-button">Place Contract</a>
+        {% endif %}
         {% for bid in object.bids %}
             <div class="bid-listing">
                 <h3>{{ bid.contractor_name }}</h3>
