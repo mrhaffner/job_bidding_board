@@ -1,32 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
     <link rel="stylesheet" href="/static/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <title>Contract Board</title>
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="wrapper">
-          <a href="{% url 'home' %}" class="nav-item">Contract Bidding Board</a>
-          <div class="nav-auth-items">
-            {% if user.is_authenticated %}
-            <a href="{% url 'user' %}" class="nav-item">@{{ user.username }}</a>
-            <a href="{% url 'logout' %}" class="nav-item">Logout</a>
-            {% else %}
-              <a href="{% url 'login' %}" class="nav-item">Login</a>
-            {% endif %}
-          </div>
-        </div>
+      <nav class="container-fluid">
+        <ul>
+          <li>
+            <a href="{% url 'home' %}" class="contrast">
+              <strong>Contract Bidding Board</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="{% url 'user' %}" class="secondary">@{{ user.username }}</a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}" class="secondary">Logout</a>
+          </li>
+        </ul>
       </nav>
-    </header>
     <main>
-      <div class="wrapper">{% block content %} {% endblock %}</div>
+      <div class="container">{% block content %} {% endblock %}</div>
     </main>
   </body>
 </html>

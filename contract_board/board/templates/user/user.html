@@ -1,65 +1,54 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <section>
-    <table>
-      <tr>
-        <td>Agency:</td>
-        <td>{{ user.agency_name }}</td>
-      </tr>
-      <tr>
-        <td>Email:</td>
-        <td>{{ user.email }}</td>
-      </tr>
-      <tr>
-        <td>User Type:</td>
-        <td>{{ user.type|lower }}</td>
-      </tr>
-    </table>
-  </section>
+  <article>
+    <h3>{{ user.username }}</h3>
+    <div class="h-stack">
+      <div><b>Agency:</b></div>
+      <div><b>Email:</b></div>
+      <div><b>User Type:</b></div>
+    </div>
+    <div class="h-stack">
+      <div>{{ user.agency_name }}</div>
+      <div>{{ user.email }}</div>
+      <div>{{ user.type|lower }}</div>
+    </div>
+  </article>
   <section>
     {% if user.type == 'CONTRACTOR' %}
-      <h3>Contracts you have bid on</h3>
+      <h3>Contracts Bid On</h3>
     {% else %}
-      <h3>Contracts you have placed</h3>
+      <h3>Contracts Placed</h3>
     {% endif %} 
     {% if contracts|length == 0 %}
-      <p>No contracts found.</p>
+      <div>No contracts found</div>
     {% else %}
-      {% for contract in contracts %}
-      <div class="contract-listing">
-        <a href="contract/{{ contract.pk }}">
-          <h3>{{ contract.contract_title }}</h3>
-          <div class="listing-items">
-            <div>
-              <span>Agency Name:</span>
-              <span class="listing-agency-name">
-                {{ contract.contractee.agency_name }}
-              </span>
-            </div>
-            <div>
-              <span>Expiration Date:</span>
-              <span class="listing-bidding-end-date">
-                {{ contract.bidding_end_date }}
-              </span>
-            </div>
-            <div>
-              <span>Lowest Bid:</span>
-              <span class="listing-lowest-bid">
-                {% if contract.lowest_bid == 0 %} 
-                  None 
-                {% else %}
-                  ${{ contract.lowest_bid }} 
-                {% endif %}
-              </span>
-            </div>
-            <div>
-              <span>Number of Bids:</span>
-              <span class="listing-number-bids">{{ contract.number_bids }}</span>
-            </div>
-          </div>
-        </a>
+      <div class="card-grid">
+        {% for contract in contracts %}
+          <a href="contract/{{ contract.pk }}">
+            <article class="remove-margin">
+              <h5>{{ contract.contract_title }}</h5>
+              <div class="h-stack">
+                <div><b>Agency Name:</b></div>
+                <div><b>Expiration Date:</b></div>
+                <div><b>Lowest Bid:</b></div>
+                <div><b>Number of Bids:</b></div>
+              </div>
+              <div class="h-stack">
+                <div>{{ contract.contractee.agency_name }}</div>
+                <div>{{ contract.bidding_end_date }}</div>
+                <div>
+                  {% if contract.lowest_bid == 0 %} 
+                    None 
+                  {% else %}
+                    ${{ contract.lowest_bid }} 
+                  {% endif %}
+                </div>
+                <div>{{ contract.number_bids }}</div>
+              </div>
+            </article>
+          </a>
+        {% endfor %}
       </div>
-      {% endfor %}
     {% endif %} 
   </section>
 {% endblock %}
