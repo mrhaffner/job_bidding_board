@@ -45,11 +45,7 @@ package "models" {
 
 package "views" {
 class View {}
-class ListView {}
-class DetailView {}
 class CreateView {}
-class DetailView {}
-class TemplateView {}
 abstract class LoginRequiredMixin {}
 
 class LoginView {}
@@ -89,36 +85,40 @@ class UserView {
  get_context_data(): dict[str, str]
 }
 
-View <|-- ListView
-View <|-- DetailView
-View <|-- CreateView
-View <|-- TemplateView
 View <|-- LoginView
 View <|-- LogoutView
-DetailView <|-- ContractDetailView
-ListView <|-- ContractListView
+View <|-- ContractDetailView
+View <|-- ContractListView
+View <|-- CreateView
 CreateView <|-- ContractCreateView
 CreateView <|-- UserCreateView
 CreateView <|-- BidCreateView
-TemplateView <|-- UserView
+View <|-- UserView
 LoginRequiredMixin <|-- ContractDetailView
 LoginRequiredMixin <|-- ContractListView
 LoginRequiredMixin <|-- ContractCreateView
 LoginRequiredMixin <|-- BidCreateView
 LoginRequiredMixin <|-- UserView
+
+ContractCreateView *-- Contract
+ContractListView *-- Contract
+ContractDetailView *-- Contract
+BidCreateView *-- Bid
+UserView *-- User
+UserCreateView *-- User
+LoginView *-- User
+LogoutView *-- User
 }
 
 package "forms" {
 class Form {}
-class UserCreationForm {}
 
 class CustomUserCreationForm {
 model: User
 fields: str[]
 }
 
-Form <|-- UserCreationForm
-UserCreationForm <|-- CustomUserCreationForm
+Form <|-- CustomUserCreationForm
 }
 
 CustomUserCreationForm *-- User
