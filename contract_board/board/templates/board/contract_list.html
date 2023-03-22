@@ -11,8 +11,8 @@
       <div>No contracts found</div>
     {% else %} 
       {% for contract in object_list %}
-        <a href="contract/{{ contract.pk }}">
-          <article class="remove-margin">
+        <div class="overlay-container">
+          <article class="remove-margin overlay-content">
             <h4>{{ contract.contract_title }}</h4>
             <div class="h-stack">
               <div><b>Agency Name:</b></div>
@@ -33,7 +33,8 @@
               <div>{{ contract.number_bids }}</div>
             </div>
           </article>
-        </a>
+          <a href="contract/{{ contract.pk }}" class="overlay"></a>
+        </div>
       {% endfor %} 
     {% endif %}
   </section>

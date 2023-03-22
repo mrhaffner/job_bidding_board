@@ -24,8 +24,8 @@
     {% else %}
       <div class="card-grid">
         {% for contract in contracts %}
-          <a href="contract/{{ contract.pk }}">
-            <article class="remove-margin">
+          <div class="overlay-container">
+            <article class="remove-margin overlay-content">
               <h5>{{ contract.contract_title }}</h5>
               <div class="h-stack">
                 <div><b>Agency Name:</b></div>
@@ -46,7 +46,8 @@
                 <div>{{ contract.number_bids }}</div>
               </div>
             </article>
-          </a>
+            <a href="contract/{{ contract.pk }}" class="overlay"></a>
+          </div>
         {% endfor %}
       </div>
     {% endif %} 
