@@ -1,5 +1,6 @@
 {% extends 'base.html' %} 
 {% block content %}
+  <h1>Your Page</h1>
   <article>
     <h3>{{ user.username }}</h3>
     <div class="h-stack">
@@ -15,9 +16,9 @@
   </article>
   <section>
     {% if user.type == 'CONTRACTOR' %}
-      <h3>Contracts Bid On</h3>
+      <h3 style="color: white;">Contracts Bid On</h3>
     {% else %}
-      <h3>Contracts Placed</h3>
+      <h3 style="color: white;">Contracts Placed</h3>
     {% endif %} 
     {% if contracts|length == 0 %}
       <div>No contracts found</div>

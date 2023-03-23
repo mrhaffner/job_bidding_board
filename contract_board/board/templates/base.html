@@ -8,10 +8,11 @@
     <title>Contract Board</title>
   </head>
   <body>
-      <nav class="container-fluid">
+    <div class="container">
+      <nav>
         <ul>
           <li>
-            <a href="{% url 'home' %}" class="contrast">
+            <a href="{% url 'home' %}" class="secondary">
               <strong>Contract Bidding Board</strong>
             </a>
           </li>
@@ -21,10 +22,11 @@
             <a href="{% url 'user' %}" class="secondary">@{{ user.username }}</a>
           </li>
           <li>
-            <a href="{% url 'logout' %}" class="secondary">Logout</a>
+            <a href="{% url 'logout' %}" role="button" class="secondary outline">Logout</a>
           </li>
         </ul>
       </nav>
+    </div>
     <main>
       <div class="container">{% block content %} {% endblock %}</div>
     </main>

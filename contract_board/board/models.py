@@ -20,7 +20,7 @@ class Contract(models.Model):
     bidding end date, and job description. Includes methods to
     calculate lowest bid and number of bids.
     """
-    contract_title = models.CharField(max_length=200)
+    contract_title = models.CharField(max_length=200, unique=True)
     bidding_end_date = models.DateField()
     job_description = models.TextField()
     contractee = models.ForeignKey(User, on_delete=models.CASCADE)
