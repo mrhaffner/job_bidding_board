@@ -1,9 +1,12 @@
 {% extends 'base.html' %} 
 {% block content %}
+<div class="container">
   <h1 class="text-center">The Contract Board</h1>
   {% if user.type == 'CONTRACTEE' %}
   <section>
+    <div class="right">
     <a href="{% url 'create_contract' %}" role="button">Create New Contract</a>
+    </div>
   </section>
   {% endif %} 
   <section class="card-grid">
@@ -38,5 +41,5 @@
       {% endfor %} 
     {% endif %}
   </section>
+</div>
 {% endblock %}
-s

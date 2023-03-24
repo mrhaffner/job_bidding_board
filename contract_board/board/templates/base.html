@@ -12,7 +12,7 @@
       <nav>
         <ul>
           <li>
-            <a href="{% url 'home' %}" class="secondary">
+            <a href="{% url 'home' %}" class="logo-blue">
               <strong>Contract Bidding Board</strong>
             </a>
           </li>
@@ -27,8 +27,6 @@
         </ul>
       </nav>
     </div>
-    <main>
-      <div class="container">{% block content %} {% endblock %}</div>
-    </main>
+      {% block content %} {% endblock %}
   </body>
 </html>

@@ -11,9 +11,9 @@
   --muted-color: hsl(205deg, 10%, 50%);
   --muted-border-color: hsl(205deg, 20%, 94%);
   --primary: rgb(3, 239, 98);
-  --primary-hover: hsl(195deg, 90%, 32%);
-  --primary-focus: rgba(16, 149, 193, 0.125);
-  --primary-inverse: #fff;
+  --primary-hover: #65ff8f;
+  --primary-focus: #65ff8f;
+  --primary-inverse: #000000;
   --secondary: #fff;
   --secondary-hover: hsl(205deg, 20%, 32%);
   --secondary-focus: rgba(89, 107, 120, 0.125);
@@ -143,4 +143,32 @@ html {
 
 .text-center {
   text-align: center;
+}
+
+.purple-bg {
+  background-color: #7933ff;
+}
+
+.beige-bg {
+  background-color: #fffbf3;
+}
+
+.pad-section {
+  padding: 20px 0 50px 0;
+}
+
+.logo-blue {
+  color: #06bdfc;
+}
+
+.logo-blue:hover,
+.logo-blue:focus {
+  background-color: rgb(0, 155, 216);
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 0;
 }

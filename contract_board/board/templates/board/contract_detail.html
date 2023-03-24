@@ -1,6 +1,9 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>View Contract</h1>
+<section class="container">
+  <div class="text-center">
+    <h1>View Contract</h1>
+  </div>
   <article>
     <h2>{{ object.contract_title }}</h2>
     <div class="h-stack">
@@ -23,38 +26,43 @@
       </div>
       <div>{{ object.job_description }}</div>
     </div>
-    <footer>
-      <nav>
-        <ul>
-          <li><h4>Current Bids</h4></li>
-        </ul>
-        {% if user.type == 'CONTRACTOR' %}
-          <ul>
-            <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
-          </ul>
-        {% endif %} 
-      </nav>
-      {% if object.bids|length == 0 %}
-        <div>There are no bids</div>
-      {% else %}
-        <div class="card-grid">
-          {% for bid in object.bids %}
-            <article class="remove-margin">
-              <h5>{{ bid.contractor.agency_name }}</h5>
-              <div class="h-stack">
-                <div><b>Bid:</b></div>
-                <div><b>Email:</b></div>
-                <div><b>Placed:</b></div>
-              </div>
-              <div class="h-stack">
-                <div>${{ bid.amount }}</div>
-                <div>{{ bid.contractor.email }}</div>
-                <div>{{ bid.date_placed }}</div>
-              </div>
-            </article>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </footer>
+
   </article>
+</section>
+<section class="beige-bg pad-section">
+  <div class="container">
+    <nav>
+      <ul>
+        <li><h4>Current Bids</h4></li>
+      </ul>
+      {% if user.type == 'CONTRACTOR' %}
+        <ul>
+          <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
+        </ul>
+      {% endif %} 
+    </nav>
+    {% if object.bids|length == 0 %}
+      <div>There are no bids</div>
+    {% else %}
+      <div class="card-grid">
+        {% for bid in object.bids %}
+          <article class="remove-margin">
+            <h5>{{ bid.contractor.agency_name }}</h5>
+            <div class="h-stack">
+              <div><b>Bid:</b></div>
+              <div><b>Email:</b></div>
+              <div><b>Placed:</b></div>
+            </div>
+            <div class="h-stack">
+              <div>${{ bid.amount }}</div>
+              <div>{{ bid.contractor.email }}</div>
+              <div>{{ bid.date_placed }}</div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}
+

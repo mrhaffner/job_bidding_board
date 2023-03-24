@@ -1,6 +1,9 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Your Page</h1>
+<section class="container">
+  <div class="text-center">
+    <h1>Your Page</h1>
+  </div>
   <article>
     <h3>{{ user.username }}</h3>
     <div class="h-stack">
@@ -14,12 +17,16 @@
       <div>{{ user.type|lower }}</div>
     </div>
   </article>
-  <section>
-    {% if user.type == 'CONTRACTOR' %}
-      <h3 style="color: white;">Contracts Bid On</h3>
-    {% else %}
-      <h3 style="color: white;">Contracts Placed</h3>
-    {% endif %} 
+</section>
+<section class="beige-bg pad-section">
+  <div class="container">
+    <h3>
+      {% if user.type == 'CONTRACTOR' %}
+        Contracts Bid On
+      {% else %}
+        Contracts Placed
+      {% endif %} 
+    </h3>
     {% if contracts|length == 0 %}
       <div>No contracts found</div>
     {% else %}
@@ -51,6 +58,7 @@
           </div>
         {% endfor %}
       </div>
-    {% endif %} 
-  </section>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}
