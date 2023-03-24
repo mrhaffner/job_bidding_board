@@ -1,1 +1,24 @@
+@startuml
+start
+if (User is not registered) then (no)
+  :Login;
+  if (Login is successful) then (yes)
+    :View Contract List;
+    if (User is Contractor) then (yes)
+      :Create Bid;
+    endif
+    :View Contract Detail;
+    if (User is Contractee) then (yes)
+      :Create Contract;
+    endif
+    :View User detail;
+    :Logout;
+  else (no)
+    :Show error message;
+  endif
+else (yes)
+  :Register User;
+endif
+stop
+@enduml
 
