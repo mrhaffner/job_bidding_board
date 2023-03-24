@@ -1,0 +1,29 @@
+@startuml
+actor User as "User (Contractor)"
+participant AuthenticationSystem as "Authentication System"
+participant ContractList as "Contract List"
+participant ContractDetail as "Contract Detail"
+participant UserDetail as "User Detail"
+participant BidSystem as "Bid System"
+
+User -> AuthenticationSystem: RegisterUser()
+AuthenticationSystem --> User: AcknowledgeRegistration()
+
+User -> AuthenticationSystem: Login()
+AuthenticationSystem --> User: AuthenticationResult()
+
+User -> AuthenticationSystem: Logout()
+AuthenticationSystem --> User: LogoutResult()
+
+User -> ContractList: ViewContractList()
+ContractList --> User: DisplayContracts()
+
+User -> ContractDetail: ViewContractDetail(contractId)
+ContractDetail --> User: DisplayContractDetails()
+
+User -> UserDetail: ViewUserDetail(userId)
+UserDetail --> User: DisplayUserDetails()
+
+User -> BidSystem: CreateBid(contractId, bidDetails)
+BidSystem --> User: BidCreationResult()
+@enduml
