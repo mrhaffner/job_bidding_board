@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -55,7 +56,7 @@ class Bid(models.Model):
     contact information, date placed, and foreign key
     to a Contract object.
     """
-    amount = models.FloatField()
+    amount = models.FloatField(validators=[MinValueValidator(0.01)])
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
     contractor = models.ForeignKey(User, on_delete=models.CASCADE)
