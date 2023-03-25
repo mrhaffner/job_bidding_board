@@ -25,6 +25,7 @@ class Contract(models.Model):
     bidding_end_date = models.DateField()
     job_description = models.TextField()
     contractee = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_placed = models.DateTimeField(auto_now_add=True)
 
     @property
     def lowest_bid(self):
@@ -48,6 +49,9 @@ class Contract(models.Model):
     @property
     def bids(self):
         return Bid.objects.filter(contract__pk=self.pk)
+    
+    class Meta:
+        ordering = ['-date_placed']
 
 
 class Bid(models.Model):
@@ -60,3 +64,6 @@ class Bid(models.Model):
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
     contractor = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-amount']
