@@ -20,37 +20,43 @@
 <section class="beige-bg pad-section">
   <div class="container">
     <h3>
-      {% if user.type == 'CONTRACTOR' %} Contracts Bid On {% else %} Contracts
-      Placed {% endif %}
+      {% if user.type == 'CONTRACTOR' %} 
+        Contracts Bid On 
+      {% else %} 
+        Contracts Placed 
+      {% endif %}
     </h3>
     {% if contracts|length == 0 %}
-    <div>No contracts found</div>
+      <div>No contracts found</div>
     {% else %}
-    <div class="card-grid">
-      {% for contract in contracts %}
-      <div class="overlay-container">
-        <article class="remove-margin overlay-content">
-          <h5>{{ contract.contract_title }}</h5>
-          <div class="h-stack">
-            <div><b>Agency Name:</b></div>
-            <div><b>Expiration Date:</b></div>
-            <div><b>Lowest Bid:</b></div>
-            <div><b>Number of Bids:</b></div>
+      <div class="card-grid">
+        {% for contract in contracts %}
+          <div class="overlay-container">
+            <article class="remove-margin overlay-content">
+              <h5>{{ contract.contract_title }}</h5>
+              <div class="h-stack">
+                <div><b>Agency Name:</b></div>
+                <div><b>Expiration Date:</b></div>
+                <div><b>Lowest Bid:</b></div>
+                <div><b>Number of Bids:</b></div>
+              </div>
+              <div class="h-stack">
+                <div>{{ contract.contractee.agency_name }}</div>
+                <div>{{ contract.bidding_end_date }}</div>
+                <div>
+                  {% if contract.lowest_bid == 0 %} 
+                    None 
+                  {% else %} 
+                    ${{contract.lowest_bid }} 
+                  {% endif %}
+                </div>
+                <div>{{ contract.number_bids }}</div>
+              </div>
+            </article>
+            <a href="contract/{{ contract.pk }}" class="overlay"></a>
           </div>
-          <div class="h-stack">
-            <div>{{ contract.contractee.agency_name }}</div>
-            <div>{{ contract.bidding_end_date }}</div>
-            <div>
-              {% if contract.lowest_bid == 0 %} None {% else %} ${{
-              contract.lowest_bid }} {% endif %}
-            </div>
-            <div>{{ contract.number_bids }}</div>
-          </div>
-        </article>
-        <a href="contract/{{ contract.pk }}" class="overlay"></a>
+        {% endfor %}
       </div>
-      {% endfor %}
-    </div>
     {% endif %}
   </div>
 </section>
