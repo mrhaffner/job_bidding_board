@@ -1,0 +1,18 @@
+@startuml
+|User|
+start
+:User clicks on "Register";
+|View|
+:View displays registration form;
+|CreateView|
+:User fills out form and submits;
+|User|
+:User clicks on "Login";
+|View|
+:View displays login form;
+|LoginView|
+:User enters credentials and submits;
+|User|
+:User is authenticated and directed to homepage;
+end
+@enduml
