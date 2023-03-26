@@ -1,0 +1,128 @@
+@startuml class_diagram
+skinparam linetype ortho
+package "models" {
+ class Model {}
+
+ class Bid {
+ id: str
+ amount: float
+ date_placed: Date
+ contract: Contract
+ contractor: User
+ } 
+
+ class Contract {
+ id: int
+ contract_title: str
+ bidding_end_date: Date
+ job_description: str
+ contractee: User
+ lowest_bid(): float
+ numbers_bids(): int
+ bids(): Bid[]
+ } 
+
+ class User {
+ type: str
+ agency_name: str
+ } 
+
+ abstract class AbstractUser{
+ id: int
+ password: str
+ username: str
+ email: str
+ }
+ 
+ Bid --|> Model
+ Contract --|> Model
+ AbstractUser --|> Model
+ User --|> AbstractUser
+ Bid *-- Contract
+ Bid --o Contract
+ User --* Contract
+ User -r-* Bid
+ }
+
+package "views" {
+class View {}
+class CreateView {}
+abstract class LoginRequiredMixin {}
+
+class LoginView {}
+class LogoutView {}
+
+class ContractListView {
+ model: Contract
+}
+
+class ContractCreateView {
+model: Contract
+fields: str
+success_url: str
+form_valid(form: Form): HttpResponse
+}
+
+class ContractDetailView {
+model: Contract
+}
+
+class BidCreateView {
+model: Bid
+fields: str[]
+form_valid(form: Form): HttpResponse
+get_success_url(): str
+}
+
+class UserCreateView {
+form_class: CustomUserCreationForm
+success_url: str
+template_name: str
+dispatch(request: HttpRequest): HttpResponse
+}
+
+class UserView {
+ template_name: str
+ get_context_data(): dict[str, str]
+}
+
+View <|-- LoginView
+View <|-- LogoutView
+View <|-- ContractDetailView
+View <|-- ContractListView
+View <|-- CreateView
+CreateView <|-- ContractCreateView
+CreateView <|-- UserCreateView
+CreateView <|-- BidCreateView
+View <|-- UserView
+LoginRequiredMixin <|-- ContractDetailView
+LoginRequiredMixin <|-- ContractListView
+LoginRequiredMixin <|-- ContractCreateView
+LoginRequiredMixin <|-- BidCreateView
+LoginRequiredMixin <|-- UserView
+
+ContractCreateView *-- Contract
+ContractListView *-- Contract
+ContractDetailView *-- Contract
+BidCreateView *-- Bid
+UserView *-- User
+UserCreateView *-- User
+LoginView *-- User
+LogoutView *-- User
+}
+
+package "forms" {
+class Form {}
+
+class CustomUserCreationForm {
+model: User
+fields: str[]
+}
+
+Form <|-- CustomUserCreationForm
+}
+
+CustomUserCreationForm *-u- User
+CreateView *-- Form
+
+@enduml

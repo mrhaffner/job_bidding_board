@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block content %}
+<section class="container">
+  <div class="text-center">
+    <h1>Your Page</h1>
+  </div>
+  <article>
+    <h3>{{ user.username }}</h3>
+    <div class="h-stack">
+      <div><b>Agency:</b></div>
+      <div><b>Email:</b></div>
+      <div><b>User Type:</b></div>
+    </div>
+    <div class="h-stack">
+      <div>{{ user.agency_name }}</div>
+      <div>{{ user.email }}</div>
+      <div>{{ user.type|lower }}</div>
+    </div>
+  </article>
+</section>
+<section class="beige-bg pad-section">
+  <div class="container">
+    <h3>
+      {% if user.type == 'CONTRACTOR' %} 
+        Contracts Bid On 
+      {% else %} 
+        Contracts Placed 
+      {% endif %}
+    </h3>
+    {% if contracts|length == 0 %}
+      <div>No contracts found</div>
+    {% else %}
+      <div class="card-grid">
+        {% for contract in contracts %}
+          <div class="overlay-container">
+            <article class="remove-margin overlay-content">
+              <h5>{{ contract.contract_title }}</h5>
+              <div class="h-stack">
+                <div><b>Agency</b></div>
+                <div><b>Expires</b></div>
+                <div><b>Low Bid</b></div>
+                <div><b># Bids</b></div>
+              </div>
+              <div class="h-stack">
+                <div>{{ contract.contractee.agency_name }}</div>
+                <div>{{ contract.bidding_end_date }}</div>
+                <div>
+                  {% if contract.lowest_bid == 0 %} 
+                    None 
+                  {% else %} 
+                    ${{contract.lowest_bid }} 
+                  {% endif %}
+                </div>
+                <div>{{ contract.number_bids }}</div>
+              </div>
+            </article>
+            <a href="contract/{{ contract.pk }}" class="overlay"></a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

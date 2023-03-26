@@ -1,23 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
     <link rel="stylesheet" href="/static/style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <title>Contract Board</title>
   </head>
   <body>
-    <header>
+    <div class="container">
       <nav>
-        <a href="{% url 'home' %}">Contract Bidding Board</a>
-        <a href="{% url 'home' %}">Home</a>
+        <ul>
+          <li>
+            <a href="{% url 'home' %}" class="logo-blue">
+              <strong>Contract Bidding Board</strong>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="{% url 'user' %}" class="secondary">@{{ user.username }}</a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}" role="button" class="secondary outline">Logout</a>
+          </li>
+        </ul>
       </nav>
-    </header>
-    <main>
-      <div class="wrapper">{% block content %} {% endblock %}</div>
-    </main>
+    </div>
+      {% block content %} {% endblock %}
   </body>
 </html>

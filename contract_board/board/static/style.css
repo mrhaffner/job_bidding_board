@@ -1,235 +1,171 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-/* added */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-/*
-End CSS Reset
-*/
-
-body {
-  color: rgb(32, 33, 36);
-
-  font-family: 'Roboto', sans-serif;
-  font-weight: medium;
+[data-theme='light'],
+:root:not([data-theme='dark']) {
+  --background-color: #fff;
+  --color: hsl(205deg, 20%, 32%);
+  --h1-color: #fff;
+  --h2-color: #24333e;
+  --h3-color: hsl(205deg, 25%, 23%);
+  --h4-color: #374956;
+  --h5-color: hsl(205deg, 20%, 32%);
+  --h6-color: #4d606d;
+  --muted-color: hsl(205deg, 10%, 50%);
+  --muted-border-color: hsl(205deg, 20%, 94%);
+  --primary: rgb(3, 239, 98);
+  --primary-hover: #65ff8f;
+  --primary-focus: #65ff8f;
+  --primary-inverse: #000000;
+  --secondary: #fff;
+  --secondary-hover: hsl(205deg, 20%, 32%);
+  --secondary-focus: rgba(89, 107, 120, 0.125);
+  --secondary-inverse: #fff;
+  --contrast: hsl(205deg, 30%, 15%);
+  --contrast-hover: #000;
+  --contrast-focus: rgba(89, 107, 120, 0.125);
+  --contrast-inverse: #fff;
+  --mark-background-color: #fff2ca;
+  --mark-color: #543a26;
+  --ins-color: #388e3c;
+  --del-color: #c62828;
+  --blockquote-border-color: var(--muted-border-color);
+  --blockquote-footer-color: var(--muted-color);
+  --button-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --button-hover-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --form-element-background-color: transparent;
+  --form-element-border-color: hsl(205deg, 14%, 68%);
+  --form-element-color: var(--color);
+  --form-element-placeholder-color: var(--muted-color);
+  --form-element-active-background-color: transparent;
+  --form-element-active-border-color: var(--primary);
+  --form-element-focus-color: var(--primary-focus);
+  --form-element-disabled-background-color: hsl(205deg, 18%, 86%);
+  --form-element-disabled-border-color: hsl(205deg, 14%, 68%);
+  --form-element-disabled-opacity: 0.5;
+  --form-element-invalid-border-color: #c62828;
+  --form-element-invalid-active-border-color: #d32f2f;
+  --form-element-invalid-focus-color: rgba(211, 47, 47, 0.125);
+  --form-element-valid-border-color: #388e3c;
+  --form-element-valid-active-border-color: #43a047;
+  --form-element-valid-focus-color: rgba(67, 160, 71, 0.125);
+  --switch-background-color: hsl(205deg, 16%, 77%);
+  --switch-color: var(--primary-inverse);
+  --switch-checked-background-color: var(--primary);
+  --range-border-color: hsl(205deg, 18%, 86%);
+  --range-active-border-color: hsl(205deg, 16%, 77%);
+  --range-thumb-border-color: var(--background-color);
+  --range-thumb-color: var(--secondary);
+  --range-thumb-hover-color: var(--secondary-hover);
+  --range-thumb-active-color: var(--primary);
+  --table-border-color: var(--muted-border-color);
+  --table-row-stripped-background-color: #f6f8f9;
+  --code-background-color: hsl(205deg, 20%, 94%);
+  --code-color: var(--muted-color);
+  --code-kbd-background-color: var(--contrast);
+  --code-kbd-color: var(--contrast-inverse);
+  --code-tag-color: hsl(330deg, 40%, 50%);
+  --code-property-color: hsl(185deg, 40%, 40%);
+  --code-value-color: hsl(40deg, 20%, 50%);
+  --code-comment-color: hsl(205deg, 14%, 68%);
+  --accordion-border-color: var(--muted-border-color);
+  --accordion-close-summary-color: var(--color);
+  --accordion-open-summary-color: var(--muted-color);
+  --card-background-color: var(--background-color);
+  --card-border-color: var(--muted-border-color);
+  --card-box-shadow: 0.0145rem 0.029rem 0.174rem rgba(27, 40, 50, 0.01698),
+    0.0335rem 0.067rem 0.402rem rgba(27, 40, 50, 0.024),
+    0.0625rem 0.125rem 0.75rem rgba(27, 40, 50, 0.03),
+    0.1125rem 0.225rem 1.35rem rgba(27, 40, 50, 0.036),
+    0.2085rem 0.417rem 2.502rem rgba(27, 40, 50, 0.04302),
+    0.5rem 1rem 6rem rgba(27, 40, 50, 0.06),
+    0 0 0 0.0625rem rgba(27, 40, 50, 0.015);
+  --card-sectionning-background-color: #fbfbfc;
+  --dropdown-background-color: #fbfbfc;
+  --dropdown-border-color: #e1e6eb;
+  --dropdown-box-shadow: var(--card-box-shadow);
+  --dropdown-color: var(--color);
+  --dropdown-hover-background-color: hsl(205deg, 20%, 94%);
+  --modal-overlay-background-color: rgba(213, 220, 226, 0.7);
+  --progress-background-color: hsl(205deg, 18%, 86%);
+  --progress-color: var(--primary);
+  --loading-spinner-opacity: 0.5;
+  --tooltip-background-color: var(--contrast);
+  --tooltip-color: var(--contrast-inverse);
+  --icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  --icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(65, 84, 98)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --icon-chevron-button: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --icon-chevron-button-inverse: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(115, 130, 140)' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+  --icon-date: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(65, 84, 98)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+  --icon-invalid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(198, 40, 40)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cline x1='12' y1='8' x2='12' y2='12'%3E%3C/line%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'%3E%3C/line%3E%3C/svg%3E");
+  --icon-minus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E");
+  --icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(65, 84, 98)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+  --icon-time: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(65, 84, 98)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'%3E%3C/circle%3E%3Cpolyline points='12 6 12 12 16 14'%3E%3C/polyline%3E%3C/svg%3E");
+  --icon-valid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(56, 142, 60)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  color-scheme: light;
 }
 
-h1 {
-  font-size: x-large;
-  font-weight: bold;
-  margin-bottom: 20px;
+html {
+  background-color: #05192d;
 }
 
-h2 {
-  font-size: larger;
-  font-weight: bold;
+.beige-bg {
+  background-color: #fffbf3;
 }
 
-h3 {
-  font-weight: 500;
+.card-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+  
 }
 
-form {
-  border: 1pt solid slategray;
-  border-radius: 3px;
-  padding: 10px;
+.errorlist {
+  color: #e53935;
 }
 
-form > * {
-  margin-bottom: 10px;
+.h-stack {
+  display: inline-block;
+  margin-right: 10px;
 }
 
-form > button {
-  margin-bottom: 0px;
+.logo-blue {
+  color: #06bdfc;
 }
 
-input,
-label {
-  display: block;
+.logo-blue:hover,
+.logo-blue:focus {
+  background-color: rgb(0, 155, 216);
 }
 
-input,
-textarea {
-  margin-top: 2px;
+.overlay-container {
+  display: grid;
 }
 
-main {
-  margin-top: 30px;
+.overlay-content,
+.overlay {
+  grid-area: 1 / 1;
 }
 
-nav {
-  background-color: darkblue;
-  color: white;
+.overlay:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: var(--border-radius);
+}
+
+.pad-section {
+  padding: 20px 0 50px 0;
+}
+
+.remove-margin {
+  margin: 0px;
+}
+
+.right {
   display: flex;
-  justify-content: space-around;
-  font-size: larger;
-  font-weight: bold;
-  padding: 10px 0 10px 0;
+  justify-content: flex-end;
+  margin-left: auto;
+  margin-right: 0;
 }
 
-section {
-  margin-bottom: 20px;
-}
-
-.bid-listing,
-.contract-listing {
-  border-radius: 4px;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-.bid-listing {
-  background-color: whitesmoke;
-}
-
-.contract-listing {
-  background-color: aliceblue;
-}
-
-.contract-listing > h1,
-h2,
-h3 {
-  padding-bottom: 8px;
-}
-
-.listing-items > div {
-  padding-bottom: 5px;
-}
-
-.title {
+.text-center {
   text-align: center;
-}
-
-.wrapper {
-  margin: auto;
-  width: 60%;
 }

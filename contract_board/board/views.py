@@ -1,53 +1,90 @@
-from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect, \
-    HttpResponseRedirect
-from django.shortcuts import redirect, render
-from django.views.decorators.http import require_http_methods
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
-from board.forms import ContractForm, BidForm
-from board.models import Contract, Bid
+from board.forms import CustomUserCreationForm
+from board.models import Bid, Contract
 
 
-@require_http_methods(["GET", "POST"])
-def contract_list(request: HttpRequest
-                  ) -> (HttpResponseRedirect
-                        | HttpResponsePermanentRedirect
-                        | HttpResponse):
+class ContractListView(LoginRequiredMixin, ListView):
     """
-    Handles GET and Post request
-    Post will add information from the ContractForm and renders the contract_list.html page
-    GET will render the contract_list.html page, passing in a list of all the Contract models as
-    'contracts'
+    A view that lists all contracts.
+    A user must be authenticated to see this view.
     """
-    if request.method == "POST":
-        form = ContractForm(request.POST)
-        form.save()
-        return redirect(request.path)
-
-    contracts = Contract.objects.all()[::-1]
-    form = ContractForm()
-    return render(request, 'contract_list.html', {'contracts': contracts, 'form': form})
+    model = Contract
 
 
-@require_http_methods(["GET", "POST"])
-def contract(request: HttpRequest,
-             contract_id: str
-             ) -> (HttpResponseRedirect
-                   | HttpResponsePermanentRedirect
-                   | HttpResponse):
+class ContractCreateView(LoginRequiredMixin, CreateView):
     """
-    Handles a GET and POST request
-    POST will add information from the BidForm and render the contract.html page
-    (contract_id does not come from the form when creating the new Bid)
-    GET will render the contract.html page, passing in Contract model corresponding
-    to the contract_id as 'contract'
+    A view that allows a user to create a contract.
+    A user must be authenticated to see/use this view.
     """
-    contract = Contract.objects.get(id=contract_id)
+    model = Contract
+    fields = ['contract_title', 'bidding_end_date', 'job_description']
+    success_url = reverse_lazy('home')
 
-    if request.method == 'POST':
-        form = BidForm(for_contract=contract, data=request.POST)
-        form.save()
-        return redirect(request.path)
+    def form_valid(self, form):
+        form.instance.contractee = self.request.user
+        return super().form_valid(form)
 
-    form = BidForm(for_contract=contract)
-    bids = Bid.objects.filter(contract__pk=contract.pk)[::-1]
-    return render(request, 'contract.html', {'contract': contract, 'bids': bids, 'form': form})
+
+class ContractDetailView(LoginRequiredMixin, DetailView):
+    """
+    A view that allows a user to view a contract.
+    A user must be authenticated to see this view.
+    """
+    model = Contract
+
+
+class BidCreateView(LoginRequiredMixin, CreateView):
+    """
+    A view that allows a user to create a bid.
+    A user must be authenticated to see/use this view.
+    """
+    model = Bid
+    fields = ['amount']
+
+    def form_valid(self, form):
+        form.instance.contractor = self.request.user
+        form.instance.contract = Contract.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('contract_view', kwargs={'pk': self.kwargs['pk']})
+
+
+class UserCreateView(CreateView):
+    """
+    A view that allows a user to create an account.
+    """
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'registration/register.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super(UserCreateView, self).dispatch(request, *args, **kwargs)
+
+
+class UserView(LoginRequiredMixin, TemplateView):
+    """
+    A view that allows a user to view their user details and any bids/contracts they have created.
+    A user must be authenticated to see this view.
+    """
+    template_name = 'user/user.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserView, self).get_context_data(*args, **kwargs)
+        user = self.request.user
+        if user.type == 'CONTRACTEE':
+            contracts = Contract.objects.filter(contractee=user)
+        else:
+            contracts = Contract.objects.filter(bid__contractor=user).distinct()
+
+        context.update({
+            'user': self.request.user,
+            'contracts': contracts
+        })
+        return context

@@ -1,0 +1,68 @@
+{% extends 'base.html' %} 
+{% block content %}
+<section class="container">
+  <div class="text-center">
+    <h1>View Contract</h1>
+  </div>
+  <article>
+    <h2>{{ object.contract_title }}</h2>
+    <div class="h-stack">
+      <div><b>Agency Name:</b></div>
+      <div><b>Email:</b></div>
+      <div><b>Expires:</b></div>
+      <div><b>Lowest Bid:</b></div>
+      <div><b>Description:</b></div>
+    </div>
+    <div class="h-stack">
+      <div>{{ object.contractee.agency_name }}</div>
+      <div>{{ object.contractee.email }}</div>
+      <div>{{ object.bidding_end_date }}</div>
+            <div>
+        {% if object.lowest_bid == 0 %} 
+        None 
+        {% else %} 
+          ${{ object.lowest_bid }}
+        {% endif %}
+      </div>
+      <div>{{ object.job_description }}</div>
+    </div>
+
+  </article>
+</section>
+<section class="beige-bg pad-section">
+  <div class="container">
+    <nav>
+      <ul>
+        <li><h4>Current Bids</h4></li>
+      </ul>
+      {% if user.type == 'CONTRACTOR' %}
+        <ul>
+          <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
+        </ul>
+      {% endif %} 
+    </nav>
+    {% if object.bids|length == 0 %}
+      <div>There are no bids</div>
+    {% else %}
+      <div class="card-grid">
+        {% for bid in object.bids %}
+          <article class="remove-margin">
+            <h5>{{ bid.contractor.agency_name }}</h5>
+            <div class="h-stack">
+              <div><b>Bid:</b></div>
+              <div><b>Email:</b></div>
+              <div><b>Placed:</b></div>
+            </div>
+            <div class="h-stack">
+              <div>${{ bid.amount }}</div>
+              <div>{{ bid.contractor.email }}</div>
+              <div>{{ bid.date_placed }}</div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
+

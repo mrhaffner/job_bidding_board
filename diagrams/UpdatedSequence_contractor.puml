@@ -1,0 +1,23 @@
+@startuml
+Actor Contractor
+ 
+Contractor -> User_Interface : Register 
+User_Interface -> UserCreateView: Register (username, password, email, type) 
+UserCreateView -> Users: create_user(User)
+
+Contractor -> User_Interface : login
+User_Interface -> LoginView : login(username, password) 
+LoginView --> User_Interface: Authintication Response 
+User_Interface --> Contractor: Authintication Response
+
+Contractor -> User_Interface : bid
+User_Interface -> bidCreateView: bid(amount)
+bidCreateView -> ContractDetailView: bid(amount, date, description)
+ContractDetailView --> User_Interface: bid(title, date, description, lowest_bid, numbers_bids, bids)
+User_Interface --> Contractor: bid(title, date, description, lowest_bid, numbers_bids, bids)
+
+Contractor -> User_Interface: Logout 
+User_Interface -> LogoutView : LogoutRequest
+LogoutView --> User_Interface : LogoutResponse
+User_Interface --> Contractor : LogoutResponse
+@enduml

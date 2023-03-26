@@ -133,3 +133,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DATE_FORMAT = 'm/d/y'
 
 USE_L10N = False
+
+# Create custom User model
+# https://docs.djangoproject.com/en/4.1/topics/auth/customizing/#substituting-a-custom-user-model
+
+AUTH_USER_MODEL = 'board.User'
