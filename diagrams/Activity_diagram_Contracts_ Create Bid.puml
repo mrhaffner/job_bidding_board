@@ -1,19 +1,19 @@
 @startuml
-|User|
+
 start
 :User logs in;
-|LoginView|
-:View displays homepage;
-|ContractListView|
-:User selects a contract to view;
-|ContractDetailView|
-:View displays details of selected contract;
-|BidCreateView|
-:User clicks on "Create Bid" button;
-:View displays bid creation form;
-:BidCreateView|
-:User fills out form and submits;
-|ContractDetailView|
-:View displays updated bid count and lowest bid amount;
+:View contract list;
+if (User type) then (contractor)
+:Navigates to specific contract;
+:Navigate to place bid;
+:Fills out bid form;
+:Submit bid form;
+:Redirect to contract detail;
+else (contractee)
+:Navigate to place contract;
+:Fill out contract form;
+:Submit contract;
+:Redirect to contract list;
+endif
 end
 @enduml
