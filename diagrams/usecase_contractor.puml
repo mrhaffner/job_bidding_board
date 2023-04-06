@@ -1,0 +1,24 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+rectangle "Job Bidding Board" {
+  usecase "View Contract Details" as UC2
+  usecase "View Contract List" as UC3
+  usecase "Place Bid" as UC5
+  usecase "Login" as UC11
+  usecase "View User Details" as UC9
+  usecase "Logout" as UC12
+  usecase "Register" as UC13
+}
+
+actor "Contractor" as c
+c --> UC11
+UC11 ..> UC2 : <<include>>
+UC11 ..> UC3 : <<include>>
+UC2 ..> UC5 : <<include>>
+UC11 ..> UC9 : <<include>>
+UC11 ..> UC12 : <<include>>
+c --> UC13
+
+@enduml

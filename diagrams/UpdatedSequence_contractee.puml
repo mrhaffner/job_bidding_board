@@ -1,15 +1,15 @@
 @startuml
-Actor Contractor
+Actor Contractee
  
 activate UserInterface
 activate UserCreateView
 activate LoginView
-activate BidCreateView
+activate ContractCreateView
 activate LogoutView
 activate Users
-activate Bids
+activate Contracts
 
-Contractor -> UserInterface : Register 
+Contractee -> UserInterface : Register 
 UserInterface -> UserCreateView: register (username, password, email, type) 
 UserCreateView -> Users: create_user(User)
 activate Users
@@ -17,29 +17,29 @@ Users --> UserCreateView: Confirmation
 deactivate Users
 UserCreateView --> UserInterface: Confirmation
 
-Contractor -> UserInterface : Login
+Contractee -> UserInterface : Login
 UserInterface -> LoginView : login(username, password) 
 LoginView --> UserInterface: Confirmation
 
 
-Contractor -> UserInterface : Create Bid
-UserInterface -> BidCreateView: bid(amount)
-BidCreateView -> Bids: bid(amount)
-activate Bids
-Bids --> UserInterface: Bid
-deactivate Bids
+Contractee -> UserInterface : Create Contract
+UserInterface -> ContractCreateView: create_contract(title, date, description)
+ContractCreateView -> Contracts: create_contract(title, date, description)
+activate Contracts
+Contracts --> UserInterface: Contract
+deactivate Contracts
 
 
-Contractor -> UserInterface: Logout 
+Contractee -> UserInterface: Logout 
 UserInterface -> LogoutView : logout(username)
 LogoutView --> UserInterface : confirmation
 
 deactivate UserInterface
 deactivate UserCreateView
 deactivate LoginView
-deactivate BidCreateView
+deactivate ContractCreateView
 deactivate LogoutView
 deactivate Users
-deactivate Bids
+deactivate Contracts
 
 @enduml
