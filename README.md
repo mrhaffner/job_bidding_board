@@ -119,3 +119,9 @@ Will load initial data for the application
 ```sh
 $ python manage.py loaddata initial_data
 ```
+
+### Create Super User
+
+```sh
+$ python manage.py createsuperuser
+```
