@@ -107,16 +107,56 @@ html {
   background-color: #05192d;
 }
 
+article {
+  transition: all 0.3s ease;
+}
+
+article > p {
+  margin-bottom: 16.5px;
+}
+
+article p:last-child {
+  margin-bottom: 0px;
+}
+
 .beige-bg {
   background-color: #fffbf3;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: 20px;
   row-gap: 20px;
-  
+}
+
+@media (max-width: 1200px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 40px;
+    row-gap: 40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+}
+
+.card-grid > article {
+  padding-top: 36.25px;
+  padding-bottom: 36.25px;
 }
 
 .errorlist {
@@ -128,6 +168,17 @@ html {
   margin-right: 10px;
 }
 
+.hover-dark:hover {
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.hover-light:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
 .logo-blue {
   color: #06bdfc;
 }
@@ -135,20 +186,6 @@ html {
 .logo-blue:hover,
 .logo-blue:focus {
   background-color: rgb(0, 155, 216);
-}
-
-.overlay-container {
-  display: grid;
-}
-
-.overlay-content,
-.overlay {
-  grid-area: 1 / 1;
-}
-
-.overlay:hover {
-  background-color: rgba(0, 0, 0, 0.25);
-  border-radius: var(--border-radius);
 }
 
 .pad-section {

@@ -26,7 +26,6 @@
       </div>
       <div>{{ object.job_description }}</div>
     </div>
-
   </article>
 </section>
 <section class="beige-bg pad-section">
@@ -48,16 +47,12 @@
         {% for bid in object.bids %}
           <article class="remove-margin">
             <h5>{{ bid.contractor.agency_name }}</h5>
-            <div class="h-stack">
-              <div><b>Bid:</b></div>
-              <div><b>Email:</b></div>
-              <div><b>Placed:</b></div>
-            </div>
-            <div class="h-stack">
-              <div>${{ bid.amount }}</div>
-              <div>{{ bid.contractor.email }}</div>
-              <div>{{ bid.date_placed }}</div>
-            </div>
+            <div><b>Bid</b></div>
+            <p>${{ bid.amount }}</p>
+            <div><b>Email</b></div>
+            <p>{{ bid.contractor.email }}</p>
+            <div><b>Date Placed</b></div>
+            <p>{{ bid.date_placed }}</p>
           </article>
         {% endfor %}
       </div>

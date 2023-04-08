@@ -5,15 +5,13 @@
   </div>
   <article>
     <h3>{{ user.username }}</h3>
-    <div class="h-stack">
-      <div><b>Agency:</b></div>
-      <div><b>Email:</b></div>
-      <div><b>User Type:</b></div>
-    </div>
-    <div class="h-stack">
-      <div>{{ user.agency_name }}</div>
-      <div>{{ user.email }}</div>
-      <div>{{ user.type|lower }}</div>
+    <div>
+      <div><b>Agency Name</b></div>
+      <p>{{ user.agency_name }}</p>
+      <div><b>Email</b></div>
+      <p>{{ user.email }}</p>
+      <div><b>User Type</b></div>
+      <p>{{ user.type|lower }}</p>
     </div>
   </article>
 </section>
@@ -31,33 +29,34 @@
     {% else %}
       <div class="card-grid">
         {% for contract in contracts %}
-          <div class="overlay-container">
-            <article class="remove-margin overlay-content">
-              <h5>{{ contract.contract_title }}</h5>
-              <div class="h-stack">
-                <div><b>Agency</b></div>
-                <div><b>Expires</b></div>
-                <div><b>Low Bid</b></div>
-                <div><b># Bids</b></div>
-              </div>
-              <div class="h-stack">
-                <div>{{ contract.contractee.agency_name }}</div>
-                <div>{{ contract.bidding_end_date }}</div>
-                <div>
-                  {% if contract.lowest_bid == 0 %} 
-                    None 
-                  {% else %} 
-                    ${{contract.lowest_bid }} 
-                  {% endif %}
-                </div>
-                <div>{{ contract.number_bids }}</div>
-              </div>
-            </article>
-            <a href="contract/{{ contract.pk }}" class="overlay"></a>
-          </div>
-        {% endfor %}
+          <article class="remove-margin hover-light contract" id="{{ contract.pk }}">
+            <h4>{{ contract.contract_title }}</h4>
+            <div><b>Agency Name</b></div>
+            <p>{{ contract.contractee.agency_name }}</p>
+            <div><b>Bidding Ends</b></div>
+            <p>{{ contract.bidding_end_date }}</p>
+            <div><b>Lowest Bid</b></div>
+            <p>
+              {% if contract.lowest_bid == 0 %} 
+                None 
+              {% else %} 
+                ${{contract.lowest_bid }} 
+              {% endif %}
+            </p>
+            <div><b>Number of Bids</b></div>
+            <p>{{ contract.number_bids }}</p>
+          </article>
+        {% endfor %} 
       </div>
     {% endif %}
   </div>
 </section>
+<script>
+  const contracts = document.querySelectorAll('.contract');
+  contracts.forEach((contract) => {
+    contract.addEventListener('click', () => {
+      window.location.href = '/contract/' + contract.id;
+    });
+  });
+</script>
 {% endblock %}
