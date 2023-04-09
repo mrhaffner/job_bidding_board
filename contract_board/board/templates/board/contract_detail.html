@@ -52,6 +52,11 @@
               <div><b>Bid:</b></div>
               <div><b>Email:</b></div>
               <div><b>Placed:</b></div>
+              {% if bid.contractor == user and not object.bid_awarded %}
+              <!-- Only display the Delete button if the logged in user created the bid 
+                   and the contract has not been awarded yet -->
+              <div><button onclick="showDeleteConfirmation({{ bid.pk }})">Delete</button></div>
+              {% endif %}
             </div>
             <div class="h-stack">
               <div>${{ bid.amount }}</div>
@@ -64,5 +69,16 @@
     {% endif %}
   </div>
 </section>
+<!-- Add the confirmation dialog for deleting a bid -->
+<dialog id="deleteConfirmationDialog">
+  <article>
+    <h3>Confirm Delete</h3>
+    <p>Are you sure you want to delete this bid?</p>
+    <footer>
+      <button onclick="hideDeleteConfirmation()">Cancel</button>
+      <a href="#" id="deleteConfirmationButton" role="button">Delete</a>
+    </footer>
+  </article>
+</dialog>
 {% endblock %}
 
