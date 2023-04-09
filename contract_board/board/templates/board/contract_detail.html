@@ -3,6 +3,24 @@
 <section class="container">
   <div class="text-center">
     <h1>View Contract</h1>
+    {% if user.type == 'CONTRACTEE' %}
+   
+      <div class="right">
+        <a onClick="delete_contract()" role="button" style="background-color: red;"> Delete Contract </a>
+      </div>
+      <dialog id="delete_contract()">
+        <article>
+          <p>
+            
+          </p>
+
+       
+        </article>
+      </dialog>
+     
+    {% endif %} 
+
+    
   </div>
   <article>
     <h2>{{ object.contract_title }}</h2>
@@ -14,6 +32,7 @@
       <div><b>Description:</b></div>
     </div>
     <div class="h-stack">
+      
       <div>{{ object.contractee.agency_name }}</div>
       <div>{{ object.contractee.email }}</div>
       <div>{{ object.bidding_end_date }}</div>
