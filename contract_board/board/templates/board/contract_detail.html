@@ -52,9 +52,8 @@
               <div><b>Bid:</b></div>
               <div><b>Email:</b></div>
               <div><b>Placed:</b></div>
-              {% if bid.contractor == user and not object.bid_awarded %}
-              <!-- Only display the Delete button if the logged in user created the bid 
-                   and the contract has not been awarded yet -->
+              {% if bid.contractor == user%}
+              <!-- Only display the Delete button if the logged in user created the bid -->
               <div><button onclick="showDeleteConfirmation({{ bid.pk }})">Delete</button></div>
               {% endif %}
             </div>
