@@ -1,19 +1,37 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView
+from django.utils import timezone
+from django.views.generic import CreateView, DetailView, TemplateView
 
 from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
 
 
-class ContractListView(LoginRequiredMixin, ListView):
+class ContractListView(LoginRequiredMixin, TemplateView):
     """
     A view that lists all contracts.
     A user must be authenticated to see this view.
+    Filters on the bidding end date.
     """
-    model = Contract
+    template_name = 'board/contract_list.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        status = self.request.GET.get('status')
+        today = timezone.now().date()
+
+        if status == 'expired':
+            contracts = Contract.objects.filter(bidding_end_date__lt=today)
+        elif status == 'all':
+            contracts = Contract.objects.all()
+        else:
+            contracts = Contract.objects.filter(bidding_end_date__gte=today)
+
+        context.update({
+            'object_list': contracts
+        })
+        return context
 
 class ContractCreateView(LoginRequiredMixin, CreateView):
     """
