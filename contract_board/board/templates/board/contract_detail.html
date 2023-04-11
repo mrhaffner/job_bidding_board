@@ -3,13 +3,15 @@
 <section class="container">
   <div class="text-center">
     <h1>View Contract</h1>
-    {% if user.type == 'CONTRACTEE'  %}
-
-    <button class="secondary"
-      data-target="modal-example"
-      onClick="toggleModal(event)">
-      Delete contract
-    </button>
+    {% if user.type == 'CONTRACTEE' and contract.contractee == user  %}
+    <div class = "right">
+      <a style ="color: red"
+        data-target="modal-example"
+        onClick="toggleModal(event)">
+        Delete contract
+      </a>
+    </div>
+ 
 
    
     <dialog id="modal-example">
