@@ -13,7 +13,7 @@
   {% endif %}
   <section class="card-grid">
     {% if object_list|length == 0 %}
-    <div>No contracts found</div>
+    <div>No contracts found Today</div>
     {% else %} 
       {% for contract in object_list %}
         <article class="remove-margin hover-dark contract" id="{{ contract.pk }}">

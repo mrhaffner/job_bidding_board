@@ -1,4 +1,6 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load tz %}
+{% now "Y-m-d" as now %}
 {% block content %}
 <section class="container">
   <div class="text-center">
@@ -16,8 +18,8 @@
     <div class="h-stack">
       <div>{{ object.contractee.agency_name }}</div>
       <div>{{ object.contractee.email }}</div>
-      <div>{{ object.bidding_end_date }}</div>
-            <div>
+      <div style="font-weight:bold; color:red;">{{ object.bidding_end_date }}</div>
+      <div>
         {% if object.lowest_bid == 0 %} 
         None 
         {% else %} 
@@ -34,10 +36,12 @@
       <ul>
         <li><h4>Current Bids</h4></li>
       </ul>
-      {% if user.type == 'CONTRACTOR' %}
+      {% if user.type == 'CONTRACTOR' and object.bidding_end_date > now %}
         <ul>
           <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
         </ul>
+      {% else %}
+        <p class="note">Bidding is no longer available for this contract.</p>
       {% endif %} 
     </nav>
     {% if object.bids|length == 0 %}
@@ -60,4 +64,3 @@
   </div>
 </section>
 {% endblock %}
-
