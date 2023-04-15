@@ -1,11 +1,14 @@
 {% extends 'base.html' %} 
 {% block content %}
 <section class="container">
-  <div class="text-center">
+  <div class="text-center" class = "contract" id="{{object.id}}">
     <h1>View Contract</h1>
     {% if user.type == 'CONTRACTEE' and contract.contractee == user  %}
     <div class = "right">
-      <a style ="color: red"
+      <a 
+        href ="#"
+        class = "contrast"
+        role = "button"
         data-target="modal-example"
         onClick="toggleModal(event)">
         Delete Contract
@@ -37,7 +40,7 @@
           <a href="#confirm"
             role="button"
             data-target="modal-example"
-            onClick="toggleModal(event)">
+            onClick="deleteContract()">
             Confirm
           </a>
         </footer>
@@ -108,6 +111,12 @@ const openingClass = "modal-is-opening";
 const closingClass = "modal-is-closing";
 const animationDuration = 400; // ms
 let visibleModal = null;
+let contractID = null; //for tracking contract ID
+
+contractID = console.log(this.herf.substring(this.herf.lastIndexOf('/') + 1 ))
+const deleteContract = () => {
+  window.location.herf = 'contract/delete/<int:pk>' + contractID;
+}
 
 // Toggle modal
 const toggleModal = (event) => {
