@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %}
 <section class="container">
-  <div class="text-center" class = "contract" id="{{object.id}}">
+  <div class="text-center" >
     <h1>View Contract</h1>
     {% if user.type == 'CONTRACTEE' and contract.contractee == user  %}
     <div class = "right">
@@ -113,9 +113,18 @@ const animationDuration = 400; // ms
 let visibleModal = null;
 let contractID = null; //for tracking contract ID
 
-contractID = console.log(this.herf.substring(this.herf.lastIndexOf('/') + 1 ))
+function getContractID(url){
+  const parts = url.split('/');
+  return parts.at(-1)
+}
+function getCurrentURL(){
+  currentURL = window.location.href;
+  return currentURL;
+}
 const deleteContract = () => {
-  window.location.herf = 'contract/delete/<int:pk>' + contractID;
+  
+  
+  window.location.herf = 'contract/delete/' + getContractID(currentURL);
 }
 
 // Toggle modal

@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView, DeleteViwe
+from django.views.generic import CreateView, DetailView, ListView, TemplateView, DeleteView
 
 from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
@@ -36,13 +36,13 @@ class ContractDetailView(LoginRequiredMixin, DetailView):
     """
     model = Contract
 
-class ContractDeleteView(LoginRequiredMixin,DeleteViwe):
+class ContractDeleteView(LoginRequiredMixin,DeleteView):
     """
     This view is used to delete a contract
     a user must be authinticated to delete a contract
     """
     model = Contract
-    success_url =  reverse_lazy('home')
+    #success_url =  reverse_lazy('home')
 
 
 class BidCreateView(LoginRequiredMixin, CreateView):
