@@ -1,7 +1,19 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
 {% block content %}
 <div class="container">
   <h1 class="text-center">The Contract Board</h1>
+  <form class="form-inline" method="get">
+    <div class="form-group">
+      <label for="status-filter">Status:</label>
+      <select class="form-control" id="status-filter" name="status">
+        <option value="active" {% if not status or status == 'active' %}selected{% endif %}>Active</option>
+        <option value="expired" {% if status == 'expired' %}selected{% endif %}>Expired</option>
+        <option value="all" {% if status == 'all' %}selected{% endif %}>All</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Filter</button>
+  </form>
   {% if user.type == 'CONTRACTEE' %}
   <section>
     <div class="right">
@@ -46,3 +58,4 @@
   });
 </script>
 {% endblock %}
+
