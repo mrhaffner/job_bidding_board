@@ -203,6 +203,11 @@ article p:last-child {
   margin-right: 0;
 }
 
+.apart {
+  display: flex;
+  justify-content: space-between;
+}
+
 .text-center {
   text-align: center;
 }
