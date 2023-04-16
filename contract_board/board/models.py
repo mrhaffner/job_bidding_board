@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils import timezone
 
 
 USER_CHOICES = [
@@ -26,6 +27,7 @@ class Contract(models.Model):
     job_description = models.TextField()
     contractee = models.ForeignKey(User, on_delete=models.CASCADE)
     date_placed = models.DateTimeField(auto_now_add=True)
+    accepted = models.BooleanField(null=True)
 
     @property
     def lowest_bid(self):
@@ -49,6 +51,13 @@ class Contract(models.Model):
     @property
     def bids(self):
         return Bid.objects.filter(contract__pk=self.pk)
+    
+    @property
+    def expired(self):
+        """
+        Returns True if the bidding end date has passed, False otherwise.
+        """
+        return timezone.now().date() > self.bidding_end_date
     
     class Meta:
         ordering = ['-date_placed']

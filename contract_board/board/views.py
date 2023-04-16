@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
 
@@ -99,7 +100,7 @@ class UserView(LoginRequiredMixin, TemplateView):
     A user must be authenticated to see this view.
     """
     template_name = 'user/user.html'
-
+    
     def get_context_data(self, *args, **kwargs):
         context = super(UserView, self).get_context_data(*args, **kwargs)
         user = self.request.user
@@ -108,8 +109,15 @@ class UserView(LoginRequiredMixin, TemplateView):
         else:
             contracts = Contract.objects.filter(bid__contractor=user).distinct()
 
+        now = timezone.now()
+        active_contracts = contracts.filter(bidding_end_date__gte=now, accepted=None)
+        expired_contracts = contracts.filter(bidding_end_date__lt=now, accepted=None)
+        closed_contracts = contracts.exclude(accepted=None)
+
         context.update({
             'user': self.request.user,
-            'contracts': contracts
+            'active_contracts': active_contracts,
+            'expired_contracts': expired_contracts,
+            'closed_contracts': closed_contracts,
         })
         return context

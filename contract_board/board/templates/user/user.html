@@ -15,20 +15,92 @@
     </div>
   </article>
 </section>
-<section class="beige-bg pad-section">
+<section class="beige-bg pad-section remove-margin">
   <div class="container">
     <h3>
       {% if user.type == 'CONTRACTOR' %} 
-        Contracts Bid On 
+        Active Contracts Bid On 
       {% else %} 
-        Contracts Placed 
+        Active Contracts 
       {% endif %}
     </h3>
-    {% if contracts|length == 0 %}
+    {% if active_contracts|length == 0 %}
       <div>No contracts found</div>
     {% else %}
       <div class="card-grid">
-        {% for contract in contracts %}
+        {% for contract in active_contracts %}
+          <article class="remove-margin hover-light contract" id="{{ contract.pk }}">
+            <h4>{{ contract.contract_title }}</h4>
+            <div><b>Agency Name</b></div>
+            <p>{{ contract.contractee.agency_name }}</p>
+            <div><b>Bidding Ends</b></div>
+            <p>{{ contract.bidding_end_date }}</p>
+            <div><b>Lowest Bid</b></div>
+            <p>
+              {% if contract.lowest_bid == 0 %} 
+                None 
+              {% else %} 
+                ${{contract.lowest_bid }} 
+              {% endif %}
+            </p>
+            <div><b>Number of Bids</b></div>
+            <p>{{ contract.number_bids }}</p>
+          </article>
+        {% endfor %} 
+      </div>
+    {% endif %}
+  </div>
+</section>
+<section class="purple-bg pad-section remove-margin">
+  <div class="container">
+    <h3 style="color: #fff;">
+      {% if user.type == 'CONTRACTOR' %} 
+        Expired Contracts Bid On 
+      {% else %} 
+        Expired Contracts 
+      {% endif %}
+    </h3>
+    {% if expired_contracts|length == 0 %}
+      <div style="color: #fff;">No contracts found</div>
+    {% else %}
+      <div class="card-grid">
+        {% for contract in expired_contracts %}
+          <article class="remove-margin hover-light contract" id="{{ contract.pk }}">
+            <h4>{{ contract.contract_title }}</h4>
+            <div><b>Agency Name</b></div>
+            <p>{{ contract.contractee.agency_name }}</p>
+            <div><b>Bidding Ends</b></div>
+            <p>{{ contract.bidding_end_date }}</p>
+            <div><b>Lowest Bid</b></div>
+            <p>
+              {% if contract.lowest_bid == 0 %} 
+                None 
+              {% else %} 
+                ${{contract.lowest_bid }} 
+              {% endif %}
+            </p>
+            <div><b>Number of Bids</b></div>
+            <p>{{ contract.number_bids }}</p>
+          </article>
+        {% endfor %} 
+      </div>
+    {% endif %}
+  </div>
+</section>
+<section class="slate-bg pad-section" style="margin-bottom: 160px;">
+  <div class="container">
+    <h3 style="color: #fff;">
+      {% if user.type == 'CONTRACTOR' %} 
+        Closed Contracts Bid On 
+      {% else %} 
+        Closed Contracts 
+      {% endif %}
+    </h3>
+    {% if closed_contracts|length == 0 %}
+      <div style="color: #fff;">No contracts found</div>
+    {% else %}
+      <div class="card-grid">
+        {% for contract in closed_contracts %}
           <article class="remove-margin hover-light contract" id="{{ contract.pk }}">
             <h4>{{ contract.contract_title }}</h4>
             <div><b>Agency Name</b></div>
