@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView, DeleteView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
 
 from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
@@ -36,13 +37,17 @@ class ContractDetailView(LoginRequiredMixin, DetailView):
     """
     model = Contract
 
-class ContractDeleteView(LoginRequiredMixin,DeleteView):
+
+class ContractDeleteView(LoginRequiredMixin, View):
     """
     This view is used to delete a contract
     a user must be authinticated to delete a contract
     """
-    model = Contract
-    #success_url =  reverse_lazy('home')
+    def delete(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        contract = get_object_or_404(Contract, pk=id)
+        contract.delete()
+        return JsonResponse({'success': True})
 
 
 class BidCreateView(LoginRequiredMixin, CreateView):
@@ -60,6 +65,18 @@ class BidCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('contract_view', kwargs={'pk': self.kwargs['pk']})
+    
+
+class BidDeleteView(LoginRequiredMixin, View):
+    """
+    This view is used to delete a bid
+    A user must be authenticated to delete a bid
+    """
+    def delete(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        bid = get_object_or_404(Bid, pk=id)
+        bid.delete()
+        return JsonResponse({'success': True})
 
 
 class UserCreateView(CreateView):

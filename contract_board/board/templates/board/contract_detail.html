@@ -14,40 +14,6 @@
         Delete Contract
       </a>
     </div>
- 
-
-   
-    <dialog id="modal-example">
-      <article>
-        <a href="#close"
-          aria-label="Close"
-          class="close"
-          data-target="modal-example"
-          onClick="toggleModal(event)">
-        </a>
-        <h3>Confirm your action!</h3>
-        <p>
-          Are you sure you want to delete contract?
-        </p>
-        <footer>
-          <a href="#cancel"
-            role="button"
-            class="contrast"
-            data-target="modal-example"
-            onClick="toggleModal(event)">
-            Cancel
-          </a>
-          <a href="#confirm"
-            role="button"
-            data-target="modal-example"
-            onClick="deleteContract()">
-            Confirm
-          </a>
-        </footer>
-      </article>
-    </dialog>
-    
-
     {% endif %}
   </div>
   <article>
@@ -91,7 +57,7 @@
     {% else %}
       <div class="card-grid">
         {% for bid in object.bids %}
-          <article class="remove-margin">
+          <article class="remove-margin bid" id="{{ bid.id }}">
             <h5>{{ bid.contractor.agency_name }}</h5>
             <div><b>Bid</b></div>
             <p>${{ bid.amount }}</p>
@@ -99,115 +65,209 @@
             <p>{{ bid.contractor.email }}</p>
             <div><b>Date Placed</b></div>
             <p>{{ bid.date_placed }}</p>
+            {% if bid.contractor == user%}
+            <!-- Only display the Delete button if the logged in user created the bid -->
+              <div><button data-target="modal-example" onClick="toggleModal(event)">Delete</button></div>
+            {% endif %}
           </article>
         {% endfor %}
       </div>
     {% endif %}
   </div>
 </section>
+<dialog id="modal-example">
+  <article>
+    <a href="#close"
+      aria-label="Close"
+      class="close"
+      data-target="modal-example"
+      onClick="toggleModal(event)">
+    </a>
+    <h3>Confirm your action!</h3>
+    <p>
+      Are you sure you want to delete contract?
+    </p>
+    <footer>
+      <a href="#cancel"
+        role="button"
+        class="contrast"
+        data-target="modal-example"
+        onClick="toggleModal(event)">
+        Cancel
+      </a>
+      {% csrf_token %}
+      {% if user.type == 'CONTRACTEE' %}
+        <a href="#submit" 
+          type="submit"
+          role="button"
+          data-target="modal-example"
+          onClick="deleteContract({{ object.pk }})">
+          Confirm
+        </a>
+      {% else %}
+        <a href="#submit" 
+          type="submit"
+          role="button"
+          data-target="modal-example"
+          onClick="deleteBid()">
+          Confirm
+        </a>
+      {% endif %}
+    </footer>
+  </article>
+</dialog>
 <script>
+  /*
+  * Adapted From
+  *
+  * Pico.css - https://picocss.com
+  * Copyright 2019-2023 - Licensed under MIT
+  */
+
+  // Config
   const isOpenClass = "modal-is-open";
-const openingClass = "modal-is-opening";
-const closingClass = "modal-is-closing";
-const animationDuration = 400; // ms
-let visibleModal = null;
-let contractID = null; //for tracking contract ID
+  const openingClass = "modal-is-opening";
+  const closingClass = "modal-is-closing";
+  const animationDuration = 400; // ms
+  let visibleModal = null;
+  let bidId = null; // new!!!!
+  const csrfToken = '{{ csrf_token }}'
 
-function getContractID(url){
-  const parts = url.split('/');
-  return parts.at(-1)
-}
-function getCurrentURL(){
-  currentURL = window.location.href;
-  return currentURL;
-}
-const deleteContract = () => {
+
+  function sendPostRequest() {
+    event.preventDefault(); // Prevent the default behavior of the link
   
-  
-  window.location.herf = 'contract/delete/' + getContractID(currentURL);
-}
+    // Make a POST request to the current page using the fetch API
+    fetch(window.location.href, {
+      method: "POST",
+    });
+  }
 
-// Toggle modal
-const toggleModal = (event) => {
-event.preventDefault();
-const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
-typeof modal != "undefined" && modal != null && isModalOpen(modal)
-? closeModal(modal)
-: openModal(modal);
-};
+  // Clicking on a bid will load its id into the bidId variable
+  const bids = document.querySelectorAll('.bid');
+  bids.forEach((bid) => {
+    bid.addEventListener('click', () => {
+      bidId = bid.id;
+      console.log(bidId);
+    });
+  });
 
-// Is modal open
-const isModalOpen = (modal) => {
-return modal.hasAttribute("open") && modal.getAttribute("open") != "false" ? true : false;
-};
+  const deleteBid = async () => {
+    const url = `${window.location.origin}/bid/${bidId}/delete`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        }
+      });
+      const data = await response.json();
 
-// Open modal
-const openModal = (modal) => {
-if (isScrollbarVisible()) {
-document.documentElement.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
-}
-document.documentElement.classList.add(isOpenClass, openingClass);
-setTimeout(() => {
-visibleModal = modal;
-document.documentElement.classList.remove(openingClass);
-}, animationDuration);
-modal.setAttribute("open", true);
-};
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-// Close modal
-const closeModal = (modal) => {
-visibleModal = null;
-document.documentElement.classList.add(closingClass);
-setTimeout(() => {
-document.documentElement.classList.remove(closingClass, isOpenClass);
-document.documentElement.style.removeProperty("--scrollbar-width");
-modal.removeAttribute("open");
-}, animationDuration);
-};
+  const deleteContract = async (id) => {
+    const url = `${window.location.origin}/contract/${id}/delete`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        }
+      });
+      const data = await response.json();
 
-// Close with a click outside
-document.addEventListener("click", (event) => {
-if (visibleModal != null) {
-const modalContent = visibleModal.querySelector("article");
-const isClickInside = modalContent.contains(event.target);
-!isClickInside && closeModal(visibleModal);
-}
-});
+      window.location.href = window.location.origin;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-// Close with Esc key
-document.addEventListener("keydown", (event) => {
-if (event.key === "Escape" && visibleModal != null) {
-closeModal(visibleModal);
-}
-});
+  // Toggle modal
+  const toggleModal = (event) => {
+    event.preventDefault();
+    const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
+    typeof modal != "undefined" && modal != null && isModalOpen(modal)
+      ? closeModal(modal)
+      : openModal(modal);
+  };
 
-// Get scrollbar width
-const getScrollbarWidth = () => {
-// Creating invisible container
-const outer = document.createElement("div");
-outer.style.visibility = "hidden";
-outer.style.overflow = "scroll"; // forcing scrollbar to appear
-outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
-document.body.appendChild(outer);
+  // Is modal open
+  const isModalOpen = (modal) => {
+    return modal.hasAttribute("open") && modal.getAttribute("open") != "false" ? true : false;
+  };
 
-// Creating inner element and placing it in the container
-const inner = document.createElement("div");
-outer.appendChild(inner);
+  // Open modal
+  const openModal = (modal) => {
+    if (isScrollbarVisible()) {
+      document.documentElement.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
+    }
+    document.documentElement.classList.add(isOpenClass, openingClass);
+    setTimeout(() => {
+      visibleModal = modal;
+      document.documentElement.classList.remove(openingClass);
+    }, animationDuration);
+    modal.setAttribute("open", true);
+  };
 
-// Calculating difference between container's full width and the child width
-const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+  // Close modal
+  const closeModal = (modal) => {
+    visibleModal = null;
+    document.documentElement.classList.add(closingClass);
+    setTimeout(() => {
+      document.documentElement.classList.remove(closingClass, isOpenClass);
+      document.documentElement.style.removeProperty("--scrollbar-width");
+      modal.removeAttribute("open");
+    }, animationDuration);
+  };
 
-// Removing temporary elements from the DOM
-outer.parentNode.removeChild(outer);
+  // Close with a click outside
+  document.addEventListener("click", (event) => {
+    if (visibleModal != null) {
+      const modalContent = visibleModal.querySelector("article");
+      const isClickInside = modalContent.contains(event.target);
+      !isClickInside && closeModal(visibleModal);
+    }
+  });
 
-return scrollbarWidth;
-};
+  // Close with Esc key
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && visibleModal != null) {
+      closeModal(visibleModal);
+    }
+  });
 
-// Is scrollbar visible
-const isScrollbarVisible = () => {
-return document.body.scrollHeight > screen.height;
-};
-  
+  // Get scrollbar width
+  const getScrollbarWidth = () => {
+    // Creating invisible container
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll"; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+    document.body.appendChild(outer);
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+
+    // Removing temporary elements from the DOM
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+  };
+
+  // Is scrollbar visible
+  const isScrollbarVisible = () => {
+    return document.body.scrollHeight > screen.height;
+  };
 </script>
 {% endblock %}
 
