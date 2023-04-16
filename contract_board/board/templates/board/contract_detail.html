@@ -28,8 +28,12 @@
     <div class="h-stack">
       <div>{{ object.contractee.agency_name }}</div>
       <div>{{ object.contractee.email }}</div>
-      <div>{{ object.bidding_end_date }}</div>
-            <div>
+      {% if object.expired == True %}
+        <mark>{{ object.bidding_end_date }}</mark>
+      {% else %}
+        <div>{{ object.bidding_end_date }}</div>
+      {% endif %}
+      <div>
         {% if object.lowest_bid == 0 %} 
         None 
         {% else %} 
@@ -46,7 +50,7 @@
       <ul>
         <li><h4>Current Bids</h4></li>
       </ul>
-      {% if user.type == 'CONTRACTOR' %}
+      {% if user.type == 'CONTRACTOR' and object.expired == False %}
         <ul>
           <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
         </ul>
