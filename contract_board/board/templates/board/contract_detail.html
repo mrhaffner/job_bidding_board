@@ -130,18 +130,8 @@
   const closingClass = "modal-is-closing";
   const animationDuration = 400; // ms
   let visibleModal = null;
-  let bidId = null; // new!!!!
+  let bidId = null;
   const csrfToken = '{{ csrf_token }}'
-
-
-  function sendPostRequest() {
-    event.preventDefault(); // Prevent the default behavior of the link
-  
-    // Make a POST request to the current page using the fetch API
-    fetch(window.location.href, {
-      method: "POST",
-    });
-  }
 
   // Clicking on a bid will load its id into the bidId variable
   const bids = document.querySelectorAll('.bid');
@@ -152,6 +142,7 @@
     });
   });
 
+  // deletes selected bid
   const deleteBid = async () => {
     const url = `${window.location.origin}/bid/${bidId}/delete`;
     try {
@@ -170,6 +161,7 @@
     }
   };
 
+  // deletes a contract
   const deleteContract = async (id) => {
     const url = `${window.location.origin}/contract/${id}/delete`;
     try {

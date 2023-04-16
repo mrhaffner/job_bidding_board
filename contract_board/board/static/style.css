@@ -189,7 +189,11 @@ article p:last-child {
 }
 
 .pad-section {
-  padding: 20px 0 50px 0;
+  padding: 50px 0 80px 0;
+}
+
+.purple-bg {
+  background-color: rgb(121, 51, 255);
 }
 
 .remove-margin {
@@ -201,6 +205,10 @@ article p:last-child {
   justify-content: flex-end;
   margin-left: auto;
   margin-right: 0;
+}
+
+.slate-bg {
+  background-color: rgb(33, 49, 71);
 }
 
 .text-center {
