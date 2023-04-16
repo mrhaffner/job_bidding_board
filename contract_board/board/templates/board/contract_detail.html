@@ -3,12 +3,13 @@
 <section class="container">
   <div class="text-center" >
     <h1>View Contract</h1>
-    {% if user.type == 'CONTRACTEE' and contract.contractee == user  %}
-    <div class = "right">
+    {% if contract.contractee == user and object.closed == False %}
+    <div class="right">
       <a 
-        href ="#"
-        class = "contrast"
-        role = "button"
+        href="#"
+        class="contrast"
+        id="delete-contract"
+        role="button"
         data-target="modal-example"
         onClick="toggleModal(event)">
         Delete Contract
@@ -69,9 +70,15 @@
             <p>{{ bid.contractor.email }}</p>
             <div><b>Date Placed</b></div>
             <p>{{ bid.date_placed }}</p>
-            {% if bid.contractor == user%}
+            {% if bid.contractor == user and object.closed == False %}
             <!-- Only display the Delete button if the logged in user created the bid -->
-              <div><button data-target="modal-example" onClick="toggleModal(event)">Delete</button></div>
+              <div>
+                <button id="delete-bid" data-target="modal-example" onClick="toggleModal(event)">Delete</button>
+              </div>
+            {% elif object.contractee == user and object.closed == False and object.expired == True %}
+              <div>
+                <button id="accept-bid" data-target="modal-example" onClick="toggleModal(event)">Accept Bid</button>
+              </div>
             {% endif %}
           </article>
         {% endfor %}
@@ -88,9 +95,7 @@
       onClick="toggleModal(event)">
     </a>
     <h3>Confirm your action!</h3>
-    <p>
-      Are you sure you want to delete contract?
-    </p>
+    <p id="modal-action-text"></p>
     <footer>
       <a href="#cancel"
         role="button"
@@ -100,23 +105,13 @@
         Cancel
       </a>
       {% csrf_token %}
-      {% if user.type == 'CONTRACTEE' %}
         <a href="#submit" 
           type="submit"
           role="button"
           data-target="modal-example"
-          onClick="deleteContract({{ object.pk }})">
+          onClick="handleConfirm({{ object.pk }})">
           Confirm
         </a>
-      {% else %}
-        <a href="#submit" 
-          type="submit"
-          role="button"
-          data-target="modal-example"
-          onClick="deleteBid()">
-          Confirm
-        </a>
-      {% endif %}
     </footer>
   </article>
 </dialog>
@@ -135,16 +130,28 @@
   const animationDuration = 400; // ms
   let visibleModal = null;
   let bidId = null;
+  let lastEvent = null;
   const csrfToken = '{{ csrf_token }}'
+
+  const modalText = document.getElementById("modal-action-text");
 
   // Clicking on a bid will load its id into the bidId variable
   const bids = document.querySelectorAll('.bid');
   bids.forEach((bid) => {
     bid.addEventListener('click', () => {
       bidId = bid.id;
-      console.log(bidId);
     });
   });
+
+  const handleConfirm = (contractId) => {
+    if (lastEvent === 'delete-contract') {
+      deleteContract(id);
+    } else if (lastEvent === 'delete-bid') {
+      deleteBid();
+    } else if (lastEvent === 'accept-bid') {
+      acceptBid();
+    }
+  }
 
   // deletes selected bid
   const deleteBid = async () => {
@@ -152,6 +159,25 @@
     try {
       const response = await fetch(url, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        }
+      });
+      const data = await response.json();
+
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // accepts selected bid
+  const acceptBid = async () => {
+    const url = `${window.location.origin}/bid/${bidId}/accept`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken
@@ -186,6 +212,14 @@
 
   // Toggle modal
   const toggleModal = (event) => {
+    lastEvent = event.target.id;
+    if (lastEvent === 'delete-contract') {
+      modalText.textContent = 'Are you sure you want to delete contract?';
+    } else if (lastEvent === 'delete-bid') {
+      modalText.textContent = 'Are you sure you want to delete bid?';
+    } else if (lastEvent === 'accept-bid') {
+      modalText.textContent = 'Are you sure you want to accept bid?';
+    }
     event.preventDefault();
     const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
     typeof modal != "undefined" && modal != null && isModalOpen(modal)
@@ -266,4 +300,3 @@
   };
 </script>
 {% endblock %}
-

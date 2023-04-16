@@ -27,7 +27,7 @@ class Contract(models.Model):
     job_description = models.TextField()
     contractee = models.ForeignKey(User, on_delete=models.CASCADE)
     date_placed = models.DateTimeField(auto_now_add=True)
-    accepted = models.BooleanField(null=True)
+    closed = models.BooleanField(default=False)
 
     @property
     def lowest_bid(self):
@@ -73,6 +73,7 @@ class Bid(models.Model):
     date_placed = models.DateField(auto_now_add=True)
     contract = models.ForeignKey(Contract, on_delete=models.CASCADE)
     contractor = models.ForeignKey(User, on_delete=models.CASCADE)
+    accepted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-amount']

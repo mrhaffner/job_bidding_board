@@ -78,6 +78,22 @@ class BidDeleteView(LoginRequiredMixin, View):
         bid = get_object_or_404(Bid, pk=id)
         bid.delete()
         return JsonResponse({'success': True})
+    
+
+class BidAcceptView(LoginRequiredMixin, View):
+    """
+    This view is used to accept a bid.  This also marks the bid's contract as closed.
+    A user must be authenticated to accept a bid
+    """
+    def post(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        bid = get_object_or_404(Bid, pk=id)
+        bid.accepted = True
+        bid.save()
+        contract = bid.contract
+        contract.closed = True
+        contract.save()
+        return JsonResponse({'success': True})
 
 
 class UserCreateView(CreateView):
@@ -110,9 +126,9 @@ class UserView(LoginRequiredMixin, TemplateView):
             contracts = Contract.objects.filter(bid__contractor=user).distinct()
 
         now = timezone.now()
-        active_contracts = contracts.filter(bidding_end_date__gte=now, accepted=None)
-        expired_contracts = contracts.filter(bidding_end_date__lt=now, accepted=None)
-        closed_contracts = contracts.exclude(accepted=None)
+        active_contracts = contracts.filter(bidding_end_date__gte=now, closed=False)
+        expired_contracts = contracts.filter(bidding_end_date__lt=now, closed=False)
+        closed_contracts = contracts.exclude(closed=False)
 
         context.update({
             'user': self.request.user,
