@@ -43,15 +43,6 @@ Install the required python packages via pip (you may have to reinstall if new v
 $ pip install -r requirements.txt
 ```
 
-## Python Style Guide
-
-PascalCase for classes
-snake_case for everything else
-
-use single quotes for everything but docstrings
-
-double space between top level functions and classes
-
 ## Run Development App
 
 cd into the outer contract_board directory
@@ -81,7 +72,7 @@ On Mac, you will need to give it one time permission to run. Run this from the f
 $ xattr -d com.apple.quarantine chromedriver
 ```
 
-You can only run the functional tests while the server is running:
+You can only run the functional tests while the server is running and must flush the database first:
 
 ```sh
 $ python manage.py test
@@ -108,7 +99,7 @@ See all the data in the database in JSON format
 $ python manage.py dumpdata
 ```
 
-Remove all data from the database (the database should be empty when you are ready to merge your changes)
+Remove all data from the database
 
 ```sh
 $ python manage.py flush

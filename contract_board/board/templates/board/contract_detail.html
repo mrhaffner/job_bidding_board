@@ -53,7 +53,7 @@
       </ul>
       {% if user.type == 'CONTRACTOR' and object.expired == False %}
         <ul>
-          <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
+          <li><a href="{% url 'create_bid' object.pk %}" role="button" id="create-bid">Place a New Bid</a></li>
         </ul>
       {% endif %} 
     </nav>
