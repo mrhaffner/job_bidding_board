@@ -80,6 +80,9 @@
                 <button id="accept-bid" data-target="modal-example" onClick="toggleModal(event)">Accept Bid</button>
               </div>
             {% endif %}
+            {% if bid.accepted == True %}
+              <div class="text-center"><kbd style="background-color: rgb(121, 51, 255);">Bid Accepted</kbd></div>
+            {% endif %}
           </article>
         {% endfor %}
       </div>
