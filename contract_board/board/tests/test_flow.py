@@ -1,6 +1,7 @@
 import platform
 import random
 import string
+import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
@@ -84,15 +85,14 @@ class FlowTest(StaticLiveServerTestCase):
         self.browser.set_window_size(1024, 768)
 
         # create contractee account
-        import time #!??
-        time.sleep(2) #!??
+        time.sleep(2)
         user_dict = self.random_user_dict()
         self.fill_user_form_from_dicitonary(user_dict, "CONTRACTEE")
         submit_button = self.browser.find_element(By.ID, "submit")
         submit_button.send_keys(Keys.RETURN)
 
         # check you are redirected to login page
-        time.sleep(2) #!??
+        time.sleep(2)
         self.assertEqual(self.browser.current_url, self.base_url + "accounts/login/")
 
         # login
@@ -102,7 +102,7 @@ class FlowTest(StaticLiveServerTestCase):
         submit_button.send_keys(Keys.RETURN)
 
         # check you are redirected to contract list page
-        time.sleep(2) #!??
+        time.sleep(2)
         self.assertEqual(self.browser.current_url, self.base_url)
 
         # keep track of number of contracts for later
@@ -113,7 +113,7 @@ class FlowTest(StaticLiveServerTestCase):
         create_button.click()
 
         # check that you are on create contract page
-        time.sleep(2) #!??
+        time.sleep(2)
         self.assertEqual(self.browser.current_url, self.base_url + "contract/new")
 
         # create a contract
@@ -127,7 +127,7 @@ class FlowTest(StaticLiveServerTestCase):
         submit_button.send_keys(Keys.RETURN)
 
         # check that redirected to contract list page
-        time.sleep(2) #!??
+        time.sleep(2)
         self.assertEqual(self.browser.current_url, self.base_url)
 
         # check that there is one more contract
@@ -139,34 +139,34 @@ class FlowTest(StaticLiveServerTestCase):
         logout_button.click()
 
         # check redirected to login page
-        time.sleep(2) #!??
+        time.sleep(2)
         self.assertEqual(self.browser.current_url, self.base_url + "accounts/login/")
 
         # navigate to register page
         self.browser.get(self.base_url + "register")
 
         # create contractor account
-        time.sleep(2) #!??
+        time.sleep(2)
         user_dict = self.random_user_dict()
         self.fill_user_form_from_dicitonary(user_dict, "CONTRACTOR")
         submit_button = self.browser.find_element(By.ID, "submit")
         submit_button.send_keys(Keys.RETURN)
 
         # login
-        time.sleep(2) #!??
+        time.sleep(2)
         login_dict = {"username": user_dict["username"], "password": user_dict["password1"]}
         self.fill_form_from_dictionary(login_dict)
         submit_button = self.browser.find_element(By.ID, "submit")
         submit_button.send_keys(Keys.RETURN)
 
         # navigate to contract
-        time.sleep(2) #!??
+        time.sleep(2)
         contract = self.browser.find_element(By.CLASS_NAME, "contract")
         contract.click()
 
         # check directed to contract page
-        time.sleep(2) #!??
-        self.assertEqual(self.browser.current_url, self.base_url + "contract/1")  ## maybe different number????
+        time.sleep(2)
+        self.assertEqual(self.browser.current_url, self.base_url + "contract/1")
 
         # keep track of number of bids for later
         number_bids1 = len(self.browser.find_elements(By.CLASS_NAME, "bid"))
@@ -176,8 +176,8 @@ class FlowTest(StaticLiveServerTestCase):
         create_button.click()
 
         # check directed to create bid page
-        time.sleep(2) #!??
-        self.assertEqual(self.browser.current_url, self.base_url + "contract/1/bid")  ## maybe different number????
+        time.sleep(2)
+        self.assertEqual(self.browser.current_url, self.base_url + "contract/1/bid")
 
         # place a bid
         self.fill_form_from_dictionary({"amount": "100"})
@@ -185,8 +185,8 @@ class FlowTest(StaticLiveServerTestCase):
         submit_button.send_keys(Keys.RETURN)
 
         # check redirected to contract page
-        time.sleep(2) #!??
-        self.assertEqual(self.browser.current_url, self.base_url + "contract/1")  ## maybe different number????
+        time.sleep(2)
+        self.assertEqual(self.browser.current_url, self.base_url + "contract/1")
 
         # check that there is one more bid
         number_bids2 = len(self.browser.find_elements(By.CLASS_NAME, "bid"))
