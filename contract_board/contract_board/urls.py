@@ -29,5 +29,8 @@ urlpatterns = [
          auth_views.LoginView.as_view(next_page='home', redirect_authenticated_user=True),
          name='login'),
     path('accounts/logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
-    path('user', board_views.UserView.as_view(), name='user')
+    path('user', board_views.UserView.as_view(), name='user'),
+    path('contract/<int:id>/delete', board_views.ContractDeleteView.as_view(), name='delete_contract'),
+    path('bid/<int:id>/delete', board_views.BidDeleteView.as_view(), name='delete_bid'),
+    path('bid/<int:id>/accept', board_views.BidAcceptView.as_view(), name='accept_bid'),
 ]

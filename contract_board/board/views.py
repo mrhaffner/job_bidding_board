@@ -1,18 +1,38 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.utils import timezone
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
 
 from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
 
 
-class ContractListView(LoginRequiredMixin, ListView):
+class ContractListView(LoginRequiredMixin, TemplateView):
     """
     A view that lists all contracts.
     A user must be authenticated to see this view.
+    Filters on the bidding end date.
     """
-    model = Contract
+    template_name = 'board/contract_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        status = self.request.GET.get('status')
+        today = timezone.now().date()
+
+        if status == 'expired':
+            contracts = Contract.objects.filter(bidding_end_date__lt=today)
+        elif status == 'all':
+            contracts = Contract.objects.all()
+        else:
+            contracts = Contract.objects.filter(bidding_end_date__gte=today)
+
+        context.update({
+            'object_list': contracts
+        })
+        return context
 
 
 class ContractCreateView(LoginRequiredMixin, CreateView):
@@ -37,6 +57,18 @@ class ContractDetailView(LoginRequiredMixin, DetailView):
     model = Contract
 
 
+class ContractDeleteView(LoginRequiredMixin, View):
+    """
+    This view is used to delete a contract
+    a user must be authinticated to delete a contract
+    """
+    def delete(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        contract = get_object_or_404(Contract, pk=id)
+        contract.delete()
+        return JsonResponse({'success': True})
+
+
 class BidCreateView(LoginRequiredMixin, CreateView):
     """
     A view that allows a user to create a bid.
@@ -52,6 +84,34 @@ class BidCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('contract_view', kwargs={'pk': self.kwargs['pk']})
+    
+
+class BidDeleteView(LoginRequiredMixin, View):
+    """
+    This view is used to delete a bid
+    A user must be authenticated to delete a bid
+    """
+    def delete(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        bid = get_object_or_404(Bid, pk=id)
+        bid.delete()
+        return JsonResponse({'success': True})
+    
+
+class BidAcceptView(LoginRequiredMixin, View):
+    """
+    This view is used to accept a bid.  This also marks the bid's contract as closed.
+    A user must be authenticated to accept a bid
+    """
+    def post(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        bid = get_object_or_404(Bid, pk=id)
+        bid.accepted = True
+        bid.save()
+        contract = bid.contract
+        contract.closed = True
+        contract.save()
+        return JsonResponse({'success': True})
 
 
 class UserCreateView(CreateView):
@@ -74,7 +134,7 @@ class UserView(LoginRequiredMixin, TemplateView):
     A user must be authenticated to see this view.
     """
     template_name = 'user/user.html'
-
+    
     def get_context_data(self, *args, **kwargs):
         context = super(UserView, self).get_context_data(*args, **kwargs)
         user = self.request.user
@@ -83,8 +143,15 @@ class UserView(LoginRequiredMixin, TemplateView):
         else:
             contracts = Contract.objects.filter(bid__contractor=user).distinct()
 
+        now = timezone.now()
+        active_contracts = contracts.filter(bidding_end_date__gte=now, closed=False)
+        expired_contracts = contracts.filter(bidding_end_date__lt=now, closed=False)
+        closed_contracts = contracts.exclude(closed=False)
+
         context.update({
             'user': self.request.user,
-            'contracts': contracts
+            'active_contracts': active_contracts,
+            'expired_contracts': expired_contracts,
+            'closed_contracts': closed_contracts,
         })
         return context
