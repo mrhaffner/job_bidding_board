@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
+from django.views.generic import CreateView, DetailView, TemplateView, View
 
 from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
