@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, TemplateView, View
+from django.views.generic import CreateView, DetailView, TemplateView, View
 
 from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
@@ -84,7 +84,7 @@ class BidCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse_lazy('contract_view', kwargs={'pk': self.kwargs['pk']})
-    
+
 
 class BidDeleteView(LoginRequiredMixin, View):
     """
@@ -96,7 +96,7 @@ class BidDeleteView(LoginRequiredMixin, View):
         bid = get_object_or_404(Bid, pk=id)
         bid.delete()
         return JsonResponse({'success': True})
-    
+
 
 class BidAcceptView(LoginRequiredMixin, View):
     """
@@ -134,7 +134,7 @@ class UserView(LoginRequiredMixin, TemplateView):
     A user must be authenticated to see this view.
     """
     template_name = 'user/user.html'
-    
+
     def get_context_data(self, *args, **kwargs):
         context = super(UserView, self).get_context_data(*args, **kwargs)
         user = self.request.user

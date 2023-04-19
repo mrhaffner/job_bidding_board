@@ -51,14 +51,14 @@ class Contract(models.Model):
     @property
     def bids(self):
         return Bid.objects.filter(contract__pk=self.pk)
-    
+
     @property
     def expired(self):
         """
         Returns True if the bidding end date has passed, False otherwise.
         """
         return timezone.now().date() > self.bidding_end_date
-    
+
     class Meta:
         ordering = ['-date_placed']
 

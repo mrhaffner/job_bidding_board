@@ -23,9 +23,9 @@ class FlowTest(StaticLiveServerTestCase):
             driver = ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
             service = ChromiumService(driver)
             options = Options()
-            options.add_argument("--no-sandbox")  # type: ignore[no-untyped-call]
-            options.add_argument("--headless")  # type: ignore[no-untyped-call]
-            options.add_argument("--disable-gpu")  # type: ignore[no-untyped-call]
+            options.add_argument("--no-sandbox")
+            options.add_argument("--headless")
+            options.add_argument("--disable-gpu")
             self.browser = webdriver.Chrome(service=service, options=options)
         else:
             self.browser = webdriver.Chrome()
@@ -69,7 +69,7 @@ class FlowTest(StaticLiveServerTestCase):
             "agency_name": self.random_string(5),
             "password1": self.random_string(8)
         }
-    
+
     def fill_user_form_from_dicitonary(self, user_dict, user_type):
         """Fills the user registration form from a dictionary."""
         self.fill_form_from_dictionary(user_dict)
