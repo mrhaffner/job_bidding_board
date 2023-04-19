@@ -9,12 +9,30 @@ from board.forms import CustomUserCreationForm
 from board.models import Bid, Contract
 
 
-class ContractListView(LoginRequiredMixin, ListView):
+class ContractListView(LoginRequiredMixin, TemplateView):
     """
     A view that lists all contracts.
     A user must be authenticated to see this view.
+    Filters on the bidding end date.
     """
-    model = Contract
+    template_name = 'board/contract_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        status = self.request.GET.get('status')
+        today = timezone.now().date()
+
+        if status == 'expired':
+            contracts = Contract.objects.filter(bidding_end_date__lt=today)
+        elif status == 'all':
+            contracts = Contract.objects.all()
+        else:
+            contracts = Contract.objects.filter(bidding_end_date__gte=today)
+
+        context.update({
+            'object_list': contracts
+        })
+        return context
 
 
 class ContractCreateView(LoginRequiredMixin, CreateView):
