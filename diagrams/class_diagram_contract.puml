@@ -9,6 +9,7 @@ package "models" {
  date_placed: Date
  contract: Contract
  contractor: User
+ accepted: bool
  } 
 
  class Contract {
@@ -17,9 +18,11 @@ package "models" {
  bidding_end_date: Date
  job_description: str
  contractee: User
+closed: bool
  lowest_bid(): float
  numbers_bids(): int
  bids(): Bid[]
+ expired(): bool
  } 
 
  class User {
@@ -41,19 +44,19 @@ package "models" {
  Bid *-- Contract
  Bid --o Contract
  User --* Contract
- User -r-* Bid
+ User --* Bid
  }
 
-package "views" {
+package "contract_views" {
 class View {}
 class CreateView {}
+class TemplateView {}
+class DetailView {}
 abstract class LoginRequiredMixin {}
 
-class LoginView {}
-class LogoutView {}
-
 class ContractListView {
- model: Contract
+ template_name: str
+ get_context_data(): Dict[str, any]
 }
 
 class ContractCreateView {
@@ -67,48 +70,28 @@ class ContractDetailView {
 model: Contract
 }
 
-class BidCreateView {
-model: Bid
-fields: str[]
-form_valid(form: Form): HttpResponse
-get_success_url(): str
+class ContractDeleteView {
+    delete(request: Request): JsonResponse
 }
 
-class UserCreateView {
-form_class: CustomUserCreationForm
-success_url: str
-template_name: str
-dispatch(request: HttpRequest): HttpResponse
-}
-
-class UserView {
- template_name: str
- get_context_data(): dict[str, str]
-}
-
-View <|-- LoginView
-View <|-- LogoutView
-View <|-- ContractDetailView
-View <|-- ContractListView
 View <|-- CreateView
+View <|-- DetailView
+View <|-- TemplateView
+View <|-- ContractDeleteView
+DetailView <|-- ContractDetailView
+TemplateView <|-- ContractListView
 CreateView <|-- ContractCreateView
-CreateView <|-- UserCreateView
-CreateView <|-- BidCreateView
-View <|-- UserView
+
 LoginRequiredMixin <|-- ContractDetailView
 LoginRequiredMixin <|-- ContractListView
 LoginRequiredMixin <|-- ContractCreateView
-LoginRequiredMixin <|-- BidCreateView
-LoginRequiredMixin <|-- UserView
+LoginRequiredMixin <|-- ContractDeleteView
+
 
 ContractCreateView *-- Contract
 ContractListView *-- Contract
 ContractDetailView *-- Contract
-BidCreateView *-- Bid
-UserView *-- User
-UserCreateView *-- User
-LoginView *-- User
-LogoutView *-- User
+ContractDeleteView *-- Contract
 }
 
 package "forms" {
@@ -122,7 +105,7 @@ fields: str[]
 Form <|-- CustomUserCreationForm
 }
 
-CustomUserCreationForm *-u- User
+CustomUserCreationForm *-- User
 CreateView *-- Form
 
 @enduml

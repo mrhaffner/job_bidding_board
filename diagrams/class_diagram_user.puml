@@ -1,0 +1,97 @@
+@startuml class_diagram
+skinparam linetype ortho
+package "models" {
+ class Model {}
+
+ class Bid {
+ id: str
+ amount: float
+ date_placed: Date
+ contract: Contract
+ contractor: User
+ accepted: bool
+ } 
+
+ class Contract {
+ id: int
+ contract_title: str
+ bidding_end_date: Date
+ job_description: str
+ contractee: User
+closed: bool
+ lowest_bid(): float
+ numbers_bids(): int
+ bids(): Bid[]
+ expired(): bool
+ } 
+
+ class User {
+ type: str
+ agency_name: str
+ } 
+
+ abstract class AbstractUser{
+ id: int
+ password: str
+ username: str
+ email: str
+ }
+ 
+ Bid --|> Model
+ Contract --|> Model
+ AbstractUser --|> Model
+ User --|> AbstractUser
+ Bid *-- Contract
+ Bid --o Contract
+ User --* Contract
+ User -r-* Bid
+ }
+
+package "user_views" {
+class View {}
+class CreateView {}
+abstract class LoginRequiredMixin {}
+
+class LoginView {}
+class LogoutView {}
+
+class UserCreateView {
+form_class: CustomUserCreationForm
+success_url: str
+template_name: str
+dispatch(request: HttpRequest): HttpResponse
+}
+
+class UserView {
+ template_name: str
+ get_context_data(): dict[str, str]
+}
+
+View <|-- LoginView
+View <|-- LogoutView
+View <|-- CreateView
+CreateView <|-- UserCreateView
+View <|-- UserView
+LoginRequiredMixin <|-- UserView
+
+UserView *-- User
+UserCreateView *-- User
+LoginView *-- User
+LogoutView *-- User
+}
+
+package "forms" {
+class Form {}
+
+class CustomUserCreationForm {
+model: User
+fields: str[]
+}
+
+Form <|-- CustomUserCreationForm
+}
+
+CustomUserCreationForm *-u- User
+CreateView *-- Form
+
+@enduml
