@@ -41,7 +41,7 @@ closed: bool
  Contract --|> Model
  AbstractUser --|> Model
  User --|> AbstractUser
- Bid *-- Contract
+ Bid *-r- Contract
  Bid --o Contract
  User --* Contract
  User --* Bid
