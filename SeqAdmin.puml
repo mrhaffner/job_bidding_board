@@ -1,0 +1,60 @@
+@startuml
+actor Admin as "Admin"
+participant UserInterface as ":userinterface"
+participant AdminLoginView as ":adminLoginview"
+participant UserManagementView as ":userManagementview"
+participant ContractManagementView as ":contractManagementview"
+participant BidManagementView as ":bidManagementview"
+participant LogoutView as ":logoutview"
+
+activate UserInterface
+activate AdminLoginView
+activate UserManagementView
+activate ContractManagementView
+activate BidManagementView
+activate LogoutView
+
+Admin -> UserInterface: login
+UserInterface -> AdminLoginView: admin_login(username, password)
+AdminLoginView --> UserInterface: Confirmation
+
+Admin -> UserInterface: create user
+UserInterface -> UserManagementView: create_user(user)
+UserManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: edit user
+UserInterface -> UserManagementView: edit_user(user)
+UserManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: delete user
+UserInterface -> UserManagementView: delete_user(user_id)
+UserManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: create contract
+UserInterface -> ContractManagementView: create_contract(contract)
+ContractManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: edit contract
+UserInterface -> ContractManagementView: edit_contract(contract)
+ContractManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: delete contract
+UserInterface -> ContractManagementView: delete_contract(contract_id)
+ContractManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: create bid
+UserInterface -> BidManagementView: create_bid(bid)
+BidManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: edit bid
+UserInterface -> BidManagementView: edit_bid(bid)
+BidManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: delete bid
+UserInterface -> BidManagementView: delete_bid(bid_id)
+BidManagementView --> UserInterface: Confirmation
+
+Admin -> UserInterface: logout
+UserInterface -> LogoutView: admin_logout(username)
+LogoutView --> UserInterface: Confirmation
+@enduml

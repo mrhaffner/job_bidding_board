@@ -1,0 +1,57 @@
+@startuml
+actor Contractor as "Contractor"
+participant UserInterface as ":userinterface"
+participant UserCreateView as ":userCreateview"
+participant LoginView as ":loginview"
+participant BidCreateView as ":BidCreateview"
+participant BidDeleteView as ":BidDeleteview"
+participant LogoutView as ":logoutview"
+participant User as ":user"
+participant BidSystem as ":bid"
+
+activate UserInterface
+activate UserCreateView
+activate LoginView
+activate BidCreateView
+activate BidDeleteView
+activate LogoutView
+activate User
+activate BidSystem
+
+Contractor -> UserInterface: register
+
+UserInterface -> UserCreateView: register(username, email, password, type)
+
+UserCreateView -> User: create_user(user)
+activate User
+User --> UserCreateView: Confirmation
+deactivate User
+
+UserCreateView --> UserInterface: Confirmation
+
+Contractor -> UserInterface: login
+UserInterface -> LoginView: login(username, password)
+LoginView --> UserInterface: Confirmation
+
+Contractor -> UserInterface: create bid
+UserInterface -> BidCreateView: bid(amount)
+
+BidCreateView -> BidSystem: bid(amount)
+
+activate BidSystem
+BidSystem --> UserInterface: Bid
+deactivate BidSystem
+
+Contractor -> UserInterface: delete bid
+UserInterface -> BidDeleteView: delete_bid(bid_id)
+BidDeleteView -> BidSystem: delete_bid(bid_id)
+activate BidSystem
+BidSystem --> BidDeleteView: BidDeleted
+deactivate BidSystem
+BidDeleteView --> UserInterface: Confirmation
+
+Contractor -> UserInterface: logout
+UserInterface -> LogoutView: logout(username)
+
+LogoutView --> UserInterface: Confirmation
+@enduml
