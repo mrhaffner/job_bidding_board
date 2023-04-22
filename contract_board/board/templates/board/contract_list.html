@@ -2,15 +2,29 @@
 {% block content %}
 <div class="container">
   <h1 class="text-center">The Contract Board</h1>
-  {% if user.type == 'CONTRACTEE' %}
-  <section>
-    <div class="right">
-      <a href="{% url 'create_contract' %}" role="button">
-        Create New Contract
-      </a>
-    </div>
-  </section>
-  {% endif %}
+  <nav style="margin-bottom: 32px;">
+    <ul>
+      <li>
+        <details role="list">
+          <summary aria-haspopup="listbox">Contract Status Filter</summary>
+          <ul role="listbox">
+            <li><a href="?status=active">Active</a></li>
+            <li><a href="?status=expired">Expired</a></li>
+            <li><a href="?status=all">All</a></li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+    {% if user.type == 'CONTRACTEE' %}
+    <ul>
+      <li>
+        <a href="{% url 'create_contract' %}" role="button" id="create-contract">
+          Create New Contract
+        </a>
+      </li>
+    </ul>
+    {% endif %}
+  </nav>
   <section class="card-grid">
     {% if object_list|length == 0 %}
     <div>No contracts found Today</div>
@@ -27,7 +41,7 @@
             {% if contract.lowest_bid == 0 %} 
               None 
             {% else %} 
-              ${{contract.lowest_bid }} 
+              ${{ contract.lowest_bid }} 
             {% endif %}
           </p>
           <div><b>Number of Bids</b></div>

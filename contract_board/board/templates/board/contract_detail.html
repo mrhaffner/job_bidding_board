@@ -3,8 +3,21 @@
 {% now "Y-m-d" as now %}
 {% block content %}
 <section class="container">
-  <div class="text-center">
+  <div class="text-center" >
     <h1>View Contract</h1>
+    {% if contract.contractee == user and object.closed == False %}
+    <div class="right">
+      <a 
+        href="#"
+        class="contrast"
+        id="delete-contract"
+        role="button"
+        data-target="modal-example"
+        onClick="toggleModal(event)">
+        Delete Contract
+      </a>
+    </div>
+    {% endif %}
   </div>
   <article>
     <h2>{{ object.contract_title }}</h2>
@@ -36,9 +49,9 @@
       <ul>
         <li><h4>Current Bids</h4></li>
       </ul>
-      {% if user.type == 'CONTRACTOR' and object.bidding_end_date > now %}
+      {% if user.type == 'CONTRACTOR' %}
         <ul>
-          <li><a href="{% url 'create_bid' object.pk %}" role="button">Place a New Bid</a></li>
+          <li><a href="{% url 'create_bid' object.pk %}" role="button" id="create-bid">Place a New Bid</a></li>
         </ul>
       {% else %}
         <p class="note">Bidding is no longer available for this contract.</p>
@@ -49,7 +62,7 @@
     {% else %}
       <div class="card-grid">
         {% for bid in object.bids %}
-          <article class="remove-margin">
+          <article class="remove-margin bid" id="{{ bid.id }}">
             <h5>{{ bid.contractor.agency_name }}</h5>
             <div><b>Bid</b></div>
             <p>${{ bid.amount }}</p>
@@ -57,10 +70,237 @@
             <p>{{ bid.contractor.email }}</p>
             <div><b>Date Placed</b></div>
             <p>{{ bid.date_placed }}</p>
+            {% if bid.contractor == user and object.closed == False %}
+            <!-- Only display the Delete button if the logged in user created the bid -->
+              <div>
+                <button id="delete-bid" data-target="modal-example" onClick="toggleModal(event)">Delete</button>
+              </div>
+            {% elif object.contractee == user and object.closed == False and object.expired == True %}
+              <div>
+                <button id="accept-bid" data-target="modal-example" onClick="toggleModal(event)">Accept Bid</button>
+              </div>
+            {% endif %}
+            {% if bid.accepted == True %}
+              <div class="text-center"><kbd style="background-color: rgb(121, 51, 255);">Bid Accepted</kbd></div>
+            {% endif %}
           </article>
         {% endfor %}
       </div>
     {% endif %}
   </div>
 </section>
+<dialog id="modal-example">
+  <article>
+    <a href="#close"
+      aria-label="Close"
+      class="close"
+      data-target="modal-example"
+      onClick="toggleModal(event)">
+    </a>
+    <h3>Confirm your action!</h3>
+    <p id="modal-action-text"></p>
+    <footer>
+      <a href="#cancel"
+        role="button"
+        class="contrast"
+        data-target="modal-example"
+        onClick="toggleModal(event)">
+        Cancel
+      </a>
+      {% csrf_token %}
+        <a href="#submit" 
+          type="submit"
+          role="button"
+          data-target="modal-example"
+          onClick="handleConfirm({{ object.pk }})">
+          Confirm
+        </a>
+    </footer>
+  </article>
+</dialog>
+<script>
+  /*
+  * Adapted From
+  *
+  * Pico.css - https://picocss.com
+  * Copyright 2019-2023 - Licensed under MIT
+  */
+
+  // Config
+  const isOpenClass = "modal-is-open";
+  const openingClass = "modal-is-opening";
+  const closingClass = "modal-is-closing";
+  const animationDuration = 400; // ms
+  let visibleModal = null;
+  let bidId = null;
+  let lastEvent = null;
+  const csrfToken = '{{ csrf_token }}'
+
+  const modalText = document.getElementById("modal-action-text");
+
+  // Clicking on a bid will load its id into the bidId variable
+  const bids = document.querySelectorAll('.bid');
+  bids.forEach((bid) => {
+    bid.addEventListener('click', () => {
+      bidId = bid.id;
+    });
+  });
+
+  const handleConfirm = (contractId) => {
+    if (lastEvent === 'delete-contract') {
+      deleteContract(id);
+    } else if (lastEvent === 'delete-bid') {
+      deleteBid();
+    } else if (lastEvent === 'accept-bid') {
+      acceptBid();
+    }
+  }
+
+  // deletes selected bid
+  const deleteBid = async () => {
+    const url = `${window.location.origin}/bid/${bidId}/delete`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        }
+      });
+      const data = await response.json();
+
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // accepts selected bid
+  const acceptBid = async () => {
+    const url = `${window.location.origin}/bid/${bidId}/accept`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        }
+      });
+      const data = await response.json();
+
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // deletes a contract
+  const deleteContract = async (id) => {
+    const url = `${window.location.origin}/contract/${id}/delete`;
+    try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken
+        }
+      });
+      const data = await response.json();
+
+      window.location.href = window.location.origin;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Toggle modal
+  const toggleModal = (event) => {
+    lastEvent = event.target.id;
+    if (lastEvent === 'delete-contract') {
+      modalText.textContent = 'Are you sure you want to delete contract?';
+    } else if (lastEvent === 'delete-bid') {
+      modalText.textContent = 'Are you sure you want to delete bid?';
+    } else if (lastEvent === 'accept-bid') {
+      modalText.textContent = 'Are you sure you want to accept bid?';
+    }
+    event.preventDefault();
+    const modal = document.getElementById(event.currentTarget.getAttribute("data-target"));
+    typeof modal != "undefined" && modal != null && isModalOpen(modal)
+      ? closeModal(modal)
+      : openModal(modal);
+  };
+
+  // Is modal open
+  const isModalOpen = (modal) => {
+    return modal.hasAttribute("open") && modal.getAttribute("open") != "false" ? true : false;
+  };
+
+  // Open modal
+  const openModal = (modal) => {
+    if (isScrollbarVisible()) {
+      document.documentElement.style.setProperty("--scrollbar-width", `${getScrollbarWidth()}px`);
+    }
+    document.documentElement.classList.add(isOpenClass, openingClass);
+    setTimeout(() => {
+      visibleModal = modal;
+      document.documentElement.classList.remove(openingClass);
+    }, animationDuration);
+    modal.setAttribute("open", true);
+  };
+
+  // Close modal
+  const closeModal = (modal) => {
+    visibleModal = null;
+    document.documentElement.classList.add(closingClass);
+    setTimeout(() => {
+      document.documentElement.classList.remove(closingClass, isOpenClass);
+      document.documentElement.style.removeProperty("--scrollbar-width");
+      modal.removeAttribute("open");
+    }, animationDuration);
+  };
+
+  // Close with a click outside
+  document.addEventListener("click", (event) => {
+    if (visibleModal != null) {
+      const modalContent = visibleModal.querySelector("article");
+      const isClickInside = modalContent.contains(event.target);
+      !isClickInside && closeModal(visibleModal);
+    }
+  });
+
+  // Close with Esc key
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && visibleModal != null) {
+      closeModal(visibleModal);
+    }
+  });
+
+  // Get scrollbar width
+  const getScrollbarWidth = () => {
+    // Creating invisible container
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll"; // forcing scrollbar to appear
+    outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+    document.body.appendChild(outer);
+
+    // Creating inner element and placing it in the container
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+
+    // Calculating difference between container's full width and the child width
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+
+    // Removing temporary elements from the DOM
+    outer.parentNode.removeChild(outer);
+
+    return scrollbarWidth;
+  };
+
+  // Is scrollbar visible
+  const isScrollbarVisible = () => {
+    return document.body.scrollHeight > screen.height;
+  };
+</script>
 {% endblock %}
+

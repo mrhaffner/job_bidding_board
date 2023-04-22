@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
     <link rel="stylesheet" href="/static/style.css" />
+    <link rel="icon" type="image/png" href="/static/android-chrome-512x512.png" sizes="512x512">
     <title>Contract Board</title>
   </head>
   <body>
@@ -22,7 +23,7 @@
             <a href="{% url 'user' %}" class="secondary">@{{ user.username }}</a>
           </li>
           <li>
-            <a href="{% url 'logout' %}" role="button" class="secondary outline">Logout</a>
+            <a href="{% url 'logout' %}" role="button" class="secondary outline" id="logout">Logout</a>
           </li>
         </ul>
       </nav>
