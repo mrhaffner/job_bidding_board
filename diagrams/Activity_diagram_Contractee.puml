@@ -1,0 +1,16 @@
+@startuml
+|User|
+start
+:Login;
+:View Contract List;
+:Select Contract;
+if (Contractor?) then (yes)
+  :Display Message "Access Denied";
+else (no)
+  :Navigate to Place Contract;
+  :Fill Out Contract Form;
+  :Submit Contract;
+  :Redirect to Contract List;
+endif
+stop
+@enduml
