@@ -31,7 +31,15 @@
     <div class="h-stack">
       <div>{{ object.contractee.agency_name }}</div>
       <div>{{ object.contractee.email }}</div>
+<<<<<<< HEAD
       <div style="font-weight:bold; color:red;">{{ object.bidding_end_date }}</div>
+=======
+      {% if object.expired == True %}
+        <mark>{{ object.bidding_end_date }}</mark>
+      {% else %}
+        <div>{{ object.bidding_end_date }}</div>
+      {% endif %}
+>>>>>>> 50573601754913d5fe7a574084200d729fb42b1e
       <div>
         {% if object.lowest_bid == 0 %} 
         None 
@@ -49,7 +57,7 @@
       <ul>
         <li><h4>Current Bids</h4></li>
       </ul>
-      {% if user.type == 'CONTRACTOR' %}
+      {% if user.type == 'CONTRACTOR' and object.expired == False %}
         <ul>
           <li><a href="{% url 'create_bid' object.pk %}" role="button" id="create-bid">Place a New Bid</a></li>
         </ul>
@@ -296,6 +304,7 @@
 
     return scrollbarWidth;
   };
+<<<<<<< HEAD
 
   // Is scrollbar visible
   const isScrollbarVisible = () => {
@@ -303,4 +312,12 @@
   };
 </script>
 {% endblock %}
+=======
+>>>>>>> 50573601754913d5fe7a574084200d729fb42b1e
 
+  // Is scrollbar visible
+  const isScrollbarVisible = () => {
+    return document.body.scrollHeight > screen.height;
+  };
+</script>
+{% endblock %}
