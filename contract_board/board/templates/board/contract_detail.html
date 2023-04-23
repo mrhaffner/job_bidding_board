@@ -19,30 +19,26 @@
   </div>
   <article>
     <h2>{{ object.contract_title }}</h2>
-    <div class="h-stack">
-      <div><b>Agency Name:</b></div>
-      <div><b>Email:</b></div>
-      <div><b>Expires:</b></div>
-      <div><b>Lowest Bid:</b></div>
-      <div><b>Description:</b></div>
-    </div>
-    <div class="h-stack">
-      <div>{{ object.contractee.agency_name }}</div>
-      <div>{{ object.contractee.email }}</div>
-      {% if object.expired == True %}
-        <mark>{{ object.bidding_end_date }}</mark>
-      {% else %}
-        <div>{{ object.bidding_end_date }}</div>
-      {% endif %}
-      <div>
-        {% if object.lowest_bid == 0 %} 
-        None 
-        {% else %} 
-          ${{ object.lowest_bid }}
-        {% endif %}
-      </div>
-      <div>{{ object.job_description }}</div>
-    </div>
+    <div><b>Agency Name</b></div>
+    <p>{{ object.contractee.agency_name }}</p>
+    <div><b>Email</b></div>
+    <p>{{ object.contractee.email }}</p>
+    <div><b>Expires</b></div>
+    {% if object.expired == True %}
+      <mark>{{ object.bidding_end_date }}</mark>
+    {% else %}
+      <p>{{ object.bidding_end_date }}</p>
+    {% endif %}
+    <div><b>Lowest Bid</b></div>
+    <p>
+    {% if object.lowest_bid == 0 %} 
+      None 
+    {% else %} 
+      ${{ object.lowest_bid }}
+    {% endif %}
+    </p>
+    <div><b>Description</b></div>
+    <p>{{ object.job_description }}</p>
   </article>
 </section>
 <section class="beige-bg pad-section">

@@ -13,8 +13,8 @@ If you are on Windows, use GitBash (comes with Git installation)
 Get the repo and move into it's directory:
 
 ```sh
-$ git clone
-$ cd job_bidding_board https://github.com/mrhaffner/job_bidding_board.git
+$ git clone https://github.com/mrhaffner/job_bidding_board.git
+$ cd job_bidding_board
 ```
 
 Setup virtual environment
@@ -93,22 +93,22 @@ $ python manage.py makemigrations board
 $ python manage.py migrate
 ```
 
-See all the data in the database in JSON format
+Will load initial data for the application
 
 ```sh
-$ python manage.py dumpdata
+$ python manage.py loaddata dump.json
+```
+
+Save database to JSON file
+
+```sh
+$ python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dump.json
 ```
 
 Remove all data from the database
 
 ```sh
 $ python manage.py flush
-```
-
-Will load initial data for the application
-
-```sh
-$ python manage.py loaddata initial_data
 ```
 
 ### Create Super User
