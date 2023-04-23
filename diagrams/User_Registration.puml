@@ -1,5 +1,5 @@
 @startuml
-Actor Contractee
+Actor User
  
 activate UserInterface
 activate UserCreateView
@@ -7,7 +7,7 @@ activate Users
 
 
 
-Contractee -> UserInterface : Register 
+User -> UserInterface : Register 
 UserInterface -> UserCreateView: register (username, password, email, type) 
 UserCreateView -> Users: create_user(User)
 activate Users
