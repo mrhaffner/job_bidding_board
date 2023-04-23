@@ -1,0 +1,22 @@
+@startuml
+Actor Contractee
+ 
+activate UserInterface
+activate UserCreateView
+activate Users
+
+
+
+Contractee -> UserInterface : Register 
+UserInterface -> UserCreateView: register (username, password, email, type) 
+UserCreateView -> Users: create_user(User)
+activate Users
+Users --> UserCreateView: Confirmation
+deactivate Users
+UserCreateView --> UserInterface: Confirmation
+
+deactivate UserInterface
+deactivate UserCreateView
+deactivate Users
+
+@enduml

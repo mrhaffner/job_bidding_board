@@ -1,0 +1,54 @@
+@startuml
+Actor Contractee
+ 
+activate UserInterface
+activate UserCreateView
+activate LoginView
+activate ContractCreateView
+activate LogoutView
+activate Users
+activate ContractDeleteView 
+activate Contracts
+
+
+
+Contractee -> UserInterface : Login
+UserInterface -> LoginView : login(username, password) 
+LoginView --> UserInterface: Confirmation
+
+
+Contractee -> UserInterface : Create Contract
+UserInterface -> ContractCreateView: create_contract(title, date, description)
+ContractCreateView -> Contracts: create_contract(title, date, description)
+activate Contracts
+Contracts --> UserInterface: Contract
+deactivate Contracts
+
+
+Contractee -> UserInterface: Delete Contract
+activate ContractDeleteView 
+
+UserInterface -> ContractDeleteView: delete_contract(contact ID) 
+activate Contracts
+ContractDeleteView --> Contracts : delete_contract(contract ID)
+Contracts --> UserInterface : contract removed
+
+deactivate Contracts
+deactivate ContractDeleteView 
+
+
+Contractee -> UserInterface: Logout 
+UserInterface -> LogoutView : logout(username)
+LogoutView --> UserInterface : confirmation
+
+
+
+deactivate UserInterface
+deactivate UserCreateView
+deactivate LoginView
+deactivate ContractCreateView
+deactivate LogoutView
+deactivate Users
+deactivate ContractDeleteView 
+deactivate Contracts
+@enduml
