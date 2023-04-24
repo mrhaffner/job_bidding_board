@@ -2,16 +2,20 @@
 |User|
 start
 :Login;
+if (Contractor?) then (yes)
 :View Contract List;
 :Select Contract;
-if (Contractor?) then (yes)
-  :Navigate to Specific Contract;
-  :Navigate to Place Bid;
-  :Fill Out Bid Form;
-  :Submit Bid Form;
-  :Redirect to Contract Detail;
-else (no)
-  :Display Message "Access Denied";
+:Navigate to Specific Contract;
+if (Contract Not Expired?) then (yes)
+:Navigate to Place Bid;
+:Fill Out Bid Form;
+:Submit Bid Form;
+:Redirect to Contract List;
+else(no)
+:Contract Expired;
+endif
+else(no)
+:Display Message "Access Denied";
 endif
 stop
 @enduml
