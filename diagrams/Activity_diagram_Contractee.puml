@@ -4,13 +4,19 @@ start
 :Login;
 :View Contract List;
 :Select Contract;
-if (Contractor?) then (yes)
-  :Display Message "Access Denied";
+if (Contractee?) then (yes)
+:Navigate to Place project;
+:Fill Out contract Form;
+:Submit Contract;
+:Redirect to Contract list;
+:Choose a Contract;
+if (Bid Accepted?) then (yes)
+:Add bid;
 else (no)
-  :Navigate to Place Contract;
-  :Fill Out Contract Form;
-  :Submit Contract;
-  :Redirect to Contract List;
+:Delete bid;
+endif
+else(no)
+:Display Message "Access Denied";
 endif
 stop
 @enduml
