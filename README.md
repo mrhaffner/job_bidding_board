@@ -1,3 +1,11 @@
+## Intro
+
+The job bidding board is an application that allows for contracts to be placed and bid upon.
+
+Visit the live web application:
+
+https://ics499.pythonanywhere.com/
+
 ## Project Setup for Local Development
 
 Install Python 3.10.x
