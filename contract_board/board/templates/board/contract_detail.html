@@ -144,7 +144,7 @@
 
   const handleConfirm = (contractId) => {
     if (lastEvent === 'delete-contract') {
-      deleteContract(id);
+      deleteContract(contractId);
     } else if (lastEvent === 'delete-bid') {
       deleteBid();
     } else if (lastEvent === 'accept-bid') {
